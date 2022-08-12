@@ -1,9 +1,14 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import LogInForm from '../../components/LogInForm/LogInForm';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import TabPanel from '../../components/TabPanel/TabPanel';
-import { AuthForm } from '../../models/auth.model';
+import {
+  SigninRequest, SignupRequest, useSignInMutation, useSignUpMutation,
+} from '../../redux/api/auth.api';
+import { setCredentials } from '../../redux/slices/userSlice';
 
 const mainBoxSx = {
   width: '60vh',
@@ -16,16 +21,46 @@ const mainBoxSx = {
 };
 
 function AuthPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [tabIndex, setTabIndex] = useState(0);
-  const [formData, setFormData] = useState<AuthForm>({
+  const [formData, setFormData] = useState < SignupRequest & SigninRequest >({
+    phone: '',
+    userGroupId: 1,
     email: '',
     password: '',
     username: '',
   });
 
+  const [signIn] = useSignInMutation();
+  const [signUp] = useSignUpMutation();
+
+  const signUpHandler = async ():Promise<void> => {
+    try {
+      const user = await signUp(formData).unwrap();
+      dispatch(setCredentials(user));
+      navigate('/');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  };
+
+  const signInHandler = async (): Promise<void> => {
+    try {
+      const user = await signIn(formData).unwrap();
+      dispatch(setCredentials(user));
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  };
+
   const inputHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormData(
-      (prev: AuthForm) => ({
+      (prev: SigninRequest & SignupRequest) => ({
         ...prev,
         [e.target.name]: e.target.value,
       }),
@@ -45,10 +80,10 @@ function AuthPage() {
         </Tabs>
       </Box>
       <TabPanel value={tabIndex} index={0}>
-        <LogInForm form={formData} inputHandler={inputHandler} />
+        <LogInForm form={formData} inputHandler={inputHandler} logInHandler={signInHandler} />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
-        <SignUpForm form={formData} inputHandler={inputHandler} />
+        <SignUpForm form={formData} inputHandler={inputHandler} signUpHandler={signUpHandler} />
       </TabPanel>
     </Box>
   );

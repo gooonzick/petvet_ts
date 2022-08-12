@@ -1,9 +1,15 @@
 import { Box, Button, TextField } from '@mui/material';
 import { ChangeEventHandler } from 'react';
-import { AuthForm } from '../../models/auth.model';
+import {
+  SigninRequest, SignupRequest,
+} from '../../redux/api/auth.api';
 
-function SignUpForm(props: {form: AuthForm, inputHandler: ChangeEventHandler<HTMLInputElement>}) {
-  const { form, inputHandler } = props;
+function SignUpForm(props: {
+  form: SigninRequest & SignupRequest,
+  inputHandler: ChangeEventHandler<HTMLInputElement>,
+  signUpHandler: () => Promise<void>
+}) {
+  const { form, inputHandler, signUpHandler } = props;
   return (
     <Box>
       <TextField
@@ -29,6 +35,16 @@ function SignUpForm(props: {form: AuthForm, inputHandler: ChangeEventHandler<HTM
       <TextField
         sx={{ width: '100%' }}
         variant="standard"
+        label="Телефон"
+        margin="normal"
+        type="text"
+        name="phone"
+        value={form.phone}
+        onChange={inputHandler}
+      />
+      <TextField
+        sx={{ width: '100%' }}
+        variant="standard"
         label="Пароль"
         margin="normal"
         type="password"
@@ -39,6 +55,9 @@ function SignUpForm(props: {form: AuthForm, inputHandler: ChangeEventHandler<HTM
       <Button
         sx={{ alignSelf: 'self-start', marginTop: '0.5rem' }}
         variant="contained"
+        onClick={() => {
+          signUpHandler();
+        }}
       >
         Зарегестрироваться
       </Button>

@@ -1,9 +1,16 @@
 import { Box, Button, TextField } from '@mui/material';
 import { ChangeEventHandler } from 'react';
-import { AuthForm } from '../../models/auth.model';
+import {
+  SigninRequest, SignupRequest,
+} from '../../redux/api/auth.api';
 
-function LogInForm(props: {form: AuthForm, inputHandler: ChangeEventHandler<HTMLInputElement>}) {
-  const { form, inputHandler } = props;
+function LogInForm(props: {
+  form: SigninRequest & SignupRequest,
+  inputHandler: ChangeEventHandler<HTMLInputElement>,
+  logInHandler: () => Promise<void>,
+}) {
+  const { form, inputHandler, logInHandler } = props;
+
   return (
     <Box sx={{ width: '100%' }}>
       <TextField
@@ -29,6 +36,9 @@ function LogInForm(props: {form: AuthForm, inputHandler: ChangeEventHandler<HTML
       <Button
         sx={{ alignSelf: 'self-start', marginTop: '0.5rem' }}
         variant="contained"
+        onClick={() => {
+          logInHandler();
+        }}
       >
         Войти
       </Button>

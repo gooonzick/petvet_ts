@@ -12,7 +12,7 @@ interface SignUpForm {
     password?: string,
     username?: string,
     phone?: string,
-    userGroup: any,
+    userGroupId: any,
 }
 
 interface CustomRequest<T> extends Request {
@@ -28,9 +28,10 @@ const removePass = (user: User): any => {
 
 export const signUp = async (req: CustomRequest<SignUpForm>, res: Response) => {
   const {
-    email, password, username, phone, userGroup,
+    email, password, username, phone, userGroupId,
   } = req.body;
-  if (!email || !password || !username || !phone || !userGroup) return res.status(400).json({ message: 'Заполните все поля' });
+  
+  if (!email || !password || !username || !phone || !userGroupId) return res.status(400).json({ message: 'Заполните все поля' });
   try {
     const ifExist = await prisma.user.findUnique({ where: { email } });
     if (ifExist) return res.status(400).json({ message: 'Пользователь с такой почтой существует' });
@@ -38,16 +39,16 @@ export const signUp = async (req: CustomRequest<SignUpForm>, res: Response) => {
     const newUser = await prisma.user.create(
       {
         data: {
-          email, password: hashedPass, name: username, phone, userGroup,
+          email, password: hashedPass, name: username, phone, userGroupId,
         },
       },
     );
-    const tocken = jwt.sign(
+    const token = jwt.sign(
       { userId: newUser.id, userGroup: newUser.userGroupId },
-      String(process.env.TOCKEN_SECRET).toString(),
+      String(process.env.TOKEN_SECRET).toString(),
       { expiresIn: '14d' },
     );
-    return res.json({ tocken, user: removePass(newUser) });
+    return res.json({ token, user: removePass(newUser) });
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message);
@@ -81,13 +82,13 @@ export const signIn = async (req: CustomRequest<SignUpForm>, res: Response) => {
     if (!currentUser) return res.status(400).json({ message: 'Пользователь не найден' });
     const checkPass = await bcrypt.compare(password, currentUser.password);
     if (!checkPass) return res.status(400).json({ message: 'Пароль неверный' });
-    const tocken = jwt.sign(
+    const token = jwt.sign(
       { userId: currentUser.id, userGroup: currentUser.userGroupId },
-      String(process.env.TOCKEN_SECRET).toString(),
+      String(process.env.TOKEN_SECRET).toString(),
       { expiresIn: '14d' },
     );
 
-    return res.json({ tocken, user: removePass(currentUser) });
+    return res.json({ token, user: removePass(currentUser) });
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message);
