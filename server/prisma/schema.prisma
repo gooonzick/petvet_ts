@@ -1,0 +1,182 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserGroup {
+  id        Int      @id @default(autoincrement())
+  name      String
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model User {
+  id            Int              @id @default(autoincrement())
+  name          String
+  email         String           @unique @db.Text
+  password      String           @db.Text
+  phone         String           @db.VarChar(20)
+  img           String?          @db.Text
+  userGroup     UserGroup        @relation(fields: [userGroupId], references: [id])
+  userGroupId   Int
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @default(now())
+  profiles      ProfileOnUser[]
+  categories    CategoryOnUser[]
+  docInfo       DocInfo?
+  pets          Pet[]
+  docSchedules  DocSchedules[]   @relation(name: "docSchedules")
+  userSchedules DocSchedules[]   @relation(name: "userSchedules")
+  userVisits    Visit[]          @relation(name: "userVisits")
+  docVisits     Visit[]          @relation(name: "docVisits")
+  priceList     PriceList[]
+}
+
+model Profile {
+  id        Int             @id @default(autoincrement())
+  name      String
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @default(now())
+  userId    Int?
+  docs      ProfileOnUser[]
+}
+
+model ProfileOnUser {
+  doc       User     @relation(fields: [docId], references: [id])
+  docId     Int
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@id([docId, profileId])
+}
+
+model Category {
+  id             Int              @id @default(autoincrement())
+  name           String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now())
+  CategoryOnUser CategoryOnUser[]
+}
+
+model CategoryOnUser {
+  doc        User     @relation(fields: [docId], references: [id])
+  docId      Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+
+  @@id([docId, categoryId])
+}
+
+model PriceList {
+  id        Int      @id @default(autoincrement())
+  doc       User     @relation(fields: [docId], references: [id])
+  docId     Int
+  service   String
+  price     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model DocInfo {
+  id             Int      @id @default(autoincrement())
+  experience     String   @db.Text
+  clinic_address String   @db.Text
+  doc            User     @relation(fields: [docId], references: [id])
+  docId          Int      @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now())
+}
+
+model Pet {
+  id              Int               @id @default(autoincrement())
+  name            String
+  specie          String
+  breed           String
+  sex             Boolean
+  birthday        DateTime
+  weight          Float
+  color           String
+  sterilized      Boolean
+  sterilizedDate  DateTime
+  owner           User              @relation(fields: [ownerId], references: [id])
+  ownerId         Int
+  img             String            @db.Text
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @default(now())
+  vaccinations    Vaccination[]
+  chronicDiseases ChronicDiseases[]
+  allergies       Allergy[]
+  DocSchedules    DocSchedules[]
+  Visit           Visit[]
+}
+
+model Vaccination {
+  id          Int      @id @default(autoincrement())
+  description String
+  drug_name   String
+  drug_date   DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  pet         Pet      @relation(fields: [petId], references: [id])
+  petId       Int
+}
+
+model ChronicDiseases {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  pet       Pet      @relation(fields: [petId], references: [id])
+  petId     Int
+}
+
+model Allergy {
+  id        Int      @id @default(autoincrement())
+  name      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  pet       Pet      @relation(fields: [petId], references: [id])
+  petId     Int
+}
+
+model DocSchedules {
+  id            Int      @id @default(autoincrement())
+  doc           User     @relation(name: "docSchedules", fields: [docId], references: [id])
+  docId         Int
+  user          User     @relation(name: "userSchedules", fields: [userId], references: [id])
+  userId        Int
+  pet           Pet      @relation(fields: [petId], references: [id])
+  petId         Int
+  dateOfReceipt DateTime
+  isClose       Boolean
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+}
+
+model Visit {
+  id          Int      @id @default(autoincrement())
+  doc         User     @relation(name: "docVisits", fields: [docId], references: [id])
+  docId       Int
+  user        User     @relation(name: "userVisits", fields: [userId], references: [id])
+  userId      Int
+  pet         Pet      @relation(fields: [petId], references: [id])
+  visitDate   DateTime
+  description String
+  diagnose    String
+  treatment   String
+  petId       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
