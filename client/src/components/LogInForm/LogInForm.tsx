@@ -1,15 +1,43 @@
-import { Box, Button, TextField } from '@mui/material';
-import { ChangeEventHandler } from 'react';
 import {
-  SigninRequest, SignupRequest,
-} from '../../redux/api/auth.api';
+  Box, Button, CircularProgress, TextField,
+} from '@mui/material';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { ChangeEventHandler, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { SigninRequest, SignupRequest } from '../../models/models';
+import { useSignInMutation } from '../../redux/api/auth.api';
+import { showError } from '../../redux/slices/errorSlice';
+import { setCredentials } from '../../redux/slices/userSlice';
 
 function LogInForm(props: {
   form: SigninRequest & SignupRequest,
   inputHandler: ChangeEventHandler<HTMLInputElement>,
-  logInHandler: () => Promise<void>,
 }) {
-  const { form, inputHandler, logInHandler } = props;
+  const { form, inputHandler } = props;
+  const [signIn, { isError, isLoading, error }] = useSignInMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const signInHandler = async (): Promise<void> => {
+    try {
+      const user = await signIn(form).unwrap();
+      dispatch(setCredentials(user));
+      localStorage.setItem('user', JSON.stringify(user.user));
+      sessionStorage.setItem('token', user.token);
+      navigate('/profile');
+    } catch (e) {
+      if (e instanceof Error) {
+        dispatch(showError(e.message));
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isError && error && 'status' in error) {
+      dispatch(showError(error.data.message));
+    }
+  }, [isError]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -37,10 +65,10 @@ function LogInForm(props: {
         sx={{ alignSelf: 'self-start', marginTop: '0.5rem' }}
         variant="contained"
         onClick={() => {
-          logInHandler();
+          signInHandler();
         }}
       >
-        Войти
+        {isLoading ? <CircularProgress /> : 'Войти'}
       </Button>
     </Box>
   );

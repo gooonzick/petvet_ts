@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import authReducer from './slices/userSlice';
 import { authApi } from './api/auth.api';
+import errorSlice from './slices/errorSlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    error: errorSlice,
     [authApi.reducerPath]: authApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),

@@ -1,33 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  BaseQueryFn, createApi, FetchArgs, fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
+import {
+  CustomError, SigninRequest, SignupRequest, UserResponse,
+} from '../../models/models';
 import { RootState } from '../store';
 
-export interface User {
-  name: string
-  email:string
-  phone: string
-  img:string
-  userGroupId: number
-}
-
-export interface UserResponse {
-  user: User
-  token: string
-}
-
-export interface SigninRequest {
-  email: string
-  password: string
-}
-
-export interface SignupRequest {
-  username: string
-  email: string
-  password: string
-  phone: string
-  userGroupId: number
-}
-
 export const authApi = createApi({
+  reducerPath: 'authapi',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_HOST ?? 'http://localhost:3010/api/v1/auth',
     prepareHeaders: (headers, { getState }) => {
@@ -37,7 +17,7 @@ export const authApi = createApi({
       }
       return headers;
     },
-  }),
+  }) as BaseQueryFn<string | FetchArgs, unknown, CustomError>,
   endpoints: (builder) => ({
     signIn: builder.mutation<UserResponse, SigninRequest>({
       query: (credentials) => ({
