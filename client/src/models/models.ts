@@ -1,10 +1,14 @@
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-
 export interface CustomError {
     data: {
       message: string
     }
     status: number
+  }
+
+export interface Pet {
+    id: number
+    name: string
+    img: string
   }
 
 export interface User {
@@ -13,6 +17,7 @@ export interface User {
     phone: string
     img:string
     userGroupId: number
+    pets: Pet[]
   }
 
 export interface UserResponse {

@@ -5,7 +5,7 @@ import DoneIcon from '@mui/icons-material/Done';
 
 type Props = {
     text: string,
-    onSubmitEdit: ()=>Promise<void>
+    onSubmitEdit: (field: string) => (newVal: string) => Promise<void>
 }
 
 function EditableText({ text, onSubmitEdit }: Props) {
@@ -15,12 +15,12 @@ function EditableText({ text, onSubmitEdit }: Props) {
     setValue(e.target.value);
   };
   const submitEditHandler = () => {
-    onSubmitEdit();
+    onSubmitEdit(value);
     setIsEdit(false);
   };
   return !isEdit ? (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <Typography>{text}</Typography>
+      <Typography variant="h5">{text}</Typography>
       <IconButton onClick={() => setIsEdit(true)}><EditIcon style={{ fontSize: 'medium' }} /></IconButton>
     </div>
   ) : (

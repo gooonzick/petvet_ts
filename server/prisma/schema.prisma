@@ -90,13 +90,13 @@ model PriceList {
 }
 
 model DocInfo {
-  id             Int      @id @default(autoincrement())
-  experience     String   @db.Text
-  clinic_address String   @db.Text
-  doc            User     @relation(fields: [docId], references: [id])
-  docId          Int      @unique
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  experience    String   @db.Text
+  clinicAddress String   @db.Text
+  doc           User     @relation(fields: [docId], references: [id])
+  docId         Int      @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
 }
 
 model Pet {
@@ -109,10 +109,10 @@ model Pet {
   weight          Float
   color           String
   sterilized      Boolean
-  sterilizedDate  DateTime
+  sterilizedDate  DateTime?
   owner           User              @relation(fields: [ownerId], references: [id])
   ownerId         Int
-  img             String            @db.Text
+  img             String?           @db.Text
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @default(now())
   vaccinations    Vaccination[]
@@ -125,8 +125,8 @@ model Pet {
 model Vaccination {
   id          Int      @id @default(autoincrement())
   description String
-  drug_name   String
-  drug_date   DateTime
+  drugName    String
+  drugDate    DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   pet         Pet      @relation(fields: [petId], references: [id])
@@ -144,7 +144,7 @@ model ChronicDiseases {
 
 model Allergy {
   id        Int      @id @default(autoincrement())
-  name      Int
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   pet       Pet      @relation(fields: [petId], references: [id])

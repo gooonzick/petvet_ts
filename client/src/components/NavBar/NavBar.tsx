@@ -4,18 +4,20 @@ import {
 } from '@mui/material';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { signOut } from '../../redux/slices/userSlice';
 import { RootState } from '../../redux/store';
 
 function NavBar() {
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const logOutHandler = useCallback(() => {
     dispatch(signOut());
     localStorage.removeItem('user');
     sessionStorage.removeItem('token');
+    navigate('/');
   }, []);
   return (
     <AppBar position="static">

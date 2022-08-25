@@ -70,7 +70,7 @@ export const signIn = async (req: CustomRequest<SignUpForm>, res: Response) => {
           docInfo: {
             select: {
               experience: true,
-              clinic_address: true,
+              clinicAddress: true,
             },
           },
           categories: true,
