@@ -1,21 +1,73 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "UserGroup" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-  - Added the required column `email` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `img` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `password` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `phone` to the `User` table without a default value. This is not possible if the table is not empty.
+    CONSTRAINT "UserGroup_pkey" PRIMARY KEY ("id")
+);
 
-*/
--- AlterTable
-ALTER TABLE "User" ADD COLUMN     "email" TEXT NOT NULL,
-ADD COLUMN     "img" TEXT NOT NULL,
-ADD COLUMN     "password" TEXT NOT NULL,
-ADD COLUMN     "phone" VARCHAR(20) NOT NULL;
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "phone" VARCHAR(20) NOT NULL,
+    "img" TEXT,
+    "userGroupId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Profile" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userId" INTEGER,
+
+    CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ProfileOnUser" (
+    "docId" INTEGER NOT NULL,
+    "profileId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "ProfileOnUser_pkey" PRIMARY KEY ("docId","profileId")
+);
+
+-- CreateTable
+CREATE TABLE "Category" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "CategoryOnUser" (
+    "docId" INTEGER NOT NULL,
+    "categoryId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "CategoryOnUser_pkey" PRIMARY KEY ("docId","categoryId")
+);
 
 -- CreateTable
 CREATE TABLE "PriceList" (
     "id" SERIAL NOT NULL,
+    "docId" INTEGER NOT NULL,
     "service" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -28,7 +80,7 @@ CREATE TABLE "PriceList" (
 CREATE TABLE "DocInfo" (
     "id" SERIAL NOT NULL,
     "experience" TEXT NOT NULL,
-    "clinic_address" TEXT NOT NULL,
+    "clinicAddress" TEXT NOT NULL,
     "docId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -42,14 +94,14 @@ CREATE TABLE "Pet" (
     "name" TEXT NOT NULL,
     "specie" TEXT NOT NULL,
     "breed" TEXT NOT NULL,
-    "sex" BOOLEAN NOT NULL,
+    "sex" INTEGER NOT NULL,
     "birthday" TIMESTAMP(3) NOT NULL,
     "weight" DOUBLE PRECISION NOT NULL,
     "color" TEXT NOT NULL,
     "sterilized" BOOLEAN NOT NULL,
-    "sterilizedDate" TIMESTAMP(3) NOT NULL,
+    "sterilizedDate" TIMESTAMP(3),
     "ownerId" INTEGER NOT NULL,
-    "img" TEXT NOT NULL,
+    "img" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -60,8 +112,8 @@ CREATE TABLE "Pet" (
 CREATE TABLE "Vaccination" (
     "id" SERIAL NOT NULL,
     "description" TEXT NOT NULL,
-    "drug_name" TEXT NOT NULL,
-    "drug_date" TIMESTAMP(3) NOT NULL,
+    "drugName" TEXT NOT NULL,
+    "drugDate" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "petId" INTEGER NOT NULL,
@@ -83,7 +135,7 @@ CREATE TABLE "ChronicDiseases" (
 -- CreateTable
 CREATE TABLE "Allergy" (
     "id" SERIAL NOT NULL,
-    "name" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "petId" INTEGER NOT NULL,
@@ -115,12 +167,35 @@ CREATE TABLE "Visit" (
     "diagnose" TEXT NOT NULL,
     "treatment" TEXT NOT NULL,
     "petId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Visit_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "DocInfo_docId_key" ON "DocInfo"("docId");
+
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_userGroupId_fkey" FOREIGN KEY ("userGroupId") REFERENCES "UserGroup"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProfileOnUser" ADD CONSTRAINT "ProfileOnUser_docId_fkey" FOREIGN KEY ("docId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProfileOnUser" ADD CONSTRAINT "ProfileOnUser_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "Profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CategoryOnUser" ADD CONSTRAINT "CategoryOnUser_docId_fkey" FOREIGN KEY ("docId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CategoryOnUser" ADD CONSTRAINT "CategoryOnUser_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PriceList" ADD CONSTRAINT "PriceList_docId_fkey" FOREIGN KEY ("docId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "DocInfo" ADD CONSTRAINT "DocInfo_docId_fkey" FOREIGN KEY ("docId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

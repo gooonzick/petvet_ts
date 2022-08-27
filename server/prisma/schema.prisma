@@ -104,7 +104,7 @@ model Pet {
   name            String
   specie          String
   breed           String
-  sex             Boolean
+  sex             Int
   birthday        DateTime
   weight          Float
   color           String

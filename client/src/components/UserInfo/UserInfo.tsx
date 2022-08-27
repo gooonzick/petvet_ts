@@ -1,5 +1,5 @@
 import {
-  Avatar, Box, CardActionArea, Typography,
+  Avatar, Box, CardActionArea, SxProps, Theme, Typography,
 } from '@mui/material';
 import { useRef } from 'react';
 import { User } from '../../models/models';
@@ -10,13 +10,15 @@ type Props = {
     editable: boolean
 }
 
-const parentBoxStyle = {
+const parentBoxStyle: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
   gap: 2,
+  flexDirection: { xs: 'column', md: 'row' },
+  justifyContent: { xs: 'center', md: 'start' },
 };
 
-const avatarStyle = {
+const avatarStyle: SxProps<Theme> = {
   height: '8rem',
   width: '8rem',
 };
@@ -29,12 +31,13 @@ function UserInfo({ user, editable }: Props) {
   return (
     <Box sx={parentBoxStyle}>
       <Avatar
-        alt="profile pic"
+        alt={user.name}
         src={user.img}
         sx={avatarStyle}
         onClick={() => input.current?.click()}
       >
         {editable && <input hidden type="file" ref={input} />}
+        {!user.img && user.name.slice(0, 1)}
       </Avatar>
       <Box>
         {editable

@@ -2,6 +2,7 @@ import { IconButton, TextField, Typography } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
+import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {
     text: string,
@@ -18,6 +19,9 @@ function EditableText({ text, onSubmitEdit }: Props) {
     onSubmitEdit(value);
     setIsEdit(false);
   };
+  const cancelHandler = () => {
+    setIsEdit(false);
+  };
   return !isEdit ? (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Typography variant="h5">{text}</Typography>
@@ -30,7 +34,11 @@ function EditableText({ text, onSubmitEdit }: Props) {
       value={value}
       onChange={(e:ChangeEvent<HTMLInputElement>) => { onCahngeHandler(e); }}
       InputProps={{
-        endAdornment: <IconButton onClick={() => { submitEditHandler(); }}><DoneIcon style={{ fontSize: 'medium' }} /></IconButton>,
+        endAdornment:
+      <div style={{ display: 'flex' }}>
+        <IconButton onClick={() => { submitEditHandler(); }}><DoneIcon style={{ fontSize: 'medium' }} /></IconButton>
+        <IconButton onClick={() => { cancelHandler(); }}><CloseIcon style={{ fontSize: 'medium' }} /></IconButton>
+      </div>,
       }}
     />
   );

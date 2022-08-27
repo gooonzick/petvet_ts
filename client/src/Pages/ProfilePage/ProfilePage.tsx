@@ -8,7 +8,7 @@ import { RootState } from '../../redux/store';
 function ProfilePage() {
   const user = useSelector((store: RootState) => store.auth.user) as User;
   return (
-    <Box sx={{ padding: '2rem 5rem' }}>
+    <Box sx={{ padding: { xs: '2rem 1rem', md: '2rem 3rem' } }}>
       <UserInfo editable user={user} />
       <PetCardList pets={user.pets} />
     </Box>

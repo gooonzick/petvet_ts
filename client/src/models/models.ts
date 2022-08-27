@@ -6,9 +6,20 @@ export interface CustomError {
   }
 
 export interface Pet {
-    id: number
-    name: string
-    img: string
+  id?: number,
+  name: string,
+  specie: string,
+  breed: string,
+  img?: string,
+  sex: boolean,
+  birthday: Date | null,
+  weight: number,
+  color: string,
+  sterilized: boolean,
+  sterilizedDate?: boolean,
+  allergies: [],
+  chronicDiseases: [],
+  vaccinations: [],
   }
 
 export interface User {
@@ -37,3 +48,9 @@ export interface SignupRequest {
     phone: string
     userGroupId: number
   }
+
+export interface Vaccinations {
+  description: string
+  drugName: string
+  drugDate: Date | null
+}

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import AuthPage from './Pages/AuthPage/AuthPage';
+import NewPetFormPage from './Pages/NewPetFormPage/NewPetFormPage';
 import ProfilePage from './Pages/ProfilePage/ProfilePage';
 import { setCredentials } from './redux/slices/userSlice';
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/" element={(<div>Hi</div>)} />
         <Route path="auth" element={<AuthPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/newPet" element={<NewPetFormPage />} />
       </Routes>
     </>
   );
