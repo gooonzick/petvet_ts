@@ -1,23 +1,12 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import {
   PrismaClient, User,
 } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { CustomRequest, SignUpForm } from '../models/models';
 
 const prisma = new PrismaClient();
-
-interface SignUpForm {
-    email?: string,
-    password?: string,
-    username?: string,
-    phone?: string,
-    userGroupId: any,
-}
-
-interface CustomRequest<T> extends Request {
-    body: T
-}
 
 const removePass = (user: User): any => {
   const {
@@ -30,7 +19,7 @@ export const signUp = async (req: CustomRequest<SignUpForm>, res: Response) => {
   const {
     email, password, username, phone, userGroupId,
   } = req.body;
-  
+
   if (!email || !password || !username || !phone || !userGroupId) return res.status(400).json({ message: 'Заполните все поля' });
   try {
     const ifExist = await prisma.user.findUnique({ where: { email } });

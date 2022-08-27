@@ -42,27 +42,30 @@ const load = async () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ] as Category[]
+      ] as Category[],
     });
     const spices = 'Собаки,Кошки,Лошади,Хорьки,Рептилии,Грызуны,Амфибии,Птицы,Экзотика,Беспозвоночные,Аквариумные рыбки,Сельскохозяйственные животные'.split(',');
-    const spicesObjArr = spices.map((spice) => ({ name: spice, createdAt: new Date(), updatedAt: new Date() }));
+    const spicesObjArr = spices
+      .map((spice) => ({ name: spice, createdAt: new Date(), updatedAt: new Date() }));
     await prisma.profile.createMany({
-      data: spicesObjArr
+      data: spicesObjArr,
     });
-    await prisma.userGroup.createMany({data: [
-      {
-        name: 'Врач',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        name: 'Владелец животного',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]});
+    await prisma.userGroup.createMany({
+      data: [
+        {
+          name: 'Врач',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Владелец животного',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+    });
     await prisma.user.createMany({
-      data:  [
+      data: [
         {
           name: 'Георгий Цамаладзе',
           email: 'tsamaladze@gmail.com',
@@ -85,26 +88,28 @@ const load = async () => {
         },
       ],
     });
-    await prisma.categoryOnUser.createMany({data: [
-      {
-        docId: 2,
-        categoryId: 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        docId: 2,
-        categoryId: 2,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        docId: 2,
-        categoryId: 3,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]});
+    await prisma.categoryOnUser.createMany({
+      data: [
+        {
+          docId: 2,
+          categoryId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          docId: 2,
+          categoryId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          docId: 2,
+          categoryId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+    });
     await prisma.profileOnUser.createMany({
       data: [
         {
@@ -125,10 +130,10 @@ const load = async () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ]
+      ],
     });
     await prisma.pet.createMany({
-      data:  [
+      data: [
         {
           name: 'Бобик',
           specie: 'собака',
@@ -154,8 +159,8 @@ const load = async () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ]
-    })
+      ],
+    });
     await prisma.vaccination.createMany({
       data: [
         {
@@ -174,7 +179,7 @@ const load = async () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ]
+      ],
     });
     await prisma.allergy.createMany({
       data: [
@@ -196,10 +201,10 @@ const load = async () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ]
+      ],
     });
     await prisma.visit.createMany({
-      data:  [
+      data: [
         {
           docId: 2,
           userId: 1,
@@ -246,10 +251,10 @@ const load = async () => {
           createdAt: new Date(Date.parse('2022-08-01 00:00')),
           updatedAt: new Date(Date.parse('2022-08-01 00:00')),
         },
-      ]
+      ],
     });
     await prisma.user.createMany({
-      data:  [
+      data: [
         {
           name: 'Александр Князев',
           email: 'alexander.knyazev@elbrusboot.camp',
@@ -690,7 +695,7 @@ const load = async () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ]
+      ],
     });
     await prisma.pet.createMany({
       data: [
@@ -776,10 +781,10 @@ const load = async () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ]
+      ],
     });
     await prisma.vaccination.createMany({
-      data:  [
+      data: [
         {
           petId: 2,
           drugName: 'РАБИКС',
@@ -812,10 +817,10 @@ const load = async () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      ]
+      ],
     });
     await prisma.visit.createMany({
-      data:   [
+      data: [
         {
           docId: 12,
           userId: 13,
@@ -915,7 +920,7 @@ const load = async () => {
       ],
     });
     await prisma.docInfo.createMany({
-      data:  [
+      data: [
         {
           docId: 2,
           experience: 'Люблю свою работу. Берусь за самые сложные случаи. "Если нельзя вылечить, это не значит, что нельзя помочь"',
@@ -1462,7 +1467,7 @@ const load = async () => {
       ],
     });
     await prisma.docSchedules.createMany({
-      data:[
+      data: [
         {
           docId: 11,
           userId: 1,

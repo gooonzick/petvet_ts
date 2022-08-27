@@ -1,7 +1,8 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import authRouter from './src/routes/auth.route';
+import petRouter from './src/routes/pet.route';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(
   }),
 );
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/pets', petRouter);
 
 app.listen(PORT, () => {
   console.log(`⚡️ Server started at port ${PORT}`);
