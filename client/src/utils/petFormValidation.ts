@@ -5,7 +5,7 @@ export const pageOneValidation = (state: Pet) => {
     state.name === ''
    || state.specie === ''
    || state.breed === ''
-   || state.weight === 0
+   || state.weight === ''
    || state.color === ''
   ) {
     return false;

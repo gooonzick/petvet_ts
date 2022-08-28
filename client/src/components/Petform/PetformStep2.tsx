@@ -77,8 +77,8 @@ function PetformStep2({ petForm, inputHandler }: Props) {
           name="sterilizedDate"
           onFocus={onFocus}
           onBlur={onBlur}
-          type={focus ? 'date' : 'text'}
-          value={petForm.sterilizedDate}
+          type={focus || petForm.sterilizedDate ? 'date' : 'text'}
+          value={petForm.sterilizedDate ?? ''}
           onChange={inputHandler.simpelInputHandler}
           sx={{ width: '48%' }}
           disabled={!petForm.sterilized}

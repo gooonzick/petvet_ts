@@ -31,7 +31,7 @@ const boxStyle = {
 function NewPetFormPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [addPet] = useAddPetMutation();
+  const [addPet, { isError }] = useAddPetMutation();
   const [activeStep, setActiveStep] = useState(0);
   const [isPetAdd, setIsPetAdd] = useState(false);
   const {
@@ -40,9 +40,9 @@ function NewPetFormPage() {
     name: '',
     specie: '',
     breed: '',
-    sex: false,
+    sex: 0,
     birthday: null,
-    weight: 0,
+    weight: '',
     color: '',
     sterilized: false,
     allergies: [],
@@ -51,9 +51,9 @@ function NewPetFormPage() {
   });
 
   const handleNext = async () => {
-    if (activeStep === steps.length - 1 && !isPetAdd) {
-      setIsPetAdd(true);
-      addPet(petForm);
+    if (activeStep === steps.length - 1) {
+      await addPet(petForm);
+      if (!isError) setIsPetAdd(true);
     }
     if (activeStep === steps.length) {
       navigate('/profile');

@@ -1,4 +1,4 @@
-import { Pet, Vaccination } from '@prisma/client';
+import { Vaccination } from '@prisma/client';
 import { Request } from 'express';
 
 export interface SignUpForm {
@@ -9,7 +9,18 @@ export interface SignUpForm {
     userGroupId: any,
 }
 
-export interface IPetForm extends Pet {
+export interface IPetForm {
+    id?: number,
+    name: string,
+    specie: string,
+    breed: string,
+    img?: string,
+    sex: number,
+    birthday: string,
+    weight: string,
+    color: string,
+    sterilized: boolean,
+    sterilizedDate: string,
     allergies: String[],
     chronicDiseases: String[],
     vaccinations: Vaccination[],

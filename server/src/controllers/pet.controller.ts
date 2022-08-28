@@ -30,11 +30,11 @@ export const addPet = async (req: CustomRequest<IPetForm>, res: Response) => {
         specie: petForm.specie,
         breed: petForm.breed,
         sex: petForm.sex,
-        birthday: petForm.birthday,
-        weight: petForm.weight,
+        birthday: new Date(petForm.birthday),
+        weight: Number.parseInt(petForm.weight, 10),
         color: petForm.color,
         sterilized: petForm.sterilized,
-        sterilizedDate: petForm.sterilizedDate,
+        sterilizedDate: new Date(petForm.sterilizedDate),
         ownerId,
       },
     });
@@ -71,7 +71,7 @@ export const addPet = async (req: CustomRequest<IPetForm>, res: Response) => {
               petId: newPetInfo.id,
               description: petForm.vaccinations[i].description,
               drugName: petForm.vaccinations[i].drugName,
-              drugDate: petForm.vaccinations[i].drugDate,
+              drugDate: new Date(petForm.vaccinations[i].drugDate),
             },
           }),
         );

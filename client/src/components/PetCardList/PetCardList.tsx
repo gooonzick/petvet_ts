@@ -11,12 +11,16 @@ type Props = {
 
 const boxParentStyle: SxProps<Theme> = {
   marginTop: '2rem',
+  display: { xs: 'flex', md: 'block' },
+  flexDirection: { xs: 'column' },
+  alignItems: { xs: 'center' },
 };
 
 const petListBoxStyle: SxProps<Theme> = {
   marginTop: '2rem',
   display: 'flex',
   flexDirection: { xs: 'column', md: 'row' },
+  gap: '1rem',
 };
 
 function PetCardList({ pets }:Props) {

@@ -64,12 +64,12 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
       <TextField
         onFocus={onFocus}
         onBlur={onBlur}
-        type={focus ? 'date' : 'text'}
+        type={focus || petForm.birthday ? 'date' : 'text'}
         id="petbday"
         label="Дата рождения"
         variant="standard"
         name="birthday"
-        value={petForm.birthday}
+        value={petForm.birthday ?? ''}
         onChange={inputHandler}
       />
       <TextField

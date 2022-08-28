@@ -67,6 +67,7 @@ function LogInForm(props: {
         onClick={() => {
           signInHandler();
         }}
+        disabled={isLoading}
       >
         {isLoading ? <CircularProgress /> : 'Войти'}
       </Button>

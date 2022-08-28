@@ -11,12 +11,12 @@ export interface Pet {
   specie: string,
   breed: string,
   img?: string,
-  sex: boolean,
-  birthday: Date | null,
-  weight: number,
+  sex: number,
+  birthday: string | null,
+  weight: string,
   color: string,
   sterilized: boolean,
-  sterilizedDate?: boolean,
+  sterilizedDate?: string,
   allergies: [],
   chronicDiseases: [],
   vaccinations: [],
@@ -52,5 +52,5 @@ export interface SignupRequest {
 export interface Vaccinations {
   description: string
   drugName: string
-  drugDate: Date | null
+  drugDate: string | null
 }

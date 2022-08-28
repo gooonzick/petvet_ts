@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
-import AuthPage from './Pages/AuthPage/AuthPage';
-import NewPetFormPage from './Pages/NewPetFormPage/NewPetFormPage';
-import ProfilePage from './Pages/ProfilePage/ProfilePage';
+import AuthPage from './pages/AuthPage/AuthPage';
+import NewPetFormPage from './pages/NewPetFormPage/NewPetFormPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { setCredentials } from './redux/slices/userSlice';
 
 const getAuthState = () => {

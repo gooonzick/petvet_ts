@@ -1,10 +1,9 @@
-import React, {
+import {
   ChangeEvent, CSSProperties, FormEvent, useState,
 } from 'react';
 import {
   TextField, Box, Typography, Button, SxProps, Theme,
 } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
 import VacCard from '../VacCard/VacCard';
 import { Pet, Vaccinations } from '../../models/models';
 
@@ -55,7 +54,7 @@ function PetformStep3({ petForm, inputHandler }: Props) {
 
   const submitHanlder = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (vac.description === '' || vac.drugDate !== null || vac.drugName === '') return;
+    if (vac.description === '' || vac.drugDate === null || vac.drugName === '') return;
     inputHandler.objectInputHandler('vaccinations', vac);
     setVac({
       description: '',
@@ -68,52 +67,57 @@ function PetformStep3({ petForm, inputHandler }: Props) {
     <Box sx={parentBoxStyle}>
       <Typography variant="h6" sx={tytleStyle}>Прививки и обработки</Typography>
       {petForm.vaccinations.length > 0
-      && petForm.vaccinations
-        .map((vacData, index) => (
-          <VacCard
-            key={index}
-            vacData={vacData}
-            deleteCardHandler={() => inputHandler.removeFromArray('vaccinations', index)}
-          />
-        ))}
+      && (
+      <Box>
+        { petForm.vaccinations
+          .map((vacData, index) => (
+            <VacCard
+              key={index}
+              vacData={vacData}
+              deleteCardHandler={() => inputHandler.removeFromArray('vaccinations', index)}
+            />
+          ))}
+      </Box>
+      )}
       <form style={vacFormStyle} onSubmit={(e) => submitHanlder(e)}>
-        <div>
-          <TextField
-            name="description"
-            label="Что давали/кололи?"
-            variant="standard"
-            type="text"
-            value={vac.description}
-            onChange={(e:ChangeEvent<HTMLInputElement>) => vacHandler(e)}
-            sx={textFieldStyle}
-          />
+        <TextField
+          name="description"
+          label="Что давали/кололи?"
+          variant="standard"
+          type="text"
+          value={vac.description}
+          onChange={(e:ChangeEvent<HTMLInputElement>) => vacHandler(e)}
+          sx={textFieldStyle}
+        />
+        <TextField
+          name="drugName"
+          label="Название препарата"
+          variant="standard"
+          type="text"
+          value={vac.drugName}
+          onChange={(e:ChangeEvent<HTMLInputElement>) => vacHandler(e)}
+          sx={textFieldStyle}
+        />
 
-        </div>
-        <div>
-          <TextField
-            name="drug_name"
-            label="Название препарата"
-            variant="standard"
-            type="text"
-            value={vac.drugName}
-            onChange={(e:ChangeEvent<HTMLInputElement>) => vacHandler(e)}
-            sx={textFieldStyle}
-          />
-        </div>
-        <div>
-          <TextField
-            name="drug_date"
-            label="Когда?"
-            variant="standard"
-            onFocus={onFocus}
-            onBlur={onBlur}
-            type={focus ? 'date' : 'text'}
-            value={vac.drugDate}
-            onChange={(e:ChangeEvent<HTMLInputElement>) => vacHandler(e)}
-            sx={textFieldStyle}
-          />
-        </div>
-        <Button type="submit" variant="contained" sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}>Добавить</Button>
+        <TextField
+          name="drugDate"
+          label="Когда?"
+          variant="standard"
+          onFocus={onFocus}
+          onBlur={onBlur}
+          type={focus || vac.drugDate ? 'date' : 'text'}
+          value={vac.drugDate ?? ''}
+          onChange={(e:ChangeEvent<HTMLInputElement>) => vacHandler(e)}
+          sx={textFieldStyle}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}
+        >
+          Добавить
+
+        </Button>
       </form>
     </Box>
   );
