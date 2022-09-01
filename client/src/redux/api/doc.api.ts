@@ -1,6 +1,6 @@
 import {
   BaseQueryFn, createApi, FetchArgs, fetchBaseQuery,
-} from '@reduxjs/toolkit/dist/query';
+} from '@reduxjs/toolkit/dist/query/react';
 import { CustomError, Doctor } from '../../models/models';
 
 type DocFilter = {
@@ -9,13 +9,14 @@ type DocFilter = {
     userName: string
 }
 
-const docApi = createApi({
+// eslint-disable-next-line import/prefer-default-export
+export const docApi = createApi({
   reducerPath: 'docapi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_HOST}/docs`,
-  }) as BaseQueryFn<string | FetchArgs, unknown, CustomError>,
+  }) as BaseQueryFn,
   endpoints: (builder) => ({
-    allDocs: builder.query<Doctor[], DocFilter>({
+    getAllDocs: builder.query<Doctor[], DocFilter>({
       query: (args) => {
         const { profileName, categoryName, userName } = args;
         return {
@@ -29,10 +30,12 @@ const docApi = createApi({
         };
       },
     }),
-    oneDoc: builder.query<Doctor, number>({
+    getOneDoc: builder.query<Doctor, number>({
       query: (id) => ({
         url: `/${id}`,
       }),
     }),
   }),
 });
+
+export const { useGetAllDocsQuery, useGetOneDocQuery } = docApi;

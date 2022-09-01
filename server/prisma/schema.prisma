@@ -19,64 +19,41 @@ model UserGroup {
 }
 
 model User {
-  id            Int              @id @default(autoincrement())
+  id            Int            @id @default(autoincrement())
   name          String
-  email         String           @unique @db.Text
-  password      String           @db.Text
-  phone         String           @db.VarChar(20)
-  img           String?          @db.Text
-  userGroup     UserGroup        @relation(fields: [userGroupId], references: [id])
+  email         String         @unique @db.Text
+  password      String         @db.Text
+  phone         String         @db.VarChar(20)
+  img           String?        @db.Text
+  userGroup     UserGroup      @relation(fields: [userGroupId], references: [id])
   userGroupId   Int
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @default(now())
-  profiles      ProfileOnUser[]
-  categories    CategoryOnUser[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now())
+  profiles      Profile[]
+  categories    Category[]
   docInfo       DocInfo?
   pets          Pet[]
-  docSchedules  DocSchedules[]   @relation(name: "docSchedules")
-  userSchedules DocSchedules[]   @relation(name: "userSchedules")
-  userVisits    Visit[]          @relation(name: "userVisits")
-  docVisits     Visit[]          @relation(name: "docVisits")
+  docSchedules  DocSchedules[] @relation(name: "docSchedules")
+  userSchedules DocSchedules[] @relation(name: "userSchedules")
+  userVisits    Visit[]        @relation(name: "userVisits")
+  docVisits     Visit[]        @relation(name: "docVisits")
   priceList     PriceList[]
 }
 
 model Profile {
-  id        Int             @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @default(now())
-  userId    Int?
-  docs      ProfileOnUser[]
-}
-
-model ProfileOnUser {
-  doc       User     @relation(fields: [docId], references: [id])
-  docId     Int
-  profile   Profile  @relation(fields: [profileId], references: [id])
-  profileId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-
-  @@id([docId, profileId])
+  users     User[]
 }
 
 model Category {
-  id             Int              @id @default(autoincrement())
-  name           String
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @default(now())
-  CategoryOnUser CategoryOnUser[]
-}
-
-model CategoryOnUser {
-  doc        User     @relation(fields: [docId], references: [id])
-  docId      Int
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
-
-  @@id([docId, categoryId])
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  users     User[]
 }
 
 model PriceList {

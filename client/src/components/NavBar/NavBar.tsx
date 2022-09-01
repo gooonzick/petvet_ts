@@ -49,9 +49,11 @@ function NavBar() {
           </Typography>
         </NavLink>
         <Box sx={{ flexGrow: 1, display: 'flex' }}>
-          <Button sx={{ my: 2, color: 'black', display: 'block' }}>
-            Ветеринары
-          </Button>
+          <NavLink to="/vets" style={{ textDecoration: 'none', color: 'currentcolor' }}>
+            <Button sx={{ my: 2, color: 'black', display: 'block' }}>
+              Ветеринары
+            </Button>
+          </NavLink>
         </Box>
 
         <Box sx={{ flexGrow: 0, display: 'flex' }}>
