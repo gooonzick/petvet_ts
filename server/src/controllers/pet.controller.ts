@@ -1,10 +1,30 @@
 import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
-import { CustomRequest, IPetForm } from '../models/models';
+import {
+  CustomRequest, CustomResponse, IPetForm, isAuth,
+} from '../models/models';
 
 const prisma = new PrismaClient();
-export const getAllPets = async () => {
-
+export const getAllPets = async (req: Request, res: CustomResponse<isAuth>) => {
+  try {
+    const allPets = await prisma.pet.findMany({
+      where: {
+        ownerId: res.locals.userId,
+      },
+      select: {
+        id: true,
+        img: true,
+        name: true,
+      },
+    });
+    return res.status(200).json(allPets);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return res.status(500).json({ message: error.message });
+    }
+    return res.status(500).json({ message: 'Ошибка сервера' });
+  }
 };
 export const getOnePet = async (req: Request, res: Response) => {
   try {

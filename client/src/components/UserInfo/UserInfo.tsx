@@ -2,11 +2,11 @@ import {
   Avatar, Box, CardActionArea, SxProps, Theme, Typography,
 } from '@mui/material';
 import { useRef } from 'react';
-import { User } from '../../models/models';
+import { Doctor, User } from '../../models/models';
 import EditableText from '../EditableText/EditableText';
 
 type Props = {
-    user: User
+    user: User | Doctor
     editable: boolean
 }
 
@@ -46,6 +46,7 @@ function UserInfo({ user, editable }: Props) {
               <EditableText text={user.name} onSubmitEdit={() => editInfo('username')} />
               <EditableText text={user.email} onSubmitEdit={() => editInfo('email')} />
               <EditableText text={user.phone} onSubmitEdit={() => editInfo('phone')} />
+              <EditableText text={(user as Doctor).docInfo.clinicAddress} onSubmitEdit={() => editInfo('clinicAddress')} />
             </>
           )
           : (
@@ -53,6 +54,7 @@ function UserInfo({ user, editable }: Props) {
               <Typography>{user.email}</Typography>
               <Typography>{user.name}</Typography>
               <Typography>{user.phone}</Typography>
+              <Typography>{(user as Doctor).docInfo.clinicAddress}</Typography>
             </>
           )}
       </Box>

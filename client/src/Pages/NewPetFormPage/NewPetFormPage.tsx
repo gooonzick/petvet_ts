@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, Container, Step, StepLabel, Stepper, Typography, Box,
+  Button, Container, Step, StepLabel, Stepper, Typography, Box, CircularProgress,
 } from '@mui/material';
 import { useAddPetMutation } from '../../redux/api/pet.api';
 import { pageOneValidation, pageTwoValidation } from '../../utils/petFormValidation';
@@ -31,7 +31,7 @@ const boxStyle = {
 function NewPetFormPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [addPet, { isError }] = useAddPetMutation();
+  const [addPet, { isError, isLoading, error }] = useAddPetMutation();
   const [activeStep, setActiveStep] = useState(0);
   const [isPetAdd, setIsPetAdd] = useState(false);
   const {
@@ -54,6 +54,7 @@ function NewPetFormPage() {
     if (activeStep === steps.length - 1) {
       await addPet(petForm);
       if (!isError) setIsPetAdd(true);
+      dispatch(showError('Произошла ошибка'));
     }
     if (activeStep === steps.length) {
       navigate('/profile');
@@ -130,8 +131,9 @@ function NewPetFormPage() {
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
 
-            <Button onClick={handleNext} variant="contained">
-              {activeStep === steps.length ? 'Завершить' : 'Далее'}
+            <Button onClick={handleNext} variant="contained" disabled={isLoading}>
+              {isLoading && <CircularProgress />}
+              {!isLoading && activeStep === steps.length ? 'Завершить' : 'Далее'}
             </Button>
           </Box>
         </Box>

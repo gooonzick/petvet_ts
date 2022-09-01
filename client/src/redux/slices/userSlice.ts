@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { User } from '../../models/models';
+import { Pet, User } from '../../models/models';
 
 type AuthState = {
     user: User | null
@@ -25,9 +25,12 @@ const slice = createSlice({
       state.user = null;
       state.token = null;
     },
+    getPets: (state, { payload: pets }: PayloadAction<Pet[]>) => {
+      state.user!.pets = [...pets];
+    },
   },
 });
 
-export const { setCredentials, signOut } = slice.actions;
+export const { setCredentials, signOut, getPets } = slice.actions;
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 export default slice.reducer;

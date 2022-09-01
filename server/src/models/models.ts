@@ -1,5 +1,5 @@
 import { Vaccination } from '@prisma/client';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 export interface SignUpForm {
     email?: string,
@@ -26,6 +26,15 @@ export interface IPetForm {
     vaccinations: Vaccination[],
 }
 
+export interface isAuth {
+    userId: number
+    userGroup: number
+}
+
 export interface CustomRequest<T> extends Request {
     body: T
+}
+
+export interface CustomResponse<T> extends Response {
+    locals: T
 }

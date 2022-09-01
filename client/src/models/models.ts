@@ -3,7 +3,7 @@ export interface CustomError {
       message: string
     }
     status: number
-  }
+}
 
 export interface Pet {
   id?: number,
@@ -20,7 +20,7 @@ export interface Pet {
   allergies: [],
   chronicDiseases: [],
   vaccinations: [],
-  }
+}
 
 export interface User {
     name: string
@@ -29,17 +29,30 @@ export interface User {
     img:string
     userGroupId: number
     pets: Pet[]
+}
+
+export interface Doctor {
+  name: string
+  email:string
+  phone: string
+  img:string
+  userGroupId: number
+  docInfo: {
+    id: number
+    experience: string
+    clinicAddress: string
   }
+}
 
 export interface UserResponse {
     user: User
     token: string
-  }
+}
 
 export interface SigninRequest {
     email: string
     password: string
-  }
+}
 
 export interface SignupRequest {
     username: string
@@ -47,7 +60,7 @@ export interface SignupRequest {
     password: string
     phone: string
     userGroupId: number
-  }
+}
 
 export interface Vaccinations {
   description: string

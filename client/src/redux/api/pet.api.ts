@@ -44,4 +44,4 @@ export const petApi = createApi({
   }),
 });
 
-export const { useAddPetMutation, useGetOnePetQuery } = petApi;
+export const { useAddPetMutation, useGetOnePetQuery, useGetAllPetsQuery } = petApi;
