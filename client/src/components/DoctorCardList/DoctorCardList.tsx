@@ -4,12 +4,12 @@ import { Doctor } from '../../models/models';
 import DoctorCard from '../DoctorCard/DoctorCard';
 
 type Props = {
-    docs: Doctor[]
+  docs: Doctor[]
 }
 
 function DoctorCardList({ docs }: Props) {
   return (
-    <Box sx={{ mt: 10 }}>
+    <Box sx={{ mt: '0.7rem', width: '100%' }}>
       {docs.length > 0 && docs.map((doc, index) => (
         <DoctorCard key={index} doc={doc} />
       ))}

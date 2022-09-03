@@ -6,12 +6,12 @@ import { Pet } from '../../models/models';
 import PetCard from '../PetCard/PetCard';
 
 type Props = {
-    pets: Pet[]
+  pets: Pet[]
 }
 
 const boxParentStyle: SxProps<Theme> = {
   marginTop: '2rem',
-  display: { xs: 'flex', md: 'block' },
+  display: { xs: 'flex', sm: 'block', md: 'block' },
   flexDirection: { xs: 'column' },
   alignItems: { xs: 'center' },
 };
@@ -19,7 +19,7 @@ const boxParentStyle: SxProps<Theme> = {
 const petListBoxStyle: SxProps<Theme> = {
   marginTop: '2rem',
   display: 'flex',
-  flexDirection: { xs: 'column', md: 'row' },
+  flexDirection: { xs: 'column', sm: 'row', md: 'row' },
   gap: '1rem',
 };
 

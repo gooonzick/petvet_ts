@@ -6,16 +6,16 @@ import { Doctor, User } from '../../models/models';
 import EditableText from '../EditableText/EditableText';
 
 type Props = {
-    user: User | Doctor
-    editable: boolean
+  user: User | Doctor
+  editable: boolean
 }
 
 const parentBoxStyle: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
   gap: 2,
-  flexDirection: { xs: 'column', md: 'row' },
-  justifyContent: { xs: 'center', md: 'start' },
+  flexDirection: { xs: 'column', sm: 'row', md: 'row' },
+  justifyContent: { xs: 'center', sm: 'start', md: 'start' },
 };
 
 const avatarStyle: SxProps<Theme> = {
@@ -46,7 +46,8 @@ function UserInfo({ user, editable }: Props) {
               <EditableText text={user.name} onSubmitEdit={() => editInfo('username')} />
               <EditableText text={user.email} onSubmitEdit={() => editInfo('email')} />
               <EditableText text={user.phone} onSubmitEdit={() => editInfo('phone')} />
-              <EditableText text={(user as Doctor).docInfo.clinicAddress} onSubmitEdit={() => editInfo('clinicAddress')} />
+              {user.userGroupId === 1
+              && <EditableText text={(user as Doctor).docInfo.clinicAddress} onSubmitEdit={() => editInfo('clinicAddress')} />}
             </>
           )
           : (
@@ -54,7 +55,8 @@ function UserInfo({ user, editable }: Props) {
               <Typography>{user.email}</Typography>
               <Typography>{user.name}</Typography>
               <Typography>{user.phone}</Typography>
-              <Typography>{(user as Doctor).docInfo.clinicAddress}</Typography>
+              {user.userGroupId === 1
+              && <Typography>{(user as Doctor).docInfo.clinicAddress}</Typography>}
             </>
           )}
       </Box>

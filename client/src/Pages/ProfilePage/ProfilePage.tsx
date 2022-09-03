@@ -18,7 +18,7 @@ function ProfilePage() {
     }
   }, [data]);
   return (
-    <Box sx={{ padding: { xs: '2rem 1rem', md: '2rem 3rem' } }}>
+    <Box sx={{ padding: '2rem 3rem' }}>
       <UserInfo editable user={user} />
       {isLoading ? <CircularProgress /> : <PetCardList pets={user.pets} />}
     </Box>

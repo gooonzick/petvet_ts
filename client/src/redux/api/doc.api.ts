@@ -4,9 +4,9 @@ import {
 import { CustomError, Doctor } from '../../models/models';
 
 type DocFilter = {
-    profileName: string
-    categoryName: string
-    userName: string
+  profileName: string
+  categoryName: string
+  userName: string
 }
 
 // eslint-disable-next-line import/prefer-default-export
