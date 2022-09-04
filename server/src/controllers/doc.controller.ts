@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
 
 const prisma = new PrismaClient();
@@ -14,7 +14,16 @@ export const getAllDocs = async (req: Request, res: Response) => {
 
   if (profileName) Object.assign(queryFilter.profile, { name: profileName });
   if (categoryName) Object.assign(queryFilter.category, { name: categoryName });
-  if (userName) Object.assign(queryFilter.user, { name: userName });
+  if (userName) {
+    const query = `%${userName}%`;
+    const sql = `
+      SELECT id FROM "User" 
+      WHERE "name" LIKE '${query}'
+      AND "userGroupId" = 1;
+    `;
+    const ids = await prisma.$queryRaw<{ id: number }[]>(Prisma.raw(sql));
+    Object.assign(queryFilter.user, { id: { in: ids.map((el) => el.id) } });
+  }
 
   try {
     const allDocs = await prisma.user.findMany({

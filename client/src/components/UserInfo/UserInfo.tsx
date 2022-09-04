@@ -52,8 +52,8 @@ function UserInfo({ user, editable }: Props) {
           )
           : (
             <>
+              <Typography variant="h6">{user.name}</Typography>
               <Typography>{user.email}</Typography>
-              <Typography>{user.name}</Typography>
               <Typography>{user.phone}</Typography>
               {user.userGroupId === 1
               && <Typography>{(user as Doctor).docInfo.clinicAddress}</Typography>}

@@ -30,5 +30,10 @@ module.exports = {
         ts: 'never',
       },
     ],
+    indent: 'off',
+    '@typescript-eslint/indent': [
+      'error',
+      2,
+    ],
   },
 };

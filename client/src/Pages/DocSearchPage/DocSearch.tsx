@@ -48,7 +48,11 @@ function DocSearchPage() {
       <SearchInput docName={userName} inputHandler={inputHandlers.setDocName} />
       <Box sx={wraperBoxStyle}>
         <Box sx={filterBoxStyle}>
-          <DocFilterPanel />
+          <DocFilterPanel
+            categoryFilter={profileName}
+            profileFilter={categoryName}
+            changeHandlers={inputHandlers}
+          />
         </Box>
         <Box sx={docListBoxStyle}>
           {data && <DoctorCardList docs={data} />}

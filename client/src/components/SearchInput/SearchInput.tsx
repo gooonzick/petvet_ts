@@ -16,11 +16,6 @@ const searchFieldStyle: SxProps = {
 };
 
 function SearchInput({ docName, inputHandler }: Props) {
-  const debounced = useDebounce(docName, 1000);
-  useEffect(() => {
-    console.log(docName);
-  }, [debounced]);
-
   return (
     <TextField
       sx={searchFieldStyle}
