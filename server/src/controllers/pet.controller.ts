@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
 import {
   CustomRequest, CustomResponse, IPetForm, isAuth,
 } from '../models/models';
+import prisma from '../../prisma';
 
-const prisma = new PrismaClient();
 export const getAllPets = async (req: Request, res: CustomResponse<isAuth>) => {
   try {
     const allPets = await prisma.pet.findMany({

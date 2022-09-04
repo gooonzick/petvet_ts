@@ -30,7 +30,7 @@ const filterBoxStyle: SxProps = {
 
 function DocSearchPage() {
   const {
-    userName, userNameD, profileName, categoryName, inputHandlers,
+    userName, userNameD, profileId, categoryId, inputHandlers,
   } = useFilterDoc({
     userNameFilter: '',
     categoryFilter: '',
@@ -38,7 +38,7 @@ function DocSearchPage() {
   });
 
   const { data, isLoading } = useGetAllDocsQuery({
-    userName: userNameD, profileName, categoryName,
+    userName: userNameD, profileId, categoryId,
   });
 
   if (isLoading) return <Loader />;
@@ -49,8 +49,8 @@ function DocSearchPage() {
       <Box sx={wraperBoxStyle}>
         <Box sx={filterBoxStyle}>
           <DocFilterPanel
-            categoryFilter={profileName}
-            profileFilter={categoryName}
+            categoryFilter={categoryId}
+            profileFilter={profileId}
             changeHandlers={inputHandlers}
           />
         </Box>

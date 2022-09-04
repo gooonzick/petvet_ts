@@ -1,12 +1,11 @@
 import { Response } from 'express';
 import {
-  PrismaClient, User,
+  User,
 } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { CustomRequest, SignUpForm } from '../models/models';
-
-const prisma = new PrismaClient();
+import prisma from '../../prisma';
 
 const removePass = (user: User): any => {
   const {

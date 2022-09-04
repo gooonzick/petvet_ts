@@ -10,16 +10,16 @@ type DocFilter = {
 function useFilterDoc(initialValue: DocFilter) {
   const { profileFilter, categoryFilter, userNameFilter } = initialValue;
   const [userName, setDocName] = useState(userNameFilter);
-  const [profileName, setProfileName] = useState(profileFilter);
-  const [categoryName, setCategoryName] = useState(categoryFilter);
+  const [profileId, setProfileId] = useState(profileFilter);
+  const [categoryId, setCategoryId] = useState(categoryFilter);
   const userNameD = useDebounce(userName, 1000);
 
   const inputHandlers = {
-    setDocName, setProfileName, setCategoryName,
+    setDocName, setProfileId, setCategoryId,
   };
 
   return {
-    userName, userNameD, profileName, categoryName, inputHandlers,
+    userName, userNameD, profileId, categoryId, inputHandlers,
   };
 }
 

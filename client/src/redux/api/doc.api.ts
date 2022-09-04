@@ -4,8 +4,8 @@ import {
 import { CustomError, Doctor } from '../../models/models';
 
 type DocFilter = {
-  profileName: string
-  categoryName: string
+  profileId: string
+  categoryId: string
   userName: string
 }
 
@@ -18,13 +18,13 @@ export const docApi = createApi({
   endpoints: (builder) => ({
     getAllDocs: builder.query<Doctor[], DocFilter>({
       query: (args) => {
-        const { profileName, categoryName, userName } = args;
+        const { profileId, categoryId, userName } = args;
         return {
           url: '/',
           params:
           {
-            profileName,
-            categoryName,
+            profileId,
+            categoryId,
             userName,
           },
         };

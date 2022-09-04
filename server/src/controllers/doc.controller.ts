@@ -1,10 +1,9 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
-
-const prisma = new PrismaClient();
+import prisma from '../../prisma';
 
 export const getAllDocs = async (req: Request, res: Response) => {
-  const { profileName, categoryName, userName } = req.query;
+  const { profileId, categoryId, userName } = req.query;
 
   const queryFilter = {
     category: {},
@@ -12,8 +11,8 @@ export const getAllDocs = async (req: Request, res: Response) => {
     user: {},
   };
 
-  if (profileName) Object.assign(queryFilter.profile, { name: profileName });
-  if (categoryName) Object.assign(queryFilter.category, { name: categoryName });
+  if (profileId) Object.assign(queryFilter.profile, { profileId: Number(profileId) });
+  if (categoryId) Object.assign(queryFilter.category, { categoryId: Number(categoryId) });
   if (userName) {
     const query = `%${userName}%`;
     const sql = `
@@ -25,11 +24,15 @@ export const getAllDocs = async (req: Request, res: Response) => {
     Object.assign(queryFilter.user, { id: { in: ids.map((el) => el.id) } });
   }
 
+  console.log(queryFilter);
+
   try {
     const allDocs = await prisma.user.findMany({
       where: {
         userGroupId: 1,
         ...queryFilter.user,
+        categories: { some: queryFilter.category },
+        profiles: { some: queryFilter.profile },
       },
       include: {
         docInfo: true,

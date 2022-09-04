@@ -1,8 +1,8 @@
 export interface CustomError {
-    data: {
-      message: string
-    }
-    status: number
+  data: {
+    message: string
+  }
+  status: number
 }
 
 export interface Pet {
@@ -23,12 +23,12 @@ export interface Pet {
 }
 
 export interface User {
-    name: string
-    email:string
-    phone: string
-    img:string
-    userGroupId: number
-    pets: Pet[]
+  name: string
+  email:string
+  phone: string
+  img:string
+  userGroupId: number
+  pets: Pet[]
 }
 
 export interface Doctor {
@@ -45,25 +45,30 @@ export interface Doctor {
 }
 
 export interface UserResponse {
-    user: User
-    token: string
+  user: User
+  token: string
 }
 
 export interface SigninRequest {
-    email: string
-    password: string
+  email: string
+  password: string
 }
 
 export interface SignupRequest {
-    username: string
-    email: string
-    password: string
-    phone: string
-    userGroupId: number
+  username: string
+  email: string
+  password: string
+  phone: string
+  userGroupId: number
 }
 
 export interface Vaccinations {
   description: string
   drugName: string
   drugDate: string | null
+}
+
+export interface CatergoryProfile {
+  id: number
+  name: string
 }
