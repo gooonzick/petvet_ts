@@ -1,12 +1,15 @@
-import { useMemo } from 'react';
+import { lazy, Suspense, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import Loader from './components/Loader/Loader';
 import NavBar from './components/NavBar/NavBar';
-import AuthPage from './pages/AuthPage/AuthPage';
-import DocSearch from './pages/DocSearchPage/DocSearch';
-import NewPetFormPage from './pages/NewPetFormPage/NewPetFormPage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { setCredentials } from './redux/slices/userSlice';
+
+const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage'));
+const DocPublic = lazy(() => import('./pages/DocPublic/DocPublic'));
+const DocSearch = lazy(() => import('./pages/DocSearchPage/DocSearch'));
+const NewPetFormPage = lazy(() => import('./pages/NewPetFormPage/NewPetFormPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
 
 const getAuthState = () => {
   const userFromStorage = localStorage.getItem('user');
@@ -27,7 +30,7 @@ function App() {
     }
   }, [authState]);
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <NavBar />
       <Routes>
         <Route path="/" element={(<div>Hi</div>)} />
@@ -35,8 +38,9 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/newPet" element={<NewPetFormPage />} />
         <Route path="/vets" element={<DocSearch />} />
+        <Route path="/vets/:id" element={<DocPublic />} />
       </Routes>
-    </>
+    </Suspense>
   );
 }
 

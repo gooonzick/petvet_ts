@@ -1,6 +1,7 @@
 import {
   Avatar, Box, CardActionArea, SxProps,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { Doctor } from '../../models/models';
 import UserInfo from '../UserInfo/UserInfo';
 
@@ -16,8 +17,9 @@ const docCardBox: SxProps = {
 };
 
 function DoctorCard({ doc }: Props) {
+  const navigate = useNavigate();
   return (
-    <CardActionArea sx={docCardBox}>
+    <CardActionArea sx={docCardBox} onClick={() => navigate(`/vets/${doc.id}`)}>
       <Box>
         <UserInfo user={doc} editable={false} />
       </Box>

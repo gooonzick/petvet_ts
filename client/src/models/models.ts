@@ -32,6 +32,7 @@ export interface User {
 }
 
 export interface Doctor {
+  id: number
   name: string
   email:string
   phone: string

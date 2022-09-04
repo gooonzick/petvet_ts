@@ -24,8 +24,6 @@ export const getAllDocs = async (req: Request, res: Response) => {
     Object.assign(queryFilter.user, { id: { in: ids.map((el) => el.id) } });
   }
 
-  console.log(queryFilter);
-
   try {
     const allDocs = await prisma.user.findMany({
       where: {
@@ -56,6 +54,17 @@ export const getOneDoc = async (req: Request, res: Response) => {
       include: {
         docInfo: true,
         docSchedules: true,
+        priceList: true,
+        profiles: {
+          include: {
+            profile: true,
+          },
+        },
+        categories: {
+          include: {
+            category: true,
+          },
+        },
       },
     });
     return res.status(200).json(oneDoc);

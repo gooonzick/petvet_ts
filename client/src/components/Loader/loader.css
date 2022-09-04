@@ -1,7 +1,7 @@
 .pad {
     width: 25px;
     height: 27px;
-    background-color: #654321;
+    background-color: #FFD35A;
     -webkit-border-radius: 63px 63px 63px 63px / 108px     108px 72px 72px;
     border-radius: 50%  50%  50%  50%  / 60%   60%         40%  40%;
     display: block;

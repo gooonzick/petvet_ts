@@ -30,7 +30,7 @@ export const docApi = createApi({
         };
       },
     }),
-    getOneDoc: builder.query<Doctor, number>({
+    getOneDoc: builder.query<Doctor, string>({
       query: (id) => ({
         url: `/${id}`,
       }),
