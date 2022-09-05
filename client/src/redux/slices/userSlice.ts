@@ -5,9 +5,9 @@ import { RootState } from '../store';
 import { Pet, User } from '../../models/models';
 
 type AuthState = {
-    user: User | null
-    token: string | null
-  }
+  user: User | null
+  token: string | null
+}
 
 const slice = createSlice({
   name: 'auth',

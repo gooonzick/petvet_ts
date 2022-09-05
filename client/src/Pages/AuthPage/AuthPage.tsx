@@ -1,4 +1,6 @@
-import { Box, Tab, Tabs } from '@mui/material';
+import {
+  Box, SxProps, Tab, Tabs, Theme,
+} from '@mui/material';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -9,8 +11,8 @@ import TabPanel from '../../components/TabPanel/TabPanel';
 import { SigninRequest, SignupRequest } from '../../models/models';
 import { RootState } from '../../redux/store';
 
-const mainBoxSx = {
-  width: '60vh',
+const mainBox: SxProps<Theme> = {
+  width: { xs: '80%', sm: '80%', md: '40vw' },
   minHeight: '40vh',
   maxHeight: 'max-content',
   margin: '10vh auto',
@@ -46,7 +48,7 @@ function AuthPage() {
   if (user?.name) return <Navigate to="/profile" />;
 
   return (
-    <Box sx={mainBoxSx}>
+    <Box sx={mainBox}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabIndex} onChange={tabChangeHandler}>
           <Tab label="Вход" />

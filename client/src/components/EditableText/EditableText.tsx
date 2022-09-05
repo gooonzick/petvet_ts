@@ -5,8 +5,8 @@ import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {
-    text: string,
-    onSubmitEdit: (field: string) => (newVal: string) => Promise<void>
+  text: string,
+  onSubmitEdit: (field: string) => (newVal: string) => Promise<void>
 }
 
 function EditableText({ text, onSubmitEdit }: Props) {

@@ -2,10 +2,10 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 interface TabPanelProps {
-    children: React.ReactNode;
-    index: number;
-    value: number;
-  }
+  children: React.ReactNode;
+  index: number;
+  value: number;
+}
 
 export default function TabPanel(props: TabPanelProps) {
   const {
@@ -20,9 +20,9 @@ export default function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-      <Box sx={{ width: '70%', margin: '1rem auto' }}>
-        {children}
-      </Box>
+        <Box sx={{ width: '70%', margin: '1rem auto' }}>
+          {children}
+        </Box>
       )}
     </div>
   );

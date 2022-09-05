@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Pet } from '../../models/models';
 
 type Props = {
-    pet: Pet
+  pet: Pet
 }
 
 function PetCard({ pet }: Props) {

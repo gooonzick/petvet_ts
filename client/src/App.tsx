@@ -6,7 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 import { setCredentials } from './redux/slices/userSlice';
 
 const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage'));
-const DocPublic = lazy(() => import('./pages/DocPublic/DocPublic'));
+const DocPublic = lazy(() => import('./pages/DocPublicPage/DocPublicPage'));
 const DocSearch = lazy(() => import('./pages/DocSearchPage/DocSearch'));
 const NewPetFormPage = lazy(() => import('./pages/NewPetFormPage/NewPetFormPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));

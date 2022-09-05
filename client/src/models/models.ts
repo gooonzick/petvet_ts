@@ -31,6 +31,26 @@ export interface User {
   pets: Pet[]
 }
 
+export interface PriceList {
+  id: number
+  service: string
+  price: number
+}
+
+export interface Category {
+  category: {
+    id: number
+    name: string
+  }
+}
+
+export interface Profile {
+  profile: {
+    id: number
+    name: string
+  }
+}
+
 export interface Doctor {
   id: number
   name: string
@@ -43,6 +63,9 @@ export interface Doctor {
     experience: string
     clinicAddress: string
   }
+  priceList: PriceList[]
+  categories: Category[]
+  profiles: Profile[]
 }
 
 export interface UserResponse {

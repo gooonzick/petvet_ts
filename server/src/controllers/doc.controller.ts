@@ -54,15 +54,31 @@ export const getOneDoc = async (req: Request, res: Response) => {
       include: {
         docInfo: true,
         docSchedules: true,
-        priceList: true,
+        priceList: {
+          select: {
+            id: true,
+            price: true,
+            service: true,
+          },
+        },
         profiles: {
-          include: {
-            profile: true,
+          select: {
+            profile: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         },
         categories: {
-          include: {
-            category: true,
+          select: {
+            category: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         },
       },

@@ -4,8 +4,8 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 type ErrorState = {
-    isError: boolean
-    errorMessage: string | null
+  isError: boolean
+  errorMessage: string | null
 }
 
 const slice = createSlice({

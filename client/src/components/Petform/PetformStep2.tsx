@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import {
   TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography, SxProps, Theme,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Pet } from '../../models/models';
+import WordCard from '../WordCard/WordCard';
 
 type Props = {
   petForm: Pet,
@@ -26,26 +27,6 @@ const parentBoxStyle: SxProps<Theme> = {
   boxShadow: '8px 8px 10px rgba(0, 0, 0, 0.5)',
   padding: '2rem 2rem 0 2rem',
   minHeight: '60vh',
-};
-
-const allergiesBoxStyle: SxProps<Theme> = {
-  backgroundColor: '#D9D9D9',
-  width: 'max-content',
-  padding: '3px',
-  borderRadius: '4px',
-  marginRight: '5px',
-  alignItems: 'center',
-  display: 'flex',
-};
-
-const chronicDiseasesBoxStyle: SxProps<Theme> = {
-  backgroundColor: '#D9D9D9',
-  width: 'max-content',
-  padding: '3px',
-  borderRadius: '4px',
-  marginRight: '5px',
-  alignItems: 'center',
-  display: 'flex',
 };
 
 function PetformStep2({ petForm, inputHandler }: Props) {
@@ -86,17 +67,17 @@ function PetformStep2({ petForm, inputHandler }: Props) {
       </Box>
       <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Аллергии</Typography>
       {petForm.allergies.length > 0 && (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-        {petForm.allergies.map((allergy, index) => (
-          <Box
-            sx={allergiesBoxStyle}
-            key={`${index}-${allergy}`}
-          >
-            <Typography variant="body1" sx={{ display: 'inline-block' }}>{allergy}</Typography>
-            <ClearIcon sx={{ cursor: 'pointer' }} onClick={() => inputHandler.removeFromArray('allergies', index)} />
-          </Box>
-        ))}
-      </Box>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+          {petForm.allergies.map((allergy, index) => (
+            <WordCard
+              key={`${index}-${allergy}`}
+              text={allergy}
+              index={index}
+              editable
+              clearHandler={() => inputHandler.removeFromArray('allergies', index)}
+            />
+          ))}
+        </Box>
       )}
       <TextField
         id="petallergies"
@@ -109,17 +90,17 @@ function PetformStep2({ petForm, inputHandler }: Props) {
 
       <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Хронические болезни</Typography>
       {petForm.chronicDiseases.length > 0 && (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-        {petForm.chronicDiseases.map((disease, index) => (
-          <Box
-            sx={chronicDiseasesBoxStyle}
-            key={`${index}-${disease}`}
-          >
-            <Typography variant="body1" sx={{ display: 'inline-block' }}>{disease}</Typography>
-            <ClearIcon sx={{ cursor: 'pointer' }} onClick={() => inputHandler.removeFromArray('chronicDiseases', index)} />
-          </Box>
-        ))}
-      </Box>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+          {petForm.chronicDiseases.map((disease, index) => (
+            <WordCard
+              key={`${index}-${disease}`}
+              text={disease}
+              index={index}
+              editable
+              clearHandler={() => inputHandler.removeFromArray('chronicDiseases', index)}
+            />
+          ))}
+        </Box>
       )}
       <TextField
         id="petallergies"

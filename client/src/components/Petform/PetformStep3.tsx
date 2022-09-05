@@ -68,16 +68,16 @@ function PetformStep3({ petForm, inputHandler }: Props) {
       <Typography variant="h6" sx={tytleStyle}>Прививки и обработки</Typography>
       {petForm.vaccinations.length > 0
       && (
-      <Box>
-        { petForm.vaccinations
-          .map((vacData, index) => (
-            <VacCard
-              key={index}
-              vacData={vacData}
-              deleteCardHandler={() => inputHandler.removeFromArray('vaccinations', index)}
-            />
-          ))}
-      </Box>
+        <Box>
+          { petForm.vaccinations
+            .map((vacData, index) => (
+              <VacCard
+                key={index}
+                vacData={vacData}
+                deleteCardHandler={() => inputHandler.removeFromArray('vaccinations', index)}
+              />
+            ))}
+        </Box>
       )}
       <form style={vacFormStyle} onSubmit={(e) => submitHanlder(e)}>
         <TextField

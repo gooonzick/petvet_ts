@@ -52,7 +52,7 @@ function UserInfo({ user, editable }: Props) {
           )
           : (
             <>
-              <Typography variant="h6">{user.name}</Typography>
+              <Typography variant="h5">{user.name}</Typography>
               <Typography>{user.email}</Typography>
               <Typography>{user.phone}</Typography>
               {user.userGroupId === 1
