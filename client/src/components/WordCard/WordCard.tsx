@@ -2,6 +2,7 @@ import {
   Box, SxProps, Theme, Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import { memo } from 'react';
 
 type Props = {
   index: number
@@ -34,4 +35,4 @@ function WordCard({
   );
 }
 
-export default WordCard;
+export default memo(WordCard);

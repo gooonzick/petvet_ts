@@ -48,7 +48,7 @@ const buttonBoxStyle: SxProps<Theme> = {
   position: 'fixed',
   top: { md: '80px' },
   bottom: { xs: '30px', sm: '30px', md: '' },
-  right: '30px',
+  right: { md: '30px' },
 };
 
 function DocPublicPage() {

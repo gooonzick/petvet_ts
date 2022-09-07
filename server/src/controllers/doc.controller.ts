@@ -1,4 +1,3 @@
-import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
 import prisma from '../../prisma';
 
@@ -14,14 +13,12 @@ export const getAllDocs = async (req: Request, res: Response) => {
   if (profileId) Object.assign(queryFilter.profile, { profileId: Number(profileId) });
   if (categoryId) Object.assign(queryFilter.category, { categoryId: Number(categoryId) });
   if (userName) {
-    const query = `%${userName}%`;
-    const sql = `
-      SELECT id FROM "User" 
-      WHERE "name" LIKE '${query}'
-      AND "userGroupId" = 1;
-    `;
-    const ids = await prisma.$queryRaw<{ id: number }[]>(Prisma.raw(sql));
-    Object.assign(queryFilter.user, { id: { in: ids.map((el) => el.id) } });
+    queryFilter.user = {
+      name: {
+        contains: userName,
+        mode: 'insensitive',
+      },
+    };
   }
 
   try {

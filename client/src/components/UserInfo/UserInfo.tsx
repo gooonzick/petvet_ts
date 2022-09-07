@@ -1,7 +1,7 @@
 import {
   Avatar, Box, CardActionArea, SxProps, Theme, Typography,
 } from '@mui/material';
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 import { Doctor, User } from '../../models/models';
 import EditableText from '../EditableText/EditableText';
 
@@ -64,4 +64,4 @@ function UserInfo({ user, editable }: Props) {
   );
 }
 
-export default UserInfo;
+export default memo(UserInfo);
