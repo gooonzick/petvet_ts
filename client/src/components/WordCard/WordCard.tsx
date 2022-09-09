@@ -5,7 +5,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { memo } from 'react';
 
 type Props = {
-  index: number
   text: string
   editable: boolean
   clearHandler?: () => void
@@ -22,12 +21,11 @@ const boxStyle: SxProps<Theme> = {
 };
 
 function WordCard({
-  text, index, editable, clearHandler,
+  text, editable, clearHandler,
 }: Props) {
   return (
     <Box
       sx={boxStyle}
-      key={`${index}-${text}`}
     >
       <Typography variant="body1" sx={{ display: 'inline-block' }}>{text}</Typography>
       {editable && clearHandler && <ClearIcon sx={{ cursor: 'pointer' }} onClick={() => clearHandler()} />}

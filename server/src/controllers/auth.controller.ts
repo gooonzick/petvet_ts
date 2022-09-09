@@ -61,9 +61,27 @@ export const signIn = async (req: CustomRequest<SignUpForm>, res: Response) => {
               clinicAddress: true,
             },
           },
-          categories: true,
-          profiles: true,
           priceList: true,
+          profiles: {
+            select: {
+              profile: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
+          categories: {
+            select: {
+              category: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
         },
       },
     );

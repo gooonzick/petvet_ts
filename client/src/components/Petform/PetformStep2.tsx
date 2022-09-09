@@ -72,7 +72,6 @@ function PetformStep2({ petForm, inputHandler }: Props) {
             <WordCard
               key={`${index}-${allergy}`}
               text={allergy}
-              index={index}
               editable
               clearHandler={() => inputHandler.removeFromArray('allergies', index)}
             />
@@ -95,7 +94,6 @@ function PetformStep2({ petForm, inputHandler }: Props) {
             <WordCard
               key={`${index}-${disease}`}
               text={disease}
-              index={index}
               editable
               clearHandler={() => inputHandler.removeFromArray('chronicDiseases', index)}
             />

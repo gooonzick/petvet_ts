@@ -74,7 +74,6 @@ function DocPublicPage() {
                     key={`${p.profile.id}-${p.profile.name}`}
                     editable={false}
                     text={p.profile.name}
-                    index={p.profile.id}
                   />
                 ))}
               </Box>
@@ -87,7 +86,6 @@ function DocPublicPage() {
                     key={`${c.category.id}-${c.category.name}`}
                     editable={false}
                     text={c.category.name}
-                    index={c.category.id}
                   />
                 ))}
               </Box>
