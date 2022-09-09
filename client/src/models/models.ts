@@ -23,6 +23,7 @@ export interface Pet {
 }
 
 export interface User {
+  id: number
   name: string
   email:string
   phone: string
@@ -51,13 +52,7 @@ export interface Profile {
   }
 }
 
-export interface Doctor {
-  id: number
-  name: string
-  email:string
-  phone: string
-  img:string
-  userGroupId: number
+export interface Doctor extends User {
   docInfo: {
     id: number
     experience: string

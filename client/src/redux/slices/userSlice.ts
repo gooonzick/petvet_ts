@@ -2,10 +2,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { Pet, User } from '../../models/models';
+import { Doctor, Pet, User } from '../../models/models';
 
 type AuthState = {
-  user: User | null
+  user: User | Doctor | null
   token: string | null
 }
 

@@ -7,12 +7,22 @@ import { User } from '../../models/models';
 import { useGetAllPetsQuery } from '../../redux/api/pet.api';
 import { getPets } from '../../redux/slices/userSlice';
 import { RootState } from '../../redux/store';
-import DocProfilePage from './DocProfilePage';
-import UserProfilePage from './UserProfilePage';
 
-function ProfilePage() {
+function UserProfilePage() {
   const user = useSelector((store: RootState) => store.auth.user) as User;
-  return user.userGroupId === 1 ? <DocProfilePage /> : <UserProfilePage />;
+  const dispatch = useDispatch();
+  const { data, isLoading, isSuccess } = useGetAllPetsQuery();
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(getPets(data));
+    }
+  }, [data]);
+  return (
+    <Box sx={{ padding: '2rem 3rem' }}>
+      <UserInfo editable user={user} />
+      {isLoading ? <CircularProgress /> : <PetCardList pets={user.pets} />}
+    </Box>
+  );
 }
 
-export default ProfilePage;
+export default UserProfilePage;
