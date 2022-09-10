@@ -70,6 +70,55 @@ class DocService {
     });
     return oneDoc;
   }
+
+  static async updateExperience(text: string, userId: number) {
+    await prisma.docInfo.update({
+      where: { id: userId },
+      data: {
+        experience: text,
+      },
+    });
+  }
+
+  static async addNewCategory(categoryId: number, userId: number) {
+    await prisma.categoryOnUser.create({
+      data: {
+        categoryId,
+        docId: userId,
+      },
+    });
+  }
+
+  static async deleteCategory(categoryId: number, userId: number) {
+    await prisma.categoryOnUser.delete({
+      where: {
+        docId_categoryId: {
+          docId: userId,
+          categoryId,
+        },
+      },
+    });
+  }
+
+  static async addNewProfile(profileId: number, userId: number) {
+    await prisma.profileOnUser.create({
+      data: {
+        profileId,
+        docId: userId,
+      },
+    });
+  }
+
+  static async deleteProfile(profileId: number, userId: number) {
+    await prisma.profileOnUser.delete({
+      where: {
+        docId_profileId: {
+          docId: userId,
+          profileId,
+        },
+      },
+    });
+  }
 }
 
 export default DocService;
