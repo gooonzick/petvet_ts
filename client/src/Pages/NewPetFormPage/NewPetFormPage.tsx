@@ -53,8 +53,11 @@ function NewPetFormPage() {
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
       await addPet(petForm);
-      if (!isError) setIsPetAdd(true);
-      dispatch(showError('Произошла ошибка'));
+      if (!isError) {
+        setIsPetAdd(true);
+      } else {
+        dispatch(showError('Произошла ошибка'));
+      }
     }
     if (activeStep === steps.length) {
       navigate('/profile');

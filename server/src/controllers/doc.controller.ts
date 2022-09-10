@@ -1,38 +1,12 @@
 import { Request, Response } from 'express';
-import prisma from '../../prisma';
+import { IDocFilterQuery } from '../models/models';
+import DocService from '../services/doc.service';
 
-export const getAllDocs = async (req: Request, res: Response) => {
+export const getAllDocs = async (req: Request<any, any, any, IDocFilterQuery>, res: Response) => {
   const { profileId, categoryId, userName } = req.query;
 
-  const queryFilter = {
-    category: {},
-    profile: {},
-    user: {},
-  };
-
-  if (profileId) Object.assign(queryFilter.profile, { profileId: Number(profileId) });
-  if (categoryId) Object.assign(queryFilter.category, { categoryId: Number(categoryId) });
-  if (userName) {
-    queryFilter.user = {
-      name: {
-        contains: userName,
-        mode: 'insensitive',
-      },
-    };
-  }
-
   try {
-    const allDocs = await prisma.user.findMany({
-      where: {
-        userGroupId: 1,
-        ...queryFilter.user,
-        categories: { some: queryFilter.category },
-        profiles: { some: queryFilter.profile },
-      },
-      include: {
-        docInfo: true,
-      },
-    });
+    const allDocs = await DocService.getAllDocs(profileId, categoryId, userName);
     return res.status(200).json(allDocs);
   } catch (error) {
     if (error instanceof Error) {
@@ -46,40 +20,7 @@ export const getAllDocs = async (req: Request, res: Response) => {
 export const getOneDoc = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const oneDoc = await prisma.user.findUnique({
-      where: { id: Number(id) },
-      include: {
-        docInfo: true,
-        docSchedules: true,
-        priceList: {
-          select: {
-            id: true,
-            price: true,
-            service: true,
-          },
-        },
-        profiles: {
-          select: {
-            profile: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
-        categories: {
-          select: {
-            category: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
-      },
-    });
+    const oneDoc = await DocService.getOneDoc(id);
     return res.status(200).json(oneDoc);
   } catch (error) {
     if (error instanceof Error) {

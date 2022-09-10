@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 type Props = {
   text: string
@@ -139,7 +139,7 @@ function DocExperience({ text }: Props) {
             </Typography>
             <AccordionActions>
               <Button
-                onClick={() => setEdit((prev) => !prev)}
+                onClick={() => setEdit(true)}
                 size="small"
                 sx={{ ...editButtonStyle, backgroundColor: primary }}
               >
@@ -152,4 +152,4 @@ function DocExperience({ text }: Props) {
   );
 }
 
-export default DocExperience;
+export default memo(DocExperience);

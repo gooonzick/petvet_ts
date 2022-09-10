@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import {
   Accordion,
   AccordionActions,
@@ -10,7 +10,6 @@ import {
   MenuItem,
   Select,
   SxProps,
-  TextField,
   Theme,
   Typography,
   useTheme,
@@ -71,11 +70,7 @@ const editAccordionStyle: SxProps<Theme> = {
   pt: 2,
 };
 
-const editTextFieldStyle: SxProps<Theme> = {
-  width: '100%',
-  backgroundColor: 'white',
-  borderRadius: '5px',
-};
+const formControlStyle: SxProps<Theme> = { m: 1, minWidth: 120, width: '20rem' };
 
 function DocCategories({ categories }: Props) {
   const [expanded, setExpanded] = useState(false);
@@ -109,8 +104,8 @@ function DocCategories({ categories }: Props) {
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="aboutme-content"
-        id="aboutme"
+        aria-controls="categories-content"
+        id="categories"
       >
         <Typography>Специализация</Typography>
       </AccordionSummary>
@@ -118,7 +113,7 @@ function DocCategories({ categories }: Props) {
         ? (
           <>
             <AccordionDetails sx={editAccordionStyle}>
-              <FormControl sx={{ m: 1, minWidth: 120, width: '20rem' }}>
+              <FormControl sx={formControlStyle}>
                 <Select
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -128,7 +123,7 @@ function DocCategories({ categories }: Props) {
                   {allCategories?.filter((ac) => categories
                     .filter((c) => c.category.id === ac.id).length === 0)
                     .map((el) => (
-                      <MenuItem key={el.id} value={el.name}>
+                      <MenuItem key={el.id} value={el.id}>
                         {el.name}
                       </MenuItem>
                     )) }
@@ -172,7 +167,7 @@ function DocCategories({ categories }: Props) {
               : 'Информация отсутствует'}
             <AccordionActions>
               <Button
-                onClick={() => setEdit((prev) => !prev)}
+                onClick={() => setEdit(true)}
                 size="small"
                 sx={{ ...editButtonStyle, backgroundColor: primary }}
               >
@@ -185,4 +180,4 @@ function DocCategories({ categories }: Props) {
   );
 }
 
-export default DocCategories;
+export default memo(DocCategories);
