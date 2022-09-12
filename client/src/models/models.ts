@@ -5,6 +5,17 @@ export interface CustomError {
   status: number
 }
 
+export interface Vaccinations {
+  description: string
+  drugName: string
+  drugDate: string | null
+}
+
+export interface ChronicDiseaseAllergy{
+  id: number
+  name: string
+}
+
 export interface Pet {
   id?: number,
   name: string,
@@ -17,9 +28,15 @@ export interface Pet {
   color: string,
   sterilized: boolean,
   sterilizedDate?: string,
+  allergies: ChronicDiseaseAllergy[],
+  chronicDiseases: ChronicDiseaseAllergy[],
+  vaccinations: Vaccinations[],
+}
+
+export interface PetForm extends Pet {
   allergies: [],
   chronicDiseases: [],
-  vaccinations: [],
+  vaccinations: Vaccinations[],
 }
 
 export interface User {
@@ -79,12 +96,6 @@ export interface SignupRequest {
   password: string
   phone: string
   userGroupId: number
-}
-
-export interface Vaccinations {
-  description: string
-  drugName: string
-  drugDate: string | null
 }
 
 export interface CatergoryProfile {

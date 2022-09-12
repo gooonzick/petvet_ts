@@ -15,7 +15,7 @@ const boxStyle: SxProps<Theme> = {
   width: 'max-content',
   padding: '5px',
   borderRadius: '4px',
-  marginRight: '5px',
+  margin: '0 5px 5px 0',
   alignItems: 'center',
   display: 'flex',
 };

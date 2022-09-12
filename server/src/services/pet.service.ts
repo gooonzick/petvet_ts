@@ -17,7 +17,14 @@ class PetService {
   }
 
   static async getOnePet(id: string) {
-    const pet = await prisma.pet.findMany({ where: { id: Number.parseInt(id, 10) } });
+    const pet = await prisma.pet.findUnique({
+      where: { id: Number.parseInt(id, 10) },
+      include: {
+        chronicDiseases: true,
+        allergies: true,
+        vaccinations: true,
+      },
+    });
     return pet;
   }
 

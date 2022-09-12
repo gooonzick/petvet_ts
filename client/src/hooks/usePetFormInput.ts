@@ -1,9 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Pet, Vaccinations } from '../models/models';
+import { PetForm, Vaccinations } from '../models/models';
 
-type Props = {}
-
-function usePetFormInput(initialValue: Pet) {
+function usePetFormInput(initialValue: PetForm) {
   const [petForm, setPetForm] = useState(initialValue);
   const simpelInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setPetForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));

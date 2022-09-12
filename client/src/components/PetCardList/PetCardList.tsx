@@ -27,7 +27,7 @@ function PetCardList({ pets }:Props) {
   const navigate = useNavigate();
   return (
     <Box sx={boxParentStyle}>
-      <Button variant="contained" onClick={() => navigate('/newPet')}>Новый питомец</Button>
+      <Button variant="contained" onClick={() => navigate('/pets/new')}>Новый питомец</Button>
       <Box sx={petListBoxStyle}>
         {pets.length > 0 && pets.map((pet) => <PetCard key={pet.id} pet={pet} />)}
       </Box>

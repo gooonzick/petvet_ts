@@ -71,49 +71,49 @@ class DocService {
     return oneDoc;
   }
 
-  static async updateExperience(text: string, userId: number) {
+  static async updateExperience(text: string, docId: number) {
     await prisma.docInfo.update({
-      where: { id: userId },
+      where: { id: docId },
       data: {
         experience: text,
       },
     });
   }
 
-  static async addNewCategory(categoryId: number, userId: number) {
+  static async addNewCategory(categoryId: number, docId: number) {
     await prisma.categoryOnUser.create({
       data: {
         categoryId,
-        docId: userId,
+        docId,
       },
     });
   }
 
-  static async deleteCategory(categoryId: number, userId: number) {
+  static async deleteCategory(categoryId: number, docId: number) {
     await prisma.categoryOnUser.delete({
       where: {
         docId_categoryId: {
-          docId: userId,
+          docId,
           categoryId,
         },
       },
     });
   }
 
-  static async addNewProfile(profileId: number, userId: number) {
+  static async addNewProfile(profileId: number, docId: number) {
     await prisma.profileOnUser.create({
       data: {
         profileId,
-        docId: userId,
+        docId,
       },
     });
   }
 
-  static async deleteProfile(profileId: number, userId: number) {
+  static async deleteProfile(profileId: number, docId: number) {
     await prisma.profileOnUser.delete({
       where: {
         docId_profileId: {
-          docId: userId,
+          docId,
           profileId,
         },
       },

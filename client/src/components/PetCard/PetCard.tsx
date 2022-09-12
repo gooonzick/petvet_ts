@@ -13,7 +13,7 @@ function PetCard({ pet }: Props) {
   const navigate = useNavigate();
 
   const cardOnClick = () => {
-    navigate(`pets/${pet.id}`);
+    navigate(`/pets/${pet.id}`);
   };
 
   return (

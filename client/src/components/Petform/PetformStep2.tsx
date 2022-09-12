@@ -3,11 +3,11 @@ import {
   TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography, SxProps, Theme,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Pet } from '../../models/models';
+import { PetForm } from '../../models/models';
 import WordCard from '../WordCard/WordCard';
 
 type Props = {
-  petForm: Pet,
+  petForm: PetForm,
   inputHandler: {
     simpelInputHandler: (e: any) => void,
     arrayInputHandler: (e: any, key: 'vaccinations' | 'chronicDiseases' | 'allergies') => void,
