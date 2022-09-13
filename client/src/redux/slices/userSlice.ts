@@ -25,12 +25,17 @@ const slice = createSlice({
       state.user = null;
       state.token = null;
     },
+    updateUser: (state, { payload: user }: PayloadAction<User>) => {
+      state.user = user;
+    },
     getPets: (state, { payload: pets }: PayloadAction<Pet[]>) => {
       state.user!.pets = [...pets];
     },
   },
 });
 
-export const { setCredentials, signOut, getPets } = slice.actions;
+export const {
+  setCredentials, signOut, getPets, updateUser,
+} = slice.actions;
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 export default slice.reducer;

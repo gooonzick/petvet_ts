@@ -30,3 +30,59 @@ export const getOneDoc = async (req: Request, res: Response) => {
     return res.status(500).json({ message: 'Ошибка сервера' });
   }
 };
+
+export const updateDocInfo = async (req: Request, res: Response) => {
+  const [key] = Object.keys(req.body);
+  const { userId } = res.locals;
+  let updateData;
+  try {
+    switch (key) {
+      case 'categoryId':
+        await DocService.addNewCategory(Number(req.body[key]), userId);
+        updateData = await DocService.getOneDoc(userId);
+        return res.json(updateData);
+      case 'profileId':
+        await DocService.addNewProfile(Number(req.body[key]), userId);
+        updateData = await DocService.getOneDoc(userId);
+        return res.json(updateData);
+      case 'experience':
+        await DocService.updateExperience(req.body[key], userId);
+        updateData = await DocService.getOneDoc(userId);
+        return res.json(updateData);
+      default:
+        return res.sendStatus(202);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return res.status(500).json({ message: error.message });
+    }
+    return res.status(500).json({ message: 'Ошибка сервера' });
+  }
+};
+
+export const deleteDocInfo = async (req: Request, res: Response) => {
+  const [key] = Object.keys(req.body);
+  const { userId } = res.locals;
+  let updateData;
+  try {
+    switch (key) {
+      case 'categoryId':
+        await DocService.deleteCategory(Number(req.body[key]), userId);
+        updateData = await DocService.getOneDoc(userId);
+        return res.json(updateData);
+      case 'profileId':
+        await DocService.deleteProfile(Number(req.body[key]), userId);
+        updateData = await DocService.getOneDoc(userId);
+        return res.json(updateData);
+      default:
+        return res.sendStatus(202);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return res.status(500).json({ message: error.message });
+    }
+    return res.status(500).json({ message: 'Ошибка сервера' });
+  }
+};

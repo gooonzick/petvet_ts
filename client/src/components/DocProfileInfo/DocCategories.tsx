@@ -15,9 +15,12 @@ import {
   useTheme,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useDispatch } from 'react-redux';
 import { Category } from '../../models/models';
 import WordCard from '../WordCard/WordCard';
 import { useGetAllCategoriesQuery } from '../../redux/api/category.api';
+import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '../../redux/api/doc.api';
+import { updateUser } from '../../redux/slices/userSlice';
 
 type Props = {
   categories: Category[]
@@ -77,24 +80,36 @@ function DocCategories({ categories }: Props) {
   const [edit, setEdit] = useState(false);
   const [input, setInput] = useState('');
 
+  const dispatch = useDispatch();
+
   const { data: allCategories } = useGetAllCategoriesQuery();
+  const [updateCategory] = useUpdateDocInfoMutation();
+  const [deleteCategory] = useDeleteDocInfoMutation();
 
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const neutral = theme.palette.warning.main;
 
   const cancleEditHandler = useCallback(() => {
+    setInput('');
     setEdit(false);
   }, []);
 
-  const saveEditHandler = useCallback(() => {
-    // do some fetch
+  const saveEditHandler = useCallback(async (id: string) => {
+    if (!id) return;
+    setInput('');
+    const result = await updateCategory({ categoryId: id }).unwrap();
+    dispatch(updateUser(result));
     setEdit(false);
   }, []);
 
-  const deleteCategory = useCallback((id: number) => {
-    // delete category
+  const deleteCategoryHandler = useCallback(async (id: number) => {
+    if (!id) return;
+    const result = await deleteCategory({ categoryId: id }).unwrap();
+    dispatch(updateUser(result));
   }, []);
+
+  console.log(input);
 
   return (
     <Accordion
@@ -118,6 +133,7 @@ function DocCategories({ categories }: Props) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   displayEmpty
+                  defaultValue=""
                   inputProps={{ 'aria-label': 'Without label' }}
                 >
                   {allCategories?.filter((ac) => categories
@@ -142,7 +158,7 @@ function DocCategories({ categories }: Props) {
                 Отмена
               </Button>
               <Button
-                onClick={() => saveEditHandler()}
+                onClick={() => saveEditHandler(input)}
                 size="small"
                 sx={{ ...saveEditButtonStyle, backgroundColor: primary }}
               >
@@ -160,6 +176,7 @@ function DocCategories({ categories }: Props) {
                       key={`${category.id}-${category.name}`}
                       editable
                       text={category.name}
+                      clearHandler={() => deleteCategoryHandler(category.id)}
                     />
                   ))}
                 </Box>
