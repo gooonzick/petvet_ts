@@ -1,11 +1,10 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import {
   User,
 } from '@prisma/client';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { CustomRequest, SignUpForm } from '../models/models';
-import prisma from '../../prisma';
+import { SignInForm, SignUpForm } from '../models/models';
+import AuthService from '../services/auth.service';
+import TokenService from '../services/token.serivce';
 
 const removePass = (user: User): any => {
   const {
@@ -14,28 +13,17 @@ const removePass = (user: User): any => {
   return other;
 };
 
-export const signUp = async (req: CustomRequest<SignUpForm>, res: Response) => {
+export const signUp = async (req: Request<any, any, SignUpForm>, res: Response) => {
+  const [form, isValid] = AuthService.validateForm(req.body);
+  if (!isValid) return res.status(400).json({ message: 'Заполните все поля' });
   const {
     email, password, username, phone, userGroupId,
-  } = req.body;
-
-  if (!email || !password || !username || !phone || !userGroupId) return res.status(400).json({ message: 'Заполните все поля' });
+  } = form as SignUpForm;
   try {
-    const ifExist = await prisma.user.findUnique({ where: { email } });
-    if (ifExist) return res.status(400).json({ message: 'Пользователь с такой почтой существует' });
-    const hashedPass = await bcrypt.hash(password, 10);
-    const newUser = await prisma.user.create(
-      {
-        data: {
-          email, password: hashedPass, name: username, phone, userGroupId,
-        },
-      },
-    );
-    const token = jwt.sign(
-      { userId: newUser.id, userGroup: newUser.userGroupId },
-      String(process.env.TOKEN_SECRET).toString(),
-      { expiresIn: '14d' },
-    );
+    const [newUser, isCreated] = await AuthService
+      .signUp(email, password, username, phone, userGroupId);
+    if (!isCreated) return res.status(400).json({ message: 'Пользователь с такой почтой существует' });
+    const token = TokenService.createToken(newUser);
     return res.json({ token, user: removePass(newUser) });
   } catch (error) {
     if (error instanceof Error) {
@@ -46,53 +34,17 @@ export const signUp = async (req: CustomRequest<SignUpForm>, res: Response) => {
   }
 };
 
-export const signIn = async (req: CustomRequest<SignUpForm>, res: Response) => {
-  const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ message: 'Заполните все поля' });
+export const signIn = async (req: Request<any, any, SignInForm>, res: Response) => {
+  const [form, isValid] = AuthService.validateForm(req.body);
+  if (!isValid) return res.status(400).json({ message: 'Заполните все поля' });
+  const {
+    email, password,
+  } = form as SignInForm;
   try {
-    const currentUser = await prisma.user.findUnique(
-      {
-        where: { email },
-        include: {
-          pets: true,
-          docInfo: {
-            select: {
-              experience: true,
-              clinicAddress: true,
-            },
-          },
-          priceList: true,
-          profiles: {
-            select: {
-              profile: {
-                select: {
-                  id: true,
-                  name: true,
-                },
-              },
-            },
-          },
-          categories: {
-            select: {
-              category: {
-                select: {
-                  id: true,
-                  name: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    );
+    const [currentUser, checkPass] = await AuthService.signIn(email, password);
     if (!currentUser) return res.status(400).json({ message: 'Пользователь не найден' });
-    const checkPass = await bcrypt.compare(password, currentUser.password);
     if (!checkPass) return res.status(400).json({ message: 'Пароль неверный' });
-    const token = jwt.sign(
-      { userId: currentUser.id, userGroup: currentUser.userGroupId },
-      String(process.env.TOKEN_SECRET).toString(),
-      { expiresIn: '14d' },
-    );
+    const token = TokenService.createToken(currentUser);
 
     return res.json({ token, user: removePass(currentUser) });
   } catch (error) {

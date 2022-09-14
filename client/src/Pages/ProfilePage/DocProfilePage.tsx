@@ -17,7 +17,7 @@ function DocProfilePage() {
     <Box sx={{ padding: '2rem 3rem' }}>
       <UserInfo editable user={user} />
       <Box sx={{ marginTop: '2rem' }}>
-        <DocExperience text={user.docInfo.experience} />
+        <DocExperience text={user.docInfo?.experience} />
         <DocCategories categories={user.categories} />
         <DocProfiles profiles={user.profiles} />
         <DocPriceList priceList={user.priceList} />

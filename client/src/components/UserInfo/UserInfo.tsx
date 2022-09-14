@@ -47,7 +47,13 @@ function UserInfo({ user, editable }: Props) {
               <EditableText text={user.email} onSubmitEdit={() => editInfo('email')} />
               <EditableText text={user.phone} onSubmitEdit={() => editInfo('phone')} />
               {user.userGroupId === 1
-              && <EditableText text={(user as Doctor).docInfo.clinicAddress} onSubmitEdit={() => editInfo('clinicAddress')} />}
+              && (
+                <EditableText
+                  text={(user as Doctor)?.docInfo?.clinicAddress
+              ?? 'Информация отсутсвтует'}
+                  onSubmitEdit={() => editInfo('clinicAddress')}
+                />
+              )}
             </>
           )
           : (
