@@ -73,7 +73,7 @@ class DocService {
 
   static async updateExperience(text: string, docId: number) {
     await prisma.docInfo.update({
-      where: { id: docId },
+      where: { docId },
       data: {
         experience: text,
       },
@@ -116,6 +116,25 @@ class DocService {
           docId,
           profileId,
         },
+      },
+    });
+  }
+
+  static async addPriceList(priceListEntry: {price: number, service: string}, docId: number) {
+    const { price, service } = priceListEntry;
+    await prisma.priceList.create({
+      data: {
+        docId,
+        price,
+        service,
+      },
+    });
+  }
+
+  static async deletePriceList(id: number) {
+    await prisma.priceList.delete({
+      where: {
+        id,
       },
     });
   }

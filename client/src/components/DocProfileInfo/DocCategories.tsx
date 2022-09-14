@@ -109,8 +109,6 @@ function DocCategories({ categories }: Props) {
     dispatch(updateUser(result));
   }, []);
 
-  console.log(input);
-
   return (
     <Accordion
       expanded={expanded}

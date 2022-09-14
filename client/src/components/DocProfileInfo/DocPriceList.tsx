@@ -23,7 +23,10 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { red } from '@mui/material/colors';
+import { useDispatch } from 'react-redux';
 import { PriceList } from '../../models/models';
+import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '../../redux/api/doc.api';
+import { updateUser } from '../../redux/slices/userSlice';
 
 type Props = {
   priceList: PriceList[]
@@ -101,8 +104,13 @@ function DocPriceList({ priceList }: Props) {
   const [edit, setEdit] = useState(false);
   const [input, setInput] = useState({
     service: '',
-    price: null,
+    price: '',
   });
+
+  const dispatch = useDispatch();
+
+  const [addService] = useUpdateDocInfoMutation();
+  const [deleteService] = useDeleteDocInfoMutation();
 
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -119,13 +127,19 @@ function DocPriceList({ priceList }: Props) {
     setEdit(false);
   }, []);
 
-  const saveEditHandler = useCallback(() => {
+  const saveEditHandler = useCallback(async (priceListEntry: {price: string, service: string}) => {
     // do some fetch
+    if (!priceListEntry.price || !priceListEntry.service) return;
+    const result = await addService({ priceList: priceListEntry }).unwrap();
+    dispatch(updateUser(result));
     setEdit(false);
   }, []);
 
-  const deleteService = useCallback((id: number) => {
+  const deleteServiceHandler = useCallback(async (id: number) => {
     // delete category
+    if (!id) return;
+    const result = await deleteService({ priceList: id }).unwrap();
+    dispatch(updateUser(result));
   }, []);
 
   return (
@@ -173,7 +187,7 @@ function DocPriceList({ priceList }: Props) {
                 Отмена
               </Button>
               <Button
-                onClick={() => saveEditHandler()}
+                onClick={() => saveEditHandler(input)}
                 size="small"
                 sx={{ ...saveEditButtonStyle, backgroundColor: primary }}
               >
@@ -208,7 +222,7 @@ function DocPriceList({ priceList }: Props) {
                         <TableCell align="center">
                           <DeleteForeverIcon
                             sx={deleteButtonStyle}
-                            onClick={() => deleteService(row.id)}
+                            onClick={() => deleteServiceHandler(row.id)}
                           />
                         </TableCell>
                       </TableRow>

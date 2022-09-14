@@ -45,6 +45,13 @@ export const updateDocInfo = async (req: Request, res: Response) => {
         await DocService.addNewProfile(Number(req.body[key]), userId);
         updateData = await DocService.getOneDoc(userId);
         return res.json(updateData);
+      case 'priceList':
+        await DocService.addPriceList({
+          price: Number(req.body[key].price),
+          service: req.body[key].service,
+        }, userId);
+        updateData = await DocService.getOneDoc(userId);
+        return res.json(updateData);
       case 'experience':
         await DocService.updateExperience(req.body[key], userId);
         updateData = await DocService.getOneDoc(userId);
@@ -73,6 +80,10 @@ export const deleteDocInfo = async (req: Request, res: Response) => {
         return res.json(updateData);
       case 'profileId':
         await DocService.deleteProfile(Number(req.body[key]), userId);
+        updateData = await DocService.getOneDoc(userId);
+        return res.json(updateData);
+      case 'priceList':
+        await DocService.deletePriceList(req.body[key]);
         updateData = await DocService.getOneDoc(userId);
         return res.json(updateData);
       default:

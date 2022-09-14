@@ -12,6 +12,9 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { memo, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useUpdateDocInfoMutation } from '../../redux/api/doc.api';
+import { updateUser } from '../../redux/slices/userSlice';
 
 type Props = {
   text: string
@@ -75,6 +78,10 @@ function DocExperience({ text }: Props) {
   const [edit, setEdit] = useState(false);
   const [input, setInput] = useState(text);
 
+  const dispatch = useDispatch();
+
+  const [updateExperience] = useUpdateDocInfoMutation();
+
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const neutral = theme.palette.warning.main;
@@ -84,8 +91,10 @@ function DocExperience({ text }: Props) {
     setEdit(false);
   }, []);
 
-  const saveEditHandler = useCallback(() => {
+  const saveEditHandler = useCallback(async (newExp: string) => {
     // do some fetch
+    const result = await updateExperience({ experience: newExp }).unwrap();
+    dispatch(updateUser(result));
     setEdit(false);
   }, []);
 
@@ -124,7 +133,7 @@ function DocExperience({ text }: Props) {
                 Отмена
               </Button>
               <Button
-                onClick={() => saveEditHandler()}
+                onClick={() => saveEditHandler(input)}
                 size="small"
                 sx={{ ...saveEditButtonStyle, backgroundColor: primary }}
               >

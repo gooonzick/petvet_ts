@@ -15,9 +15,12 @@ import {
   useTheme,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useDispatch } from 'react-redux';
 import { Profile } from '../../models/models';
 import WordCard from '../WordCard/WordCard';
 import { useGetAllProfilesQuery } from '../../redux/api/profile.api';
+import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '../../redux/api/doc.api';
+import { updateUser } from '../../redux/slices/userSlice';
 
 type Props = {
   profiles: Profile[]
@@ -77,7 +80,11 @@ function DocProfiles({ profiles }: Props) {
   const [edit, setEdit] = useState(false);
   const [input, setInput] = useState('');
 
+  const dispatch = useDispatch();
+
   const { data: allProfiles } = useGetAllProfilesQuery();
+  const [updateProfile] = useUpdateDocInfoMutation();
+  const [deleteProfile] = useDeleteDocInfoMutation();
 
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -87,13 +94,20 @@ function DocProfiles({ profiles }: Props) {
     setEdit(false);
   }, []);
 
-  const saveEditHandler = useCallback(() => {
+  const saveEditHandler = useCallback(async (id: string) => {
     // do some fetch
+    if (!id) return;
+    setInput('');
+    const result = await updateProfile({ profileId: id }).unwrap();
+    dispatch(updateUser(result));
     setEdit(false);
   }, []);
 
-  const deleteCategory = useCallback((id: number) => {
+  const deleteProfileHandler = useCallback(async (id: number) => {
     // delete category
+    if (!id) return;
+    const result = await deleteProfile({ profileId: id }).unwrap();
+    dispatch(updateUser(result));
   }, []);
 
   return (
@@ -142,7 +156,7 @@ function DocProfiles({ profiles }: Props) {
                 Отмена
               </Button>
               <Button
-                onClick={() => saveEditHandler()}
+                onClick={() => saveEditHandler(input)}
                 size="small"
                 sx={{ ...saveEditButtonStyle, backgroundColor: primary }}
               >
@@ -160,6 +174,7 @@ function DocProfiles({ profiles }: Props) {
                       key={`${profile.id}-${profile.name}`}
                       editable
                       text={profile.name}
+                      clearHandler={() => deleteProfileHandler(profile.id)}
                     />
                   ))}
                 </Box>
