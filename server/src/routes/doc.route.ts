@@ -1,15 +1,13 @@
 import express, { Router } from 'express';
-import {
-  deleteDocInfo, getAllDocs, getOneDoc, updateDocInfo,
-} from '../controllers/doc.controller';
+import DocController from '../controllers/doc.controller';
 import isAuth from '../middlewares/isAuth';
 import isAuthPriceList from '../middlewares/isAuthPriceList';
 
 const router: Router = express.Router();
 
-router.get('/', getAllDocs);
-router.get('/:id', getOneDoc);
-router.patch('/', isAuth, updateDocInfo);
-router.delete('/', isAuth, isAuthPriceList, deleteDocInfo);
+router.get('/', DocController.getAllDocs);
+router.get('/:id', DocController.getOneDoc);
+router.patch('/', isAuth, DocController.updateDocInfo);
+router.delete('/', isAuth, isAuthPriceList, DocController.deleteDocInfo);
 
 export default router;

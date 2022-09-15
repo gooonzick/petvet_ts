@@ -7,6 +7,7 @@ import { petApi } from './api/pet.api';
 import { docApi } from './api/doc.api';
 import { categoryApi } from './api/category.api';
 import { profileApi } from './api/profile.api';
+import { userApi } from './api/user.api';
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [petApi.reducerPath]: petApi.reducer,
     [docApi.reducerPath]: docApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
   },
@@ -23,6 +25,7 @@ const store = configureStore({
       authApi.middleware,
       petApi.middleware,
       docApi.middleware,
+      userApi.middleware,
       categoryApi.middleware,
       profileApi.middleware,
     ]),

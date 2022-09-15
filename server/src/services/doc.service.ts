@@ -80,6 +80,15 @@ class DocService {
     });
   }
 
+  static async updateClinicAddress(text: string, docId: number) {
+    await prisma.docInfo.update({
+      where: { docId },
+      data: {
+        clinicAddress: text,
+      },
+    });
+  }
+
   static async addNewCategory(categoryId: number, docId: number) {
     await prisma.categoryOnUser.create({
       data: {

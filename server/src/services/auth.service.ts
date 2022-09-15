@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import prisma from '../../prisma';
-import { SignInForm, SignUpForm } from '../models/models';
+import { SignUpForm } from '../models/models';
 
 export default class AuthService {
   static async signIn(email: string, password: string): Promise<[User | undefined, boolean]> {
@@ -66,8 +66,8 @@ export default class AuthService {
     return [newUser, true];
   }
 
-  static validateForm(form: SignUpForm | SignInForm):[SignUpForm | SignInForm, boolean] {
-    if ('phone' in form) {
+  static validateForm(form: SignUpForm, type: 'signup' | 'signin'):[SignUpForm, boolean] {
+    if (type === 'signup') {
       const {
         email, password, username, phone, userGroupId,
       } = form;

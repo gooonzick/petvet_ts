@@ -1,14 +1,20 @@
 import {
-  Avatar, Box, CardActionArea, SxProps, Theme, Typography,
+  Avatar, Box, SxProps, Theme, Typography,
 } from '@mui/material';
-import { memo, useRef } from 'react';
+import { memo, useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Doctor, User } from '../../models/models';
+import { useUpdateDocInfoMutation } from '../../redux/api/doc.api';
+import { useUpdateUserInfoMutation } from '../../redux/api/user.api';
+import { updateUser } from '../../redux/slices/userSlice';
 import EditableText from '../EditableText/EditableText';
 
 type Props = {
   user: User | Doctor
   editable: boolean
 }
+
+type EditFields = 'name'| 'email' | 'phone' |'clinicAddress'
 
 const parentBoxStyle: SxProps<Theme> = {
   display: 'flex',
@@ -25,9 +31,29 @@ const avatarStyle: SxProps<Theme> = {
 
 function UserInfo({ user, editable }: Props) {
   const input = useRef<HTMLInputElement>(null);
-  const editInfo = (field: string) => async (newVal: string) => {
+  const dispatch = useDispatch();
+  const [updateUserInfo] = useUpdateUserInfoMutation();
+  const [updateDocInfo] = useUpdateDocInfoMutation();
+  const editInfo = useCallback((field: EditFields) => async (newVal: string) => {
     // do some async
-  };
+    let result;
+    const requestBody = { [field]: newVal };
+    console.log(requestBody);
+    switch (field) {
+      case 'email':
+      case 'name':
+      case 'phone':
+        result = await updateUserInfo(requestBody).unwrap();
+        dispatch(updateUser(result));
+        break;
+      case 'clinicAddress':
+        result = await updateDocInfo(requestBody).unwrap();
+        dispatch(updateUser(result));
+        break;
+      default:
+        break;
+    }
+  }, []);
   return (
     <Box sx={parentBoxStyle}>
       <Avatar
@@ -43,15 +69,15 @@ function UserInfo({ user, editable }: Props) {
         {editable
           ? (
             <>
-              <EditableText text={user.name} onSubmitEdit={() => editInfo('username')} />
-              <EditableText text={user.email} onSubmitEdit={() => editInfo('email')} />
-              <EditableText text={user.phone} onSubmitEdit={() => editInfo('phone')} />
+              <EditableText text={user.name} onSubmitEdit={editInfo('name')} />
+              <EditableText text={user.email} onSubmitEdit={editInfo('email')} />
+              <EditableText text={user.phone} onSubmitEdit={editInfo('phone')} />
               {user.userGroupId === 1
               && (
                 <EditableText
                   text={(user as Doctor)?.docInfo?.clinicAddress
               ?? 'Информация отсутсвтует'}
-                  onSubmitEdit={() => editInfo('clinicAddress')}
+                  onSubmitEdit={editInfo('clinicAddress')}
                 />
               )}
             </>
