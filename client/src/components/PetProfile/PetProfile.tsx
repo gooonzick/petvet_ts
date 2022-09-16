@@ -10,8 +10,7 @@ type Props = {
 
 const parentBoxStyle: SxProps<Theme> = {
   backgroundColor: 'paper',
-  minWidth: '32rem',
-  width: '70%',
+  width: { xs: '100%', sm: '100%', md: '70%' },
   maxWidth: '45rem',
   height: 'max-content',
   borderRadius: '19px',
@@ -20,7 +19,7 @@ const parentBoxStyle: SxProps<Theme> = {
   padding: '1.5rem 1.5rem 3.5rem 1.5rem',
   boxShadow: 4,
   boxSizing: 'border-box',
-  alignItems: 'start',
+  alignItems: { xs: 'center', sm: 'center', md: 'start' },
 };
 const gridContainerStyle: SxProps<Theme> = {
   backgroundColor: 'white',
@@ -30,6 +29,12 @@ const avatarBoxStyle: SxProps<Theme> = {
   justifyContent: 'start',
   height: 'fit-content',
   gap: 2,
+  flexDirection: {
+    xs: 'column', sm: 'column', md: 'row',
+  },
+  marginBottom: {
+    xs: '1rem', sm: '1rem', md: '0',
+  },
 };
 const avatarStyle: SxProps<Theme> = {
   width: '10rem',
@@ -78,7 +83,7 @@ function PetProfile({ pet }: Props) {
             </Typography>
           )}
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={12} sm={12} md={5}>
           <Typography variant="h6" component="span" sx={typographyStyle}>
             Вид:
           </Typography>
@@ -86,7 +91,7 @@ function PetProfile({ pet }: Props) {
             {` ${pet.specie}`}
           </Typography>
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={12} sm={12} md={7}>
           <Typography variant="h6" component="span" sx={typographyStyle}>
             Порода:
           </Typography>
@@ -94,7 +99,7 @@ function PetProfile({ pet }: Props) {
             {` ${pet.breed}`}
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={12} md={3}>
           <Typography variant="h6" component="span" sx={typographyStyle}>
             Пол:
           </Typography>
@@ -102,7 +107,7 @@ function PetProfile({ pet }: Props) {
             {pet.sex === 1 ? ' М' : ' Ж'}
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={12} md={3}>
           <Typography variant="h6" component="span" sx={typographyStyle}>
             Вес:
           </Typography>
@@ -110,7 +115,7 @@ function PetProfile({ pet }: Props) {
             {` ${pet.weight}`}
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <Typography variant="h6" component="span" sx={typographyStyle}>
             Окрас:
           </Typography>
@@ -119,17 +124,17 @@ function PetProfile({ pet }: Props) {
           </Typography>
 
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={12} md={4}>
           <Typography variant="h6" component="span" sx={typographyStyle}>
             {pet.sex === 1 ? 'Кастрирован:' : 'Стерелизована:'}
           </Typography>
           <Typography variant="h6" component="span">
-            {pet.sterilized === true ? ' да' : ' нет'}
+            {pet.sterilized === true ? ' Да' : ' Нет'}
           </Typography>
 
         </Grid>
         {pet.sterilized === true ? (
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={12} md={8}>
             <Typography
               variant="h6"
               component="span"

@@ -52,6 +52,7 @@ function NewPetFormPage() {
 
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
+      if (isPetAdd) return null;
       await addPet(petForm);
       if (!isError) {
         setIsPetAdd(true);

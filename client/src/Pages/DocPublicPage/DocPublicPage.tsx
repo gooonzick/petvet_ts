@@ -10,7 +10,7 @@ import WordCard from '../../components/WordCard/WordCard';
 import { useGetOneDocQuery } from '../../redux/api/doc.api';
 
 const mainBoxStyle: SxProps<Theme> = {
-  width: { xs: '100%', sm: '100%', md: '70%' },
+  width: { md: '70%' },
   height: '100vh',
   padding: { xs: '1rem', sm: '1rem', md: '2rem' },
   position: 'relative',

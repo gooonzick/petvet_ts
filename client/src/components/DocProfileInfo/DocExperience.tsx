@@ -22,14 +22,15 @@ type Props = {
 
 const collapsedAccordionStyle:SxProps<Theme> = {
   backgroundColor: '#D9D9D9',
-  p: 2,
-  m: '.5rem',
+  padding: 2,
   borderRadius: '9px',
+  marginBottom: '0.5rem',
   transition: 'all .3s ease-in-out',
   '&:hover': {
     transform: 'scale(1.01)',
   },
   boxShadow: 3,
+  boxSizing: 'border-box',
 };
 
 const expandedAccordionStyle: SxProps<Theme> = {

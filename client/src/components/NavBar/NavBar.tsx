@@ -20,8 +20,8 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // const theme = useTheme();
+  // const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const logOutHandler = useCallback(() => {
     dispatch(signOut());
@@ -49,11 +49,20 @@ function NavBar() {
           </Typography>
         </NavLink>
         <Box sx={{ flexGrow: 1, display: 'flex' }}>
-          <NavLink to="/vets" style={{ textDecoration: 'none', color: 'currentcolor' }}>
-            <Button sx={{ my: 2, color: 'black', display: 'block' }}>
-              Ветеринары
-            </Button>
-          </NavLink>
+          {user?.userGroupId === 2 && (
+            <NavLink to="/vets" style={{ textDecoration: 'none', color: 'currentcolor' }}>
+              <Button sx={{ my: 2, color: 'black', display: 'block' }}>
+                Ветеринары
+              </Button>
+            </NavLink>
+          )}
+          {user?.userGroupId === 1 && (
+            <NavLink to="/schedule" style={{ textDecoration: 'none', color: 'currentcolor' }}>
+              <Button sx={{ my: 2, color: 'black', display: 'block' }}>
+                Приемы
+              </Button>
+            </NavLink>
+          )}
         </Box>
 
         <Box sx={{ flexGrow: 0, display: 'flex' }}>

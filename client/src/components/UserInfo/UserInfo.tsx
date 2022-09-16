@@ -22,6 +22,10 @@ const parentBoxStyle: SxProps<Theme> = {
   gap: 2,
   flexDirection: { xs: 'column', sm: 'row', md: 'row' },
   justifyContent: { xs: 'center', sm: 'start', md: 'start' },
+  boxSizing: 'border-box',
+  boxShadow: '4px 4px 8px rgba(0,0,0,0.2)',
+  borderRadius: '8px',
+  padding: '0.6rem',
 };
 
 const avatarStyle: SxProps<Theme> = {
@@ -38,7 +42,6 @@ function UserInfo({ user, editable }: Props) {
     // do some async
     let result;
     const requestBody = { [field]: newVal };
-    console.log(requestBody);
     switch (field) {
       case 'email':
       case 'name':

@@ -11,6 +11,7 @@ const DocPublic = lazy(() => import('./pages/DocPublicPage/DocPublicPage'));
 const DocSearch = lazy(() => import('./pages/DocSearchPage/DocSearch'));
 const NewPetFormPage = lazy(() => import('./pages/NewPetFormPage/NewPetFormPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
+const SchedulePage = lazy(() => import('./pages/SchedulePage/SchedulePage'));
 
 const getAuthState = () => {
   const userFromStorage = localStorage.getItem('user');
@@ -41,6 +42,7 @@ function App() {
         <Route path="/pets/:id" element={<PetProfilePage />} />
         <Route path="/vets" element={<DocSearch />} />
         <Route path="/vets/:id" element={<DocPublic />} />
+        <Route path="/schedule" element={<SchedulePage />} />
       </Routes>
     </Suspense>
   );
