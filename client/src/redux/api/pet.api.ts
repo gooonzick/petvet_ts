@@ -28,7 +28,7 @@ export const petApi = createApi({
         ? [...result.map(({ id }) => ({ type: 'Pets' as const, id })), 'Pets']
         : ['Pets']),
     }),
-    getOnePet: builder.query({
+    getOnePet: builder.query<Pet, number>({
       query: (petId: number) => ({
         url: `/${petId}`,
       }),

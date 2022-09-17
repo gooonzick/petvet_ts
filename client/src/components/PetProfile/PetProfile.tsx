@@ -1,6 +1,7 @@
 import {
   Avatar, Box, Grid, SxProps, Theme, Typography, useTheme,
 } from '@mui/material';
+import { memo } from 'react';
 import { Pet } from '../../models/models';
 import WordCard from '../WordCard/WordCard';
 
@@ -11,7 +12,7 @@ type Props = {
 const parentBoxStyle: SxProps<Theme> = {
   backgroundColor: 'paper',
   width: { xs: '100%', sm: '100%', md: '70%' },
-  maxWidth: '45rem',
+  maxWidth: '40rem',
   height: 'max-content',
   borderRadius: '19px',
   display: 'flex',
@@ -182,4 +183,4 @@ function PetProfile({ pet }: Props) {
   );
 }
 
-export default PetProfile;
+export default memo(PetProfile);

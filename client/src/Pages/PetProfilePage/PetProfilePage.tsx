@@ -1,25 +1,36 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Box, SxProps, Theme } from '@mui/material';
+import {
+  Box, Button, SxProps, Theme,
+} from '@mui/material';
+import { useCallback, useState } from 'react';
 import { useGetOnePetQuery } from '../../redux/api/pet.api';
 import { RootState } from '../../redux/store';
 import Loader from '../../components/Loader/Loader';
 import PetProfile from '../../components/PetProfile/PetProfile';
+import PageSelector from '../../components/PetProfile/PageSelector';
 
 const pageWraperBoxStyle: SxProps<Theme> = {
   padding: '1rem',
+  position: 'relative',
 };
 
 function PetProfilePage() {
   const { id } = useParams();
-  const user = useSelector((state: RootState) => state.auth.user);
+  const [page, setPage] = useState(1);
+  // const user = useSelector((state: RootState) => state.auth.user);
   const { data: pet, isLoading, isError } = useGetOnePetQuery(Number(id));
+
+  const clickHandler = useCallback((pageId:number) => {
+    setPage(pageId);
+  }, []);
 
   if (isLoading) return <Loader />;
 
   return (
     <Box sx={pageWraperBoxStyle}>
-      <PetProfile pet={pet} />
+      <PageSelector page={page} clickHandler={clickHandler} />
+      {page === 1 && pet && <PetProfile pet={pet} />}
     </Box>
   );
 }

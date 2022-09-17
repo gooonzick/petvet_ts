@@ -6,6 +6,7 @@ export interface CustomError {
 }
 
 export interface Vaccinations {
+  id: number
   description: string
   drugName: string
   drugDate: string | null
