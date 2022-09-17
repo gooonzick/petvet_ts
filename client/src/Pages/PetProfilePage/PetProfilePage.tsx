@@ -10,6 +10,7 @@ import Loader from '../../components/Loader/Loader';
 import PetProfile from '../../components/PetProfile/PetProfile';
 import PageSelector from '../../components/PetProfile/PageSelector';
 import HistoryVisits from '../../components/PetProfile/PetHistory';
+import AddNewInfo from '../../components/PetProfile/AddNewInfo';
 
 const pageWraperBoxStyle: SxProps<Theme> = {
   padding: '1rem',
@@ -33,6 +34,7 @@ function PetProfilePage() {
       <PageSelector page={page} clickHandler={clickHandler} />
       {page === 1 && pet && <PetProfile pet={pet} />}
       {page === 2 && pet && <HistoryVisits pet={pet} />}
+      {page === 3 && pet && <AddNewInfo pet={pet} />}
     </Box>
   );
 }

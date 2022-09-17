@@ -45,7 +45,7 @@ export interface Pet {
   allergies: ChronicDiseaseAllergy[],
   chronicDiseases: ChronicDiseaseAllergy[],
   vaccinations: Vaccinations[],
-  Visit?: Visit[]
+  visits?: Visit[]
 }
 
 export interface PetForm extends Pet {

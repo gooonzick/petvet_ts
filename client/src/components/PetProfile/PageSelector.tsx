@@ -54,7 +54,6 @@ function PageSelector({ page, clickHandler }: {
         Лист приема
       </Button>
     </Box>
-
   );
 }
 

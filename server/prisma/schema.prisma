@@ -118,8 +118,8 @@ model Pet {
   vaccinations    Vaccination[]
   chronicDiseases ChronicDiseases[]
   allergies       Allergy[]
-  DocSchedules    DocSchedules[]
-  Visit           Visit[]
+  docSchedules    DocSchedules[]
+  visits          Visit[]
 }
 
 model Vaccination {

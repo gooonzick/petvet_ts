@@ -35,7 +35,7 @@ export default function HistoryVisits({ pet }: {pet: Pet}) {
       {pet.vaccinations.map((el) => (
         <Box className="container" key={el.id} sx={styleCards}>
           <Typography
-            variant="h6"
+            variant="body1"
             component="span"
           >
             <b>Препарат:</b>
@@ -54,17 +54,8 @@ export default function HistoryVisits({ pet }: {pet: Pet}) {
       <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', py: 1 }}>
         История визитов:
       </Typography>
-      {pet.Visit && pet.Visit.map((el) => (
+      {pet.visits && pet.visits.map((el) => (
         <Box className="container" key={el.id} sx={styleCards}>
-          {/* <Typography
-            variant="h6"
-            component="div"
-            // sx={{ fontWeight: 'bold' }}
-          >
-            <b> Врач: </b>
-            {` ${el.doctor.first_name} ${el.doctor.last_name}`}
-          </Typography> */}
-
           <Box
             sx={{
               display: 'flex',
@@ -76,7 +67,6 @@ export default function HistoryVisits({ pet }: {pet: Pet}) {
             <Typography
               variant="body1"
               component="span"
-              // sx={{ fontWeight: 'bold' }}
             >
               <b> Дата визита: </b>
               {` ${new Date(el.visitDate).toLocaleDateString()}`}
@@ -85,7 +75,6 @@ export default function HistoryVisits({ pet }: {pet: Pet}) {
             <Typography
               variant="body1"
               component="span"
-              // sx={{ fontWeight: 'bold' }}
             >
               <b>  Диагноз:</b>
               {` ${el.diagnose}`}
@@ -93,7 +82,6 @@ export default function HistoryVisits({ pet }: {pet: Pet}) {
             <Typography
               variant="body1"
               component="span"
-              // sx={{ fontWeight: 'bold' }}
             >
               <b>  Лечение:</b>
               {` ${el.treatment}`}
