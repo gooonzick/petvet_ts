@@ -1,21 +1,34 @@
-import { Box, Typography } from '@mui/material';
+import {
+  Box, SxProps, Theme, Typography,
+} from '@mui/material';
 import { Pet } from '../../models/models';
 
-export default function HistoryVisits({ pet }: {pet: Pet}) {
-  const styleCards = {
-    backgroundColor: '#d9d9d9',
-    minWidth: '32rem',
-    width: '40rem',
-    borderRadius: '19px',
-    marginBottom: '1rem',
-    display: 'flex',
-    flexFlow: 'column',
-    padding: '1rem 1.5rem 1rem 1.5rem',
-    boxShadow: 3,
-  };
+const parentBoxStyle: SxProps<Theme> = {
+  width: { xs: '100%', sm: '100%', md: '70%' },
+  maxWidth: '40rem',
+  height: 'max-content',
+  display: 'flex',
+  flexFlow: 'column',
+  padding: '1.5rem 1.5rem 3.5rem 1.5rem',
+  boxSizing: 'border-box',
+  alignItems: { xs: 'center', sm: 'center', md: 'start' },
+};
 
+const styleCards: SxProps<Theme> = {
+  backgroundColor: '#d9d9d9',
+  width: { xs: '100%', sm: '100%', md: '70%' },
+  height: 'max-content',
+  borderRadius: '19px',
+  marginBottom: '1rem',
+  display: 'flex',
+  flexFlow: 'column',
+  padding: '1rem 1.5rem 1rem 1.5rem',
+  boxShadow: 3,
+};
+
+export default function HistoryVisits({ pet }: {pet: Pet}) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box sx={parentBoxStyle}>
       <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', py: 1 }}>
         Вакцинация / Обработка:
       </Typography>
@@ -29,7 +42,7 @@ export default function HistoryVisits({ pet }: {pet: Pet}) {
             {` ${el.drugName}`}
           </Typography>
           <Typography
-            variant="h6"
+            variant="body1"
             component="span"
           >
             <b> Дата обработки: </b>
@@ -41,44 +54,53 @@ export default function HistoryVisits({ pet }: {pet: Pet}) {
       <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', py: 1 }}>
         История визитов:
       </Typography>
-      {pet.Visits.map((el) => (
+      {pet.Visit && pet.Visit.map((el) => (
         <Box className="container" key={el.id} sx={styleCards}>
-          <Typography
+          {/* <Typography
             variant="h6"
             component="div"
             // sx={{ fontWeight: 'bold' }}
           >
             <b> Врач: </b>
             {` ${el.doctor.first_name} ${el.doctor.last_name}`}
-          </Typography>
+          </Typography> */}
 
           <Box
             sx={{
               display: 'flex',
+              flexDirection: 'column',
               justifyContent: 'space-between',
               // mx: '1rem',
             }}
           >
             <Typography
-              variant="p"
+              variant="body1"
               component="span"
               // sx={{ fontWeight: 'bold' }}
             >
               <b> Дата визита: </b>
-              {` ${new Date(el.visit_date).toLocaleDateString()}`}
+              {` ${new Date(el.visitDate).toLocaleDateString()}`}
             </Typography>
 
             <Typography
-              variant="p"
+              variant="body1"
               component="span"
               // sx={{ fontWeight: 'bold' }}
             >
               <b>  Диагноз:</b>
               {` ${el.diagnose}`}
             </Typography>
+            <Typography
+              variant="body1"
+              component="span"
+              // sx={{ fontWeight: 'bold' }}
+            >
+              <b>  Лечение:</b>
+              {` ${el.treatment}`}
+            </Typography>
           </Box>
         </Box>
       ))}
-    </div>
+    </Box>
   );
 }

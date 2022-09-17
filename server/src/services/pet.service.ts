@@ -23,6 +23,7 @@ class PetService {
         chronicDiseases: true,
         allergies: true,
         vaccinations: true,
+        Visit: true,
       },
     });
     return pet;

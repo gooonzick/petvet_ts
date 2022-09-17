@@ -6,10 +6,23 @@ export interface CustomError {
 }
 
 export interface Vaccinations {
-  id: number
+  id?: number
   description: string
   drugName: string
   drugDate: string | null
+}
+
+export interface Visit {
+  id: number
+  docId: number
+  userId: number
+  visitDate: Date
+  description: string
+  diagnose: string
+  treatment: string
+  petId: number
+  createdAt: Date
+  updatedAt: Date
 }
 
 export interface ChronicDiseaseAllergy{
@@ -32,6 +45,7 @@ export interface Pet {
   allergies: ChronicDiseaseAllergy[],
   chronicDiseases: ChronicDiseaseAllergy[],
   vaccinations: Vaccinations[],
+  Visit?: Visit[]
 }
 
 export interface PetForm extends Pet {
