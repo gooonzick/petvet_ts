@@ -1,16 +1,13 @@
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
-  Box, Button, SxProps, Theme,
+  Box, SxProps, Theme,
 } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { useGetOnePetQuery } from '../../redux/api/pet.api';
-import { RootState } from '../../redux/store';
 import Loader from '../../components/Loader/Loader';
 import PetProfile from '../../components/PetProfile/PetProfile';
 import PageSelector from '../../components/PetProfile/PageSelector';
 import HistoryVisits from '../../components/PetProfile/PetHistory';
-import AddNewInfo from '../../components/PetProfile/AddNewInfo';
 
 const pageWraperBoxStyle: SxProps<Theme> = {
   padding: '1rem',
@@ -34,7 +31,6 @@ function PetProfilePage() {
       <PageSelector page={page} clickHandler={clickHandler} />
       {page === 1 && pet && <PetProfile pet={pet} />}
       {page === 2 && pet && <HistoryVisits pet={pet} />}
-      {page === 3 && pet && <AddNewInfo pet={pet} />}
     </Box>
   );
 }

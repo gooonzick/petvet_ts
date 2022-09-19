@@ -1,5 +1,7 @@
 import {
-  Box, Button, FormControl, InputLabel, MenuItem, Select, SxProps, TextField, Theme, Typography,
+  Box, Button, FormControl, Grow,
+  InputLabel, MenuItem, Modal, Select, SxProps,
+  TextField, Theme, Typography,
 } from '@mui/material';
 import {
   ChangeEvent, CSSProperties, forwardRef, useCallback, useEffect, useState,
@@ -47,9 +49,6 @@ const validateHandler = (key: string, form: any): boolean => {
 };
 
 const modalStyle: SxProps<Theme> = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '80%',
   maxWidth: '400px',
@@ -59,9 +58,10 @@ const modalStyle: SxProps<Theme> = {
   boxShadow: 24,
   padding: 4,
 };
+
 const textFieldStyle: SxProps<Theme> = { marginBottom: '6px' };
 
-function NewPetInfo() {
+function NewPetInfo({ open, closeHandler }: {open: boolean, closeHandler: () => void}) {
   const [newData, setNewData] = useState<any>(null);
   const [type, setType] = useState('');
   const [valid, setValid] = useState(false);
@@ -89,52 +89,61 @@ function NewPetInfo() {
   }, []);
 
   return (
-    <Box sx={modalStyle}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Что случилось?</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={type ?? ''}
-          label="Что случилось?"
-          onChange={(e) => changeHandler(e.target.value)}
-        >
-          <MenuItem value="visit">Визит врача</MenuItem>
-          <MenuItem value="allergy">Аллергия</MenuItem>
-          <MenuItem value="chronicDiseases">Хроническая болезнь</MenuItem>
-          <MenuItem value="vaccinations">Вакцинация/Обработка</MenuItem>
-        </Select>
-      </FormControl>
-      <Box sx={{ marginTop: '0.5rem' }}>
-        {type === 'chronicDiseases' && (
-          <>
-            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Хронические болезни</Typography>
-            <TextField
-              id="petallergies"
-              label="Болезнь"
-              variant="standard"
-              name="name"
-              type="text"
-              fullWidth
-              onChange={(e: ChangeEvent<HTMLInputElement>) => inputHandler(e, 'chronicDiseases')}
-            />
-          </>
-        )}
-        { type === 'allergy' && (
-          <>
-            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Аллергия</Typography>
-            <TextField
-              id="petallergies"
-              label="Аллергия"
-              variant="standard"
-              name="name"
-              type="text"
-              fullWidth
-              onChange={(e: ChangeEvent<HTMLInputElement>) => inputHandler(e, 'allergy')}
-            />
-          </>
-        )}
-        {type === 'vaccinations'
+    <Modal
+      open={open}
+      onClose={closeHandler}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+    >
+      <Grow in={open}>
+        <Box sx={modalStyle}>
+          <Box>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Что случилось?</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={type ?? ''}
+                label="Что случилось?"
+                onChange={(e) => changeHandler(e.target.value)}
+              >
+                <MenuItem value="visit">Визит врача</MenuItem>
+                <MenuItem value="allergy">Аллергия</MenuItem>
+                <MenuItem value="chronicDiseases">Хроническая болезнь</MenuItem>
+                <MenuItem value="vaccinations">Вакцинация/Обработка</MenuItem>
+              </Select>
+            </FormControl>
+            <Box sx={{ marginTop: '0.5rem' }}>
+              {type === 'chronicDiseases' && (
+                <>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Хронические болезни</Typography>
+                  <TextField
+                    id="petallergies"
+                    label="Болезнь"
+                    variant="standard"
+                    name="name"
+                    type="text"
+                    fullWidth
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => inputHandler(e, 'chronicDiseases')}
+                  />
+                </>
+              )}
+              { type === 'allergy' && (
+                <>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Аллергия</Typography>
+                  <TextField
+                    id="petallergies"
+                    label="Аллергия"
+                    variant="standard"
+                    name="name"
+                    type="text"
+                    fullWidth
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => inputHandler(e, 'allergy')}
+                  />
+                </>
+              )}
+              {type === 'vaccinations'
       && (
         <>
           <TextField
@@ -169,7 +178,7 @@ function NewPetInfo() {
           />
         </>
       )}
-        {type === 'visit'
+              {type === 'visit'
       && (
         <>
           <TextField
@@ -215,17 +224,20 @@ function NewPetInfo() {
         </>
 
       )}
-      </Box>
-      <Button
-        type="submit"
-        variant="contained"
-        sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}
-        disabled={!valid}
-      >
-        Добавить
-      </Button>
-    </Box>
+            </Box>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}
+              disabled={!valid}
+            >
+              Добавить
+            </Button>
+          </Box>
+        </Box>
+      </Grow>
+    </Modal>
   );
 }
 
-export default forwardRef(NewPetInfo);
+export default NewPetInfo;

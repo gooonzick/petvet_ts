@@ -9,7 +9,7 @@ const buttonsWraperStyle: SxProps<Theme> = {
   display: 'flex',
   flexDirection: { xs: 'row', sm: 'row', md: 'column' },
   justifyContent: { xs: 'center', sm: 'center' },
-  width: { xs: '100%', sm: '100%', md: 'max-content' },
+  width: { xs: '100%', sm: '100%', md: '120px' },
   gap: '3px',
   marginBottom: { xs: '0.5rem', sm: '0.5rem', md: 'column' },
 };
@@ -44,14 +44,6 @@ function PageSelector({ page, clickHandler }: {
         key="two"
       >
         История
-      </Button>
-      <Button
-        onClick={() => clickHandler(3)}
-        name="newVisit"
-        sx={page === 3 ? { ...btnStyles, backgroundColor: '#fecd45' } : btnStyles}
-        key="three"
-      >
-        Лист приема
       </Button>
     </Box>
   );
