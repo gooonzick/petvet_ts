@@ -1,58 +1,40 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import {
   Button, Container, Step, StepLabel, Stepper, Typography, Box, CircularProgress,
 } from '@mui/material';
+
+import { showError } from '../../redux/slices/errorSlice';
 import { useAddPetMutation } from '../../redux/api/pet.api';
-import { pageOneValidation, pageTwoValidation } from '../../utils/petFormValidation';
-import { showError, hideError } from '../../redux/slices/errorSlice';
+
 import ErrorModal from '../../components/ErrorModal/ErrorModal';
+
 import PetformSetp1 from '../../components/Petform/PetformSetp1';
 import PetformSetp2 from '../../components/Petform/PetformStep2';
-import usePetFormInput from '../../hooks/usePetFormInput';
 import PetformStep3 from '../../components/Petform/PetformStep3';
 
-const steps = ['Основная информация', 'Хронические болезни и аллергии', 'Прививки и обработки'];
-const boxStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  gap: '1rem',
-  width: '80%',
-  margin: 'auto',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
-  borderRadius: '10px',
-  boxShadow: '8px 8px 10px rgba(0, 0, 0, 0.5)',
-  padding: '2rem 2rem 0 2rem',
-  minHeight: '60vh',
-};
+import usePetFormInput from '../../hooks/usePetFormInput';
+
+import { boxStyle } from './styles';
+import { pageOneValidation, pageTwoValidation } from './helpers/petFormValidation';
+import initState from './helpers/initState';
+import steps from './helpers/steps';
 
 function NewPetFormPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [addPet, { isError, isLoading, error }] = useAddPetMutation();
+  const [addPet, { isError, isLoading }] = useAddPetMutation();
   const [activeStep, setActiveStep] = useState(0);
   const [isPetAdd, setIsPetAdd] = useState(false);
   const {
     petForm, simpelInputHandler, arrayInputHandler, removeFromArray, objectInputHandler,
-  } = usePetFormInput({
-    name: '',
-    specie: '',
-    breed: '',
-    sex: 0,
-    birthday: null,
-    weight: '',
-    color: '',
-    sterilized: false,
-    allergies: [],
-    chronicDiseases: [],
-    vaccinations: [],
-  });
+  } = usePetFormInput(initState);
 
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
-      if (isPetAdd) return null;
+      if (isPetAdd) return;
       await addPet(petForm);
       if (!isError) {
         setIsPetAdd(true);
@@ -65,14 +47,13 @@ function NewPetFormPage() {
     }
     if (activeStep === 0 && !pageOneValidation(petForm)) {
       dispatch(showError('Заполните все поля на этом этапе'));
-      return null;
+      return;
     }
     if (activeStep === 1 && !pageTwoValidation(petForm)) {
       dispatch(showError('Заполните информацию о стерелизации'));
-      return null;
+      return;
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    return null;
   };
 
   const handleBack = () => {

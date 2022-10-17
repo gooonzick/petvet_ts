@@ -14,6 +14,10 @@ export const authApi = createApi({
       const { token } = (getState() as RootState).auth;
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
+      } else {
+        const tokenLs = JSON.parse(sessionStorage.getItem('token') ?? '{}');
+        if (!tokenLs) return headers;
+        headers.set('authorization', `Bearer ${tokenLs}`);
       }
       return headers;
     },
@@ -33,7 +37,12 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
+    isAuth: builder.query<UserResponse, void>({
+      query: () => ({
+        url: 'isauth',
+      }),
+    }),
   }),
 });
 
-export const { useSignInMutation, useSignUpMutation } = authApi;
+export const { useSignInMutation, useSignUpMutation, useIsAuthQuery } = authApi;

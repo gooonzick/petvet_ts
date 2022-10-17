@@ -10,16 +10,7 @@ import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import TabPanel from '../../components/TabPanel/TabPanel';
 import { SigninRequest, SignupRequest } from '../../models/models';
 import { RootState } from '../../redux/store';
-
-const mainBox: SxProps<Theme> = {
-  width: { xs: '80%', sm: '80%', md: '40vw' },
-  minHeight: '40vh',
-  maxHeight: 'max-content',
-  margin: '10vh auto',
-  padding: '1rem',
-  borderRadius: '10px',
-  boxShadow: '8px 8px 10px rgba(0,0,0,0.3)',
-};
+import { mainBox } from './styles';
 
 function AuthPage() {
   const user = useSelector((state: RootState) => state.auth.user);

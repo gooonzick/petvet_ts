@@ -24,7 +24,7 @@ function LogInForm(props: {
       const user = await signIn(form).unwrap();
       dispatch(setCredentials(user));
       localStorage.setItem('user', JSON.stringify(user.user));
-      sessionStorage.setItem('token', user.token);
+      sessionStorage.setItem('token', JSON.stringify(user.token));
       navigate('/profile');
     } catch (e) {
       if (e instanceof Error) {

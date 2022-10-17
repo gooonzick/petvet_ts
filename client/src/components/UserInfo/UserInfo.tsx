@@ -57,6 +57,7 @@ function UserInfo({ user, editable }: Props) {
         break;
     }
   }, []);
+
   return (
     <Box sx={parentBoxStyle}>
       <Avatar

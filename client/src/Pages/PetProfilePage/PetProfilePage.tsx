@@ -1,18 +1,16 @@
-import { useParams } from 'react-router-dom';
-import {
-  Box, SxProps, Theme,
-} from '@mui/material';
 import { useCallback, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { Box } from '@mui/material';
+
 import { useGetOnePetQuery } from '../../redux/api/pet.api';
+
 import Loader from '../../components/Loader/Loader';
 import PetProfile from '../../components/PetProfile/PetProfile';
 import PageSelector from '../../components/PetProfile/PageSelector';
 import HistoryVisits from '../../components/PetProfile/PetHistory';
 
-const pageWraperBoxStyle: SxProps<Theme> = {
-  padding: '1rem',
-  position: 'relative',
-};
+import { pageWraperBoxStyle } from './styles';
 
 function PetProfilePage() {
   const { id } = useParams();

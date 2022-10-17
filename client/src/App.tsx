@@ -1,10 +1,15 @@
-import { lazy, Suspense, useMemo } from 'react';
+import {
+  lazy, Suspense, useEffect, useMemo,
+} from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import {
+  Navigate, Route, Routes,
+} from 'react-router-dom';
 import Loader from './components/Loader/Loader';
 import NavBar from './components/NavBar/NavBar';
 import PetProfilePage from './pages/PetProfilePage/PetProfilePage';
-import { setCredentials } from './redux/slices/userSlice';
+import { useIsAuthQuery } from './redux/api/auth.api';
+import { setCredentials, signOut } from './redux/slices/userSlice';
 
 const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage'));
 const DocPublic = lazy(() => import('./pages/DocPublicPage/DocPublicPage'));
@@ -13,30 +18,30 @@ const NewPetFormPage = lazy(() => import('./pages/NewPetFormPage/NewPetFormPage'
 const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
 const SchedulePage = lazy(() => import('./pages/SchedulePage/SchedulePage'));
 
-const getAuthState = () => {
-  const userFromStorage = localStorage.getItem('user');
-  const tokenFromStorage = sessionStorage.getItem('token');
-  if (userFromStorage && tokenFromStorage) {
-    return { user: JSON.parse(userFromStorage), token: tokenFromStorage };
-  }
-  return null;
-};
+function HomePage() {
+  return <div>Hi</div>;
+}
 
 function App() {
   const dispath = useDispatch();
-  const authState = getAuthState();
+  const { data, isLoading, isError } = useIsAuthQuery();
 
-  useMemo(() => {
-    if (authState) {
-      dispath(setCredentials(authState));
+  useEffect(() => {
+    if (isError || !data) {
+      dispath(signOut());
+    } else {
+      dispath(setCredentials(data));
     }
-  }, [authState]);
+  }, [isLoading]);
+
+  if (isLoading) return <Loader />;
+
   return (
     <Suspense fallback={<Loader />}>
       <NavBar />
       <Routes>
-        <Route path="/" element={(<div>Hi</div>)} />
-        <Route path="auth" element={<AuthPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/pets/new" element={<NewPetFormPage />} />
         <Route path="/pets/:id" element={<PetProfilePage />} />

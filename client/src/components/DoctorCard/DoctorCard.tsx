@@ -12,7 +12,7 @@ type Props = {
 function DoctorCard({ doc }: Props) {
   const navigate = useNavigate();
   return (
-    <CardActionArea sx={{ marginBottom: '0.5rem' }} onClick={() => navigate(`/vets/${doc.id}`)}>
+    <CardActionArea sx={{ boxShadow: '4px 4px 8px rgba(0,0,0,0.2)' }} onClick={() => navigate(`/vets/${doc.id}`)}>
       <Box>
         <UserInfo user={doc} editable={false} />
       </Box>

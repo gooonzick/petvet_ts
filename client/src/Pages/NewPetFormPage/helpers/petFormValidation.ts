@@ -1,4 +1,4 @@
-import { Pet } from '../models/models';
+import { Pet } from '../../../models/models';
 
 export const pageOneValidation = (state: Pet) => {
   if (
