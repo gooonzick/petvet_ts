@@ -10,7 +10,7 @@ export const petApi = createApi({
   reducerPath: 'petapi',
   tagTypes: ['Pets'],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.REACT_APP_HOST}/pets`,
+    baseUrl: `${import.meta.env.VITE_APP_HOST}/pets`,
     prepareHeaders: (headers, { getState }) => {
       const { token } = (getState() as RootState).auth;
       if (token) {

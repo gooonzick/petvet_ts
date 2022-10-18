@@ -6,7 +6,7 @@ import { CatergoryProfile, CustomError } from '../../models/models';
 export const profileApi = createApi({
   reducerPath: 'profileapi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.REACT_APP_HOST}/profiles`,
+    baseUrl: `${import.meta.env.VITE_APP_HOST}/profiles`,
   }) as BaseQueryFn<string | FetchArgs, unknown, CustomError>,
   endpoints: (builder) => ({
     getAllProfiles: builder.query<CatergoryProfile[], void>({

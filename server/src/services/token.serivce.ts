@@ -9,7 +9,7 @@ export default class TokenService {
   static createToken(user: User) {
     const token = jwt.sign(
       { userId: user.id, userGroup: user.userGroupId },
-      String(process.env.TOKEN_SECRET).toString(),
+      String(import.meta.env.TOKEN_SECRET).toString(),
       { expiresIn: '14d' },
     );
     return token;
@@ -19,7 +19,7 @@ export default class TokenService {
     try {
       const user = jwt.verify(
         token,
-        String(process.env.TOKEN_SECRET).toString(),
+        String(import.meta.env.TOKEN_SECRET).toString(),
       ) as Token;
       return user;
     } catch (error) {

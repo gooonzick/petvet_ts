@@ -14,7 +14,7 @@ type DocFilter = {
 export const docApi = createApi({
   reducerPath: 'docapi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.REACT_APP_HOST}/docs`,
+    baseUrl: `${import.meta.env.VITE_APP_HOST}/docs`,
     prepareHeaders: (headers, { getState }) => {
       const { token } = (getState() as RootState).auth;
       if (token) {
