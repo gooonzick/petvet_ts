@@ -1,14 +1,13 @@
-import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import DocCategories from '../../../components/DocProfileInfo/DocCategories';
-import DocExperience from '../../../components/DocProfileInfo/DocExperience';
-import UserInfo from '../../../components/UserInfo/UserInfo';
-import { Doctor } from '../../../models/models';
+import DocCategories from '@/components/DocProfileInfo/DocCategories';
+import DocExperience from '@/components/DocProfileInfo/DocExperience';
+import UserInfo from '@/components/UserInfo/UserInfo';
+import { Doctor } from '@/models/models';
 
-import { RootState } from '../../../redux/store';
-import DocProfiles from '../../../components/DocProfileInfo/DocProfiles';
-import DocPriceList from '../../../components/DocProfileInfo/DocPriceList';
+import { RootState } from '@/redux/store';
+import DocProfiles from '@/components/DocProfileInfo/DocProfiles';
+import DocPriceList from '@/components/DocProfileInfo/DocPriceList';
 
 function DocProfilePage() {
   const user = useSelector((store: RootState) => store.auth.user) as Doctor;

@@ -1,10 +1,10 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import {
-  TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography, SxProps, Theme,
+  TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography
 } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
-import { PetForm } from '../../models/models';
-import WordCard from '../WordCard/WordCard';
+import { PetForm } from '@/models/models';
+import WordCard from '@/components/WordCard/WordCard';
+import { parentBoxStyle } from './styles';
 
 type Props = {
   petForm: PetForm,
@@ -13,20 +13,6 @@ type Props = {
     arrayInputHandler: (e: any, key: 'vaccinations' | 'chronicDiseases' | 'allergies') => void,
     removeFromArray: (property: 'vaccinations' | 'chronicDiseases' | 'allergies', removeIndex: number) => void,
   }
-};
-
-const parentBoxStyle: SxProps<Theme> = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  gap: '1rem',
-  width: '80%',
-  margin: 'auto',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
-  borderRadius: '10px',
-  boxShadow: '8px 8px 10px rgba(0, 0, 0, 0.5)',
-  padding: '2rem 2rem 0 2rem',
-  minHeight: '60vh',
 };
 
 function PetformStep2({ petForm, inputHandler }: Props) {

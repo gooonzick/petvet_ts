@@ -6,16 +6,14 @@ import {
   Button, Container, Step, StepLabel, Stepper, Typography, Box, CircularProgress,
 } from '@mui/material';
 
-import { showError } from '../../redux/slices/errorSlice';
-import { useAddPetMutation } from '../../redux/api/pet.api';
+import { showError } from '@/redux/slices/errorSlice';
+import { useAddPetMutation } from '@/redux/api/pet.api';
 
-import ErrorModal from '../../components/ErrorModal/ErrorModal';
+import ErrorModal from '@/components/ErrorModal/ErrorModal';
 
-import PetformSetp1 from '../../components/Petform/PetformSetp1';
-import PetformSetp2 from '../../components/Petform/PetformStep2';
-import PetformStep3 from '../../components/Petform/PetformStep3';
+import { PetformSetp1, PetformStep2, PetformStep3 } from '@/components/Petform';
 
-import usePetFormInput from '../../hooks/usePetFormInput';
+import usePetFormInput from '@/hooks/usePetFormInput';
 
 import { boxStyle } from './styles';
 import { pageOneValidation, pageTwoValidation } from './helpers/petFormValidation';
@@ -78,7 +76,7 @@ function NewPetFormPage() {
           />
         )}
         {activeStep === 1 && (
-          <PetformSetp2
+          <PetformStep2
             petForm={petForm}
             inputHandler={{ simpelInputHandler, arrayInputHandler, removeFromArray }}
           />

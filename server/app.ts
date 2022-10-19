@@ -11,7 +11,7 @@ import userRouter from './src/routes/user.route';
 dotenv.config();
 
 const app: Express = express();
-const PORT = import.meta.env.PORT ?? 3000;
+const PORT = process.env.PORT ?? 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

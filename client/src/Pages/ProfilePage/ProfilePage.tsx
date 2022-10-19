@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { useSelector } from 'react-redux';
-import { User } from '../../models/models';
-import { RootState } from '../../redux/store';
+import { User } from '@/models/models';
+import { RootState } from '@/redux/store';
 
 const UserProfilePage = lazy(() => import('./blocks/UserProfilePage'));
 const DocProfilePage = lazy(() => import('./blocks/DocProfilePage'));

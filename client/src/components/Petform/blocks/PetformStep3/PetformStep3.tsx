@@ -4,8 +4,10 @@ import {
 import {
   TextField, Box, Typography, Button, SxProps, Theme,
 } from '@mui/material';
-import VacCard from '../VacCard/VacCard';
-import { Pet, Vaccinations } from '../../models/models';
+import VacCard from '@/components/VacCard/VacCard';
+import { Pet, Vaccinations } from '@/models/models';
+import { parentBoxStyle, textFieldStyle, tytleStyle, vacFormStyle } from './styles';
+import { initState } from './helpers/constants';
 
 type Props = {
   petForm: Pet,
@@ -17,34 +19,10 @@ type Props = {
   }
 };
 
-const parentBoxStyle: SxProps<Theme> = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  gap: '1rem',
-  width: '80%',
-  margin: 'auto',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
-  borderRadius: '10px',
-  boxShadow: '8px 8px 10px rgba(0, 0, 0, 0.5)',
-  padding: '2rem 2rem 0 2rem',
-  minHeight: '60vh',
-};
-
-const tytleStyle: SxProps<Theme> = { fontWeight: 'bold' };
-
-const textFieldStyle: SxProps<Theme> = { width: '100%' };
-
-const vacFormStyle: CSSProperties = { width: '80%', margin: '2rem auto' };
-
 function PetformStep3({ petForm, inputHandler }: Props) {
-  const [vac, setVac] = useState<Vaccinations>({
-    description: '',
-    drugName: '',
-    drugDate: null,
-  });
-
+  const [vac, setVac] = useState<Vaccinations>(initState);
   const [focus, setFocused] = useState(false);
+
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
 
@@ -56,11 +34,7 @@ function PetformStep3({ petForm, inputHandler }: Props) {
     e.preventDefault();
     if (vac.description === '' || vac.drugDate === null || vac.drugName === '') return;
     inputHandler.objectInputHandler('vaccinations', vac);
-    setVac({
-      description: '',
-      drugName: '',
-      drugDate: null,
-    });
+    setVac(initState);
   };
 
   return (
@@ -116,7 +90,6 @@ function PetformStep3({ petForm, inputHandler }: Props) {
           sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}
         >
           Добавить
-
         </Button>
       </form>
     </Box>

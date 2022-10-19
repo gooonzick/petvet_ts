@@ -1,15 +1,17 @@
 import {
-  Box, SxProps, Tab, Tabs, Theme,
+  Box, Tab, Tabs,
 } from '@mui/material';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import ErrorModal from '../../components/ErrorModal/ErrorModal';
-import LogInForm from '../../components/LogInForm/LogInForm';
-import SignUpForm from '../../components/SignUpForm/SignUpForm';
-import TabPanel from '../../components/TabPanel/TabPanel';
-import { SigninRequest, SignupRequest } from '../../models/models';
-import { RootState } from '../../redux/store';
+
+import ErrorModal from '@/components/ErrorModal/ErrorModal';
+import LogInForm from '@/components/LogInForm/LogInForm';
+import SignUpForm from '@/components/SignUpForm/SignUpForm';
+import TabPanel from '@/components/TabPanel/TabPanel';
+
+import { SigninRequest, SignupRequest } from '@/models/models';
+import { RootState } from '@/redux/store';
 import { mainBox } from './styles';
 
 function AuthPage() {

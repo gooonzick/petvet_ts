@@ -5,10 +5,10 @@ import { Box } from '@mui/material';
 
 import { useGetOnePetQuery } from '../../redux/api/pet.api';
 
-import Loader from '../../components/Loader/Loader';
-import PetProfile from '../../components/PetProfile/PetProfile';
-import PageSelector from '../../components/PetProfile/PageSelector';
-import HistoryVisits from '../../components/PetProfile/PetHistory';
+import Loader from '@/components/Loader/Loader';
+import PetProfile from '@/components/PetProfile/PetProfile';
+import PageSelector from '@/components/PetProfile/PageSelector';
+import HistoryVisits from '@/components/PetProfile/PetHistory';
 
 import { pageWraperBoxStyle } from './styles';
 

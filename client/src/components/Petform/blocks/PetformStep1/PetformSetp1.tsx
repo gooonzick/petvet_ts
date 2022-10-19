@@ -1,29 +1,14 @@
-import React, { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import {
   TextField, Box, FormControl, InputLabel, Select, MenuItem, SxProps, Theme,
 } from '@mui/material';
-import { Pet } from '../../models/models';
+import { Pet } from '@/models/models';
+import { parentBoxStyle, sexAndWeightInputStyle } from './styles';
 
 type Props = {
   petForm: Pet,
   inputHandler: (e: any) => void
 }
-
-const parentBoxStyle: SxProps<Theme> = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  gap: '1rem',
-  width: '80%',
-  margin: 'auto',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
-  borderRadius: '10px',
-  boxShadow: '8px 8px 10px rgba(0, 0, 0, 0.5)',
-  padding: '2rem 2rem 0 2rem',
-  minHeight: '60vh',
-};
-
-const sexAndWeightInputStyle: SxProps<Theme> = { width: '48%' };
 
 function PetformSetp1({ petForm, inputHandler }: Props) {
   const [focus, setFocused] = useState(false);

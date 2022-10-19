@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
-import DocFilterPanel from '../../components/DocFilterPanel/DocFilterPanel';
-import DoctorCardList from '../../components/DoctorCardList/DoctorCardList';
-import Loader from '../../components/Loader/Loader';
-import SearchInput from '../../components/SearchInput/SearchInput';
-import useFilterDoc from '../../hooks/useFilterDoc';
-import { useGetAllDocsQuery } from '../../redux/api/doc.api';
+import DocFilterPanel from '@/components/DocFilterPanel/DocFilterPanel';
+import DoctorCardList from '@/components/DoctorCardList/DoctorCardList';
+import Loader from '@/components/Loader/Loader';
+import SearchInput from '@/components/SearchInput/SearchInput';
+import useFilterDoc from '@/hooks/useFilterDoc';
+import { useGetAllDocsQuery } from '@/redux/api/doc.api';
 import {
   docListBoxStyle, filterBoxStyle, parentBoxStyle, wraperBoxStyle,
 } from './styles';

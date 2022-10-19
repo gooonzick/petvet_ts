@@ -3,11 +3,11 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Loader from '../../components/Loader/Loader';
-import PriceListModal from '../../components/PriceListModal/PriceListModal';
-import UserInfo from '../../components/UserInfo/UserInfo';
-import WordCard from '../../components/WordCard/WordCard';
-import { useGetOneDocQuery } from '../../redux/api/doc.api';
+import Loader from '@/components/Loader/Loader';
+import PriceListModal from '@/components/PriceListModal/PriceListModal';
+import UserInfo from '@/components/UserInfo/UserInfo';
+import WordCard from '@/components/WordCard/WordCard';
+import { useGetOneDocQuery } from '@/redux/api/doc.api';
 import {
   buttonBoxStyle,
   descriptionStyle,

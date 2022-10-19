@@ -1,6 +1,6 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
-import TabPanel from '../../components/TabPanel/TabPanel';
+import TabPanel from '@/components/TabPanel/TabPanel';
 import { mainBox, tabPanelStyle } from './styles';
 
 function SchedulePage() {
