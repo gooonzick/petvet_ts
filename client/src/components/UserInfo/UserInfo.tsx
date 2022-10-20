@@ -22,6 +22,7 @@ const parentBoxStyle: SxProps<Theme> = {
   gap: 2,
   flexDirection: { xs: 'column', sm: 'row', md: 'row' },
   justifyContent: { xs: 'center', sm: 'start', md: 'start' },
+  width: '100%',
   boxSizing: 'border-box',
   boxShadow: '4px 4px 8px rgba(0,0,0,0.2)',
   borderRadius: '8px',

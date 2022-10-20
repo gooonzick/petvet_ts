@@ -6,8 +6,6 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -16,50 +14,24 @@ module.exports = {
     },
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: 'tsconfig.eslint.json',
+    tsconfigRootDir: './',
   },
   plugins: [
     'react',
     '@typescript-eslint',
-    'eslint-plugin-import',
   ],
   settings: {
     'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
+        'node': {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          moduleDirectory: ['node_modules', 'src/'],
+        },
     },
   },
   rules: {
-    indent: 'off',
-    '@typescript-eslint/indent': [
-      'error',
-      2,
-    ],
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-      {
-        ignore: ['.ts', '.tsx'],
-      },
-    ],
-    'import/no-unresolved': [
-      'error',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-      {
-        ignore: ['.ts', '.tsx'],
-      },
-    ],
+    'import/no-unresolved': 0,
+    'import/extensions': 0,
     'react/jsx-filename-extension': 0,
     'jsx-a11y/click-events-have-key-events': 0,
     'react/prop-types': 0,
@@ -69,6 +41,5 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 0,
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/no-static-element-interactions': 0,
-    'react/require-default-props': 'off',
   },
 };

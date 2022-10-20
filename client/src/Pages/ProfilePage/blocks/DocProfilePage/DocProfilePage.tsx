@@ -8,14 +8,15 @@ import { Doctor } from '@/models/models';
 import { RootState } from '@/redux/store';
 import DocProfiles from '@/components/DocProfileInfo/DocProfiles';
 import DocPriceList from '@/components/DocProfileInfo/DocPriceList';
+import { boxWrapperStyle, parentBoxStyle } from './syles';
 
 function DocProfilePage() {
   const user = useSelector((store: RootState) => store.auth.user) as Doctor;
 
   return (
-    <Box sx={{ padding: '2rem 3rem' }}>
+    <Box sx={parentBoxStyle}>
       <UserInfo editable user={user} />
-      <Box sx={{ marginTop: '2rem' }}>
+      <Box sx={boxWrapperStyle}>
         <DocExperience text={user.docInfo?.experience} />
         <DocCategories categories={user.categories} />
         <DocProfiles profiles={user.profiles} />

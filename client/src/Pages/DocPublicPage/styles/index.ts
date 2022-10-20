@@ -47,5 +47,7 @@ export const buttonBoxStyle: SxProps<Theme> = {
   position: 'fixed',
   top: { md: '80px' },
   bottom: { xs: '30px', sm: '30px', md: '' },
-  right: { md: '30px' },
+  right: {xs: '0', sm: '0', md: '30px' },
 };
+
+export const buttonBoxWrapperStyle: SxProps<Theme> = {height: '15%'};

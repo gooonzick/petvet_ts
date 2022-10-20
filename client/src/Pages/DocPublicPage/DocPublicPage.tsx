@@ -10,6 +10,7 @@ import WordCard from '@/components/WordCard/WordCard';
 import { useGetOneDocQuery } from '@/redux/api/doc.api';
 import {
   buttonBoxStyle,
+  buttonBoxWrapperStyle,
   descriptionStyle,
   mainBoxStyle,
   titleStyle,
@@ -62,16 +63,18 @@ function DocPublicPage() {
               <Typography variant="h6">Описание</Typography>
               <Typography variant="body1">{data.docInfo.experience}</Typography>
             </Box>
-          </Box>
-          <Box sx={buttonBoxStyle}>
-            <Button
-              variant="outlined"
-              sx={{ backgroundColor: 'white' }}
-              onClick={() => setModals((prev) => ({ ...prev, priceList: true }))}
-            >
-              Прайс лист
-            </Button>
-            <Button variant="contained">Записаться</Button>
+            <Box sx={buttonBoxWrapperStyle}>
+              <Box sx={buttonBoxStyle}>
+                <Button
+                  variant="outlined"
+                  sx={{ backgroundColor: 'white' }}
+                  onClick={() => setModals((prev) => ({ ...prev, priceList: true }))}
+                >
+                  Прайс лист
+                </Button>
+                <Button variant="contained">Записаться</Button>
+              </Box>
+            </Box>
           </Box>
           {modals.priceList && (
             <PriceListModal

@@ -1,22 +1,22 @@
 import {
-  lazy, Suspense, useEffect, useMemo,
+  lazy, Suspense, useEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Navigate, Route, Routes,
+  Route, Routes,
 } from 'react-router-dom';
-import Loader from './components/Loader/Loader';
-import NavBar from './components/NavBar/NavBar';
-import PetProfilePage from './pages/PetProfilePage/PetProfilePage';
-import { useIsAuthQuery } from './redux/api/auth.api';
+import Loader from '@/components/Loader/Loader';
+import NavBar from '@/components/NavBar/NavBar';
+import PetProfilePage from '@/pages/PetProfilePage/PetProfilePage';
+import { useIsAuthQuery } from '@/redux/api/auth.api';
 import { setCredentials, signOut } from './redux/slices/userSlice';
 
-const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage'));
-const DocPublic = lazy(() => import('./pages/DocPublicPage/DocPublicPage'));
-const DocSearch = lazy(() => import('./pages/DocSearchPage/DocSearch'));
-const NewPetFormPage = lazy(() => import('./pages/NewPetFormPage/NewPetFormPage'));
-const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
-const SchedulePage = lazy(() => import('./pages/SchedulePage/SchedulePage'));
+const AuthPage = lazy(() => import('@/pages/AuthPage/AuthPage'));
+const DocPublic = lazy(() => import('@/pages/DocPublicPage/DocPublicPage'));
+const DocSearch = lazy(() => import('@/pages/DocSearchPage/DocSearch'));
+const NewPetFormPage = lazy(() => import('@/pages/NewPetFormPage/NewPetFormPage'));
+const ProfilePage = lazy(() => import('@/pages/ProfilePage/ProfilePage'));
+const SchedulePage = lazy(() => import('@/pages/SchedulePage/SchedulePage'));
 
 function HomePage() {
   return <div>Hi</div>;
