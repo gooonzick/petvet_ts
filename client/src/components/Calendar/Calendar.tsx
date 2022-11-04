@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import TextField from '@mui/material/TextField';
 import { MobileDatePicker, PickersDay, PickersDayProps } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 import { styles } from './styles';
 import { Props } from './types';
@@ -17,7 +17,9 @@ const isWeekend = (date: Dayjs) => {
   return day === 0 || day === 6;
 };
 
-export default function Calendar({ date, setDate, busyDays }:Props) {
+export default function Calendar({ selectedDate, setSelectedDate, busyDays }:Props) {
+  const [date, setDate] = useState<Dayjs>(selectedDate);
+
   const renderDots = useCallback((
     day: Dayjs,
     selectedDays: Array<Dayjs | null>,
@@ -43,6 +45,10 @@ export default function Calendar({ date, setDate, busyDays }:Props) {
     }
   }, [setDate]);
 
+  const onAcceptHandler = useCallback(() => {
+    setSelectedDate(date);
+  }, [date, setSelectedDate]);
+
   // return (
   //   <LocalizationProvider dateAdapter={AdapterDayjs}>
   //     <StaticDatePicker
@@ -63,6 +69,7 @@ export default function Calendar({ date, setDate, busyDays }:Props) {
         inputFormat="MM/DD/YYYY"
         value={date}
         onChange={onChangeHandler}
+        onAccept={onAcceptHandler}
         renderInput={(params) => <TextField {...params} />}
         renderDay={renderDots}
       />

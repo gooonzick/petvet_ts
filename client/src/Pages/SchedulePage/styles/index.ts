@@ -10,3 +10,9 @@ export const mainBox: SxProps<Theme> = {
 };
 
 export const tabPanelStyle: SxProps<Theme> = { borderBottom: 1, borderColor: 'divider' };
+
+export const dateSlotButtonStyle: SxProps<Theme> = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+};
