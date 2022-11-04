@@ -8,6 +8,7 @@ import { docApi } from './api/doc.api';
 import { categoryApi } from './api/category.api';
 import { profileApi } from './api/profile.api';
 import { userApi } from './api/user.api';
+import { shcedulesApi } from './api/schedules.api';
 
 const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
+    [shcedulesApi.reducerPath]: shcedulesApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat([
@@ -28,6 +30,7 @@ const store = configureStore({
       userApi.middleware,
       categoryApi.middleware,
       profileApi.middleware,
+      shcedulesApi.middleware,
     ]),
 });
 

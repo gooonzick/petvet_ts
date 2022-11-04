@@ -1,29 +1,27 @@
-import { Box, Tab, Tabs } from '@mui/material';
-import { SyntheticEvent, useState } from 'react';
-import TabPanel from '@/components/TabPanel/TabPanel';
-import { mainBox, tabPanelStyle } from './styles';
+import { Box, Typography } from '@mui/material';
+import { useState } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+import { mainBox } from './styles';
+import Calendar from '@/components/Calendar/Calendar';
+import { useGetAllSchedulesQuery } from '@/redux/api/schedules.api';
+import ScheduleCard from '@/components/ScheduleCard/ScheduleCard';
 
 function SchedulePage() {
-  const [tabIndex, setTabIndex] = useState(0);
+  const [day, setDay] = useState<Dayjs>(dayjs());
+  const { data } = useGetAllSchedulesQuery(day.format('YYYY-MM-DD'));
 
-  const tabChangeHandler = (event: SyntheticEvent, newValue: number) => {
-    setTabIndex(newValue);
-  };
+  console.log(data);
+
   return (
     <Box sx={mainBox}>
-      <Box sx={tabPanelStyle}>
-        <Tabs value={tabIndex} onChange={tabChangeHandler}>
-          <Tab label="Вход" />
-          <Tab label="Регистрация" />
-        </Tabs>
-      </Box>
-
-      <TabPanel value={tabIndex} index={0}>
-        Bla
-      </TabPanel>
-      <TabPanel value={tabIndex} index={1}>
-        Bla2
-      </TabPanel>
+      <Calendar
+        date={day}
+        setDate={setDay}
+        busyDays={[{ date_of_receipt: dayjs('2022-10-26') }, { date_of_receipt: dayjs('2022-10-27') }]}
+      />
+      {data
+      && data.length > 0
+      && data.map((scheduleItem) => <ScheduleCard schudleItem={scheduleItem} />)}
     </Box>
   );
 }

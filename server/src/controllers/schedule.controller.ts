@@ -1,0 +1,24 @@
+/* eslint-disable import/prefer-default-export */
+import { Response, Request } from 'express';
+import { AuthLocals } from '../models/models';
+import ScheduleService from '../services/schedule.service';
+
+export default class ScheduleController {
+  static async getAllSchedules(
+    req: Request<{}, any, any, {date: string}>,
+    res: Response<any, AuthLocals>,
+  ) {
+    const { userId } = res.locals;
+    const { date } = req.query;
+    try {
+      const schedules = await ScheduleService.getAllSchedules(userId, new Date(date));
+      return res.json(schedules);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+        return res.status(500).json({ message: error.message });
+      }
+      return res.status(500).json({ message: 'Ошибка сервера' });
+    }
+  }
+}

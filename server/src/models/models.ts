@@ -39,3 +39,8 @@ export interface IDocFilterQuery {
   categoryId: string
   userName: string
 }
+
+export interface AuthLocals {
+  userId: number
+  userGroup: number
+}

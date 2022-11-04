@@ -117,3 +117,18 @@ export interface CatergoryProfile {
   id: number
   name: string
 }
+
+export interface Scheules {
+  id: number
+  dateOfReceipt: string
+  pet: {
+    id: number
+    name: string
+    specie: string
+  }
+  user: {
+    id: number
+    name: string
+    phone: string
+  }
+}

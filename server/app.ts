@@ -7,6 +7,7 @@ import docRouter from './src/routes/doc.route';
 import categoryRouter from './src/routes/category.route';
 import profileRouter from './src/routes/profile.route';
 import userRouter from './src/routes/user.route';
+import scheduleRouter from './src/routes/schedule.route';
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use('/api/v1/docs', docRouter);
 app.use('/api/v1/categories', categoryRouter);
 app.use('/api/v1/profiles', profileRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/schedules', scheduleRouter);
 
 app.listen(PORT, () => {
   console.log(`⚡️ Server started at port ${PORT}`);
