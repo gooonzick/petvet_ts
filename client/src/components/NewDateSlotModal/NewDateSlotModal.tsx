@@ -18,7 +18,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: '50%',
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
@@ -30,16 +30,20 @@ type Props = {
 }
 
 function NewDateSlotModal({ open, onClose }:Props) {
-  const [slotType, setNewSlotType] = useState(NewSlotType.default);
-  const [startDate, setStartDate] = useState<Dayjs>(dayjs());
-  const [endDate, setEndDate] = useState<Dayjs>(dayjs().add(1, 'day'));
-  const [selectedDays, setSelectedDays] = useState<Dayjs[]>([]);
+  const [slotType, setSlotType] = useState(NewSlotType.default);
 
-  const handleChange = useCallback((type: 'start' | 'end' | 'selected', payload: Dayjs | Dayjs[]) => {
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs());
+  const [endDate, setEndDate] = useState<Dayjs>(dayjs().add(7, 'day'));
+  const [selectedDays, setSelectedDays] = useState<number[]>([]);
+
+  const [newSlots, setNewSlots] = useState<Dayjs[]>([]);
+
+  const handleChange = useCallback((type: 'start' | 'end' | 'selected' | 'selectDays', payload: Dayjs | Dayjs[] | number[]) => {
     if (type === 'start' && !Array.isArray(payload)) setStartDate(payload);
     if (type === 'end' && !Array.isArray(payload)) setEndDate(payload);
-    if (type === 'selected' && Array.isArray(payload)) setSelectedDays(payload);
-  }, [setStartDate, setEndDate, setSelectedDays]);
+    if (type === 'selected' && Array.isArray(payload)) setSelectedDays(payload as number[]);
+    if (type === 'selectDays' && Array.isArray(payload)) setNewSlots(payload as Dayjs[]);
+  }, [setStartDate, setEndDate, setSelectedDays, setNewSlots]);
 
   const renderDatePicker = useCallback(() => {
     if (slotType === NewSlotType.severalDays) {
@@ -75,7 +79,7 @@ function NewDateSlotModal({ open, onClose }:Props) {
           <Typography variant="h6" component="h2">
             Добавить новые окна для записи
           </Typography>
-          <SelectType type={slotType} setType={setNewSlotType} />
+          <SelectType type={slotType} setType={setSlotType} />
           {renderDatePicker()}
         </Box>
       </Fade>
