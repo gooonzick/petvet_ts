@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
@@ -18,7 +18,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
+  width: '80%',
+  maxWidth: '500px',
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
@@ -31,28 +32,29 @@ type Props = {
 
 function NewDateSlotModal({ open, onClose }:Props) {
   const [slotType, setSlotType] = useState(NewSlotType.default);
+  const [newScheduleSlots, setNewScheduleSlots] = useState<Dayjs[]>([]);
 
-  const [startDate, setStartDate] = useState<Dayjs>(dayjs());
-  const [endDate, setEndDate] = useState<Dayjs>(dayjs().add(7, 'day'));
-  const [selectedDays, setSelectedDays] = useState<number[]>([]);
+  const submitSlots = useCallback((value: Dayjs[]) => {
+    setNewScheduleSlots(value);
+  }, [setNewScheduleSlots]);
 
-  const [newSlots, setNewSlots] = useState<Dayjs[]>([]);
+  const deleteSlot = useCallback((slotIndex: number) => {
+    setNewScheduleSlots((prev) => prev.filter((_, index) => slotIndex !== index));
+  }, [setNewScheduleSlots]);
 
-  const handleChange = useCallback((type: 'start' | 'end' | 'selected' | 'selectDays', payload: Dayjs | Dayjs[] | number[]) => {
-    if (type === 'start' && !Array.isArray(payload)) setStartDate(payload);
-    if (type === 'end' && !Array.isArray(payload)) setEndDate(payload);
-    if (type === 'selected' && Array.isArray(payload)) setSelectedDays(payload as number[]);
-    if (type === 'selectDays' && Array.isArray(payload)) setNewSlots(payload as Dayjs[]);
-  }, [setStartDate, setEndDate, setSelectedDays, setNewSlots]);
+  const closeHandler = useCallback(() => {
+    setSlotType(NewSlotType.default);
+    setNewScheduleSlots([]);
+    onClose();
+  }, [onClose, setNewScheduleSlots]);
 
   const renderDatePicker = useCallback(() => {
     if (slotType === NewSlotType.severalDays) {
       return (
         <SeveralDays
-          startDate={startDate}
-          endDate={endDate}
-          selectedDays={selectedDays}
-          handleChange={handleChange}
+          newScheduleSlots={newScheduleSlots}
+          setSlots={submitSlots}
+          deleteSlot={deleteSlot}
         />
       );
     }
@@ -62,7 +64,7 @@ function NewDateSlotModal({ open, onClose }:Props) {
       );
     }
     return <div>Choose type</div>;
-  }, [slotType, startDate, endDate, selectedDays, handleChange]);
+  }, [slotType, newScheduleSlots, submitSlots, deleteSlot]);
 
   return (
     <Modal
@@ -76,7 +78,7 @@ function NewDateSlotModal({ open, onClose }:Props) {
     >
       <Fade in={open}>
         <Box sx={style}>
-          <Typography variant="h6" component="h2">
+          <Typography variant="h6" component="h2" sx={{ marginBottom: '1rem' }}>
             Добавить новые окна для записи
           </Typography>
           <SelectType type={slotType} setType={setSlotType} />

@@ -10,7 +10,7 @@ import { DAYS } from './helpers/constants';
 
 type Props = {
     days: number[]
-    setDays: (value: Dayjs[]) => void
+    setDays: (value: number[]) => void
 }
 
 function ToggleDays({ days, setDays }: Props) {
