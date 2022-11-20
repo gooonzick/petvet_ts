@@ -15,6 +15,7 @@ import {
   container, datePickersContainer, timePickerContainer, timeSlotsContainer, weekdayToggleContainer,
 } from './styles';
 import TimeSlots from './blocks/TimeSlots';
+import ScheduleSlots from './blocks/ScheduleSlots';
 
 type Props = {
   newScheduleSlots: Dayjs[];
@@ -99,20 +100,13 @@ function SeveralDays({
         </LocalizationProvider>
       </Box>
       <Box sx={timeSlotsContainer}>
-        <TimeSlots data={timeSlots} deleteHandler={deleteSlot} />
+        <TimeSlots data={timeSlots} deleteHandler={removeTimeValue} />
       </Box>
       <Box sx={weekdayToggleContainer}>
         <ToggleDays days={weekdays} setDays={handleWeekday} />
       </Box>
       <Box sx={timeSlotsContainer}>
-        {newScheduleSlots.length > 0 && newScheduleSlots.map((el, index) => (
-          <WordCard
-            key={el.format()}
-            text={el.format('dddd DD/MM/YYYY HH:ss')}
-            editable
-            clearHandler={() => deleteSlot(index)}
-          />
-        ))}
+        <ScheduleSlots data={newScheduleSlots} deleteHandler={deleteSlot} />
       </Box>
       <Box sx={buttonsContainer}>
         <Button
