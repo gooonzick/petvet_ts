@@ -1,21 +1,25 @@
 import { useCallback, useState } from 'react';
 
-import { Box, Button, Typography } from '@mui/material';
+import {
+  Backdrop, Box, Button, Fade, Modal,
+} from '@mui/material';
 
 import dayjs, { Dayjs } from 'dayjs';
+import { useGetAllSchedulesQuery, usePostNewSchedulesMutation } from '@/redux/api/schedules.api';
 
-import { dateSlotButtonStyle, mainBox } from './styles';
 import Calendar from '@/components/Calendar/Calendar';
 import ScheduleCard from '@/components/ScheduleCard/ScheduleCard';
 import NewDateSlotModal from '@/components/NewDateSlotModal';
 
-import { useGetAllSchedulesQuery } from '@/redux/api/schedules.api';
+import { dateSlotButtonStyle, mainBox } from './styles';
+import shceduleAdapter from './helpers/scheduleAdapter';
 
 function SchedulePage() {
   const [day, setDay] = useState<Dayjs>(dayjs());
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data } = useGetAllSchedulesQuery(day.format('YYYY-MM-DD'));
+  const { data, refetch } = useGetAllSchedulesQuery(day.format('YYYY-MM-DD'));
+  const [createSchedules] = usePostNewSchedulesMutation();
 
   const openModalHandler = useCallback(() => {
     setIsModalOpen(true);
@@ -24,6 +28,11 @@ function SchedulePage() {
   const closeModalHandler = useCallback(() => {
     setIsModalOpen(false);
   }, [isModalOpen, setIsModalOpen]);
+
+  const submitSlots = useCallback(async (days: Dayjs[]) => {
+    await createSchedules(shceduleAdapter(days));
+    refetch();
+  }, [createSchedules]);
 
   return (
     <Box sx={mainBox}>
@@ -38,7 +47,19 @@ function SchedulePage() {
       {data
       && data.length > 0
       && data.map((scheduleItem) => <ScheduleCard schudleItem={scheduleItem} />)}
-      <NewDateSlotModal open={isModalOpen} onClose={closeModalHandler} />
+      <Modal
+        open={isModalOpen}
+        onClose={closeModalHandler}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{ timeout: 500 }}
+      >
+        <Fade in={isModalOpen}>
+          <div>
+            <NewDateSlotModal onResult={submitSlots} />
+          </div>
+        </Fade>
+      </Modal>
     </Box>
   );
 }

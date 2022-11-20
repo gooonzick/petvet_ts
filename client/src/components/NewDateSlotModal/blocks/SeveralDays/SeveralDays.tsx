@@ -9,14 +9,23 @@ import {
 import WordCard from '@/components/WordCard/WordCard';
 import ToggleDays from './blocks/ToggleDays';
 import getSlots from './helpers/getSlots';
+import {
+  buttonsContainer,
+  calcButton,
+  container, datePickersContainer, timePickerContainer, timeSlotsContainer, weekdayToggleContainer,
+} from './styles';
+import TimeSlots from './blocks/TimeSlots';
 
 type Props = {
   newScheduleSlots: Dayjs[];
   setSlots: (value: Dayjs[]) => void;
   deleteSlot: (slotInde: number) => void;
+  onResult: (days: Dayjs[]) => void;
 }
 
-function SeveralDays({ newScheduleSlots, deleteSlot, setSlots }: Props) {
+function SeveralDays({
+  newScheduleSlots, deleteSlot, setSlots, onResult,
+}: Props) {
   const [startDate, setStartDate] = useState<Dayjs>(dayjs());
   const [endDate, setEndDate] = useState<Dayjs>(dayjs().add(7, 'day'));
   const [weekdays, setWeekdays] = useState<number[]>([]);
@@ -59,17 +68,8 @@ function SeveralDays({ newScheduleSlots, deleteSlot, setSlots }: Props) {
   }, [startDate, endDate, weekdays, timeSlots]);
 
   return (
-    <Box sx={{
-      marginTop: '1rem',
-    }}
-    >
-      <Box sx={{
-        display: 'flex',
-        // justifyContent: 'space-between',
-        gap: '0.4rem',
-        width: '100%',
-      }}
-      >
+    <Box sx={container}>
+      <Box sx={datePickersContainer}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
             label="Дата начала"
@@ -87,7 +87,7 @@ function SeveralDays({ newScheduleSlots, deleteSlot, setSlots }: Props) {
           />
         </LocalizationProvider>
       </Box>
-      <Box sx={{ marginTop: '0.5rem' }}>
+      <Box sx={timePickerContainer}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
             label="Время"
@@ -98,34 +98,27 @@ function SeveralDays({ newScheduleSlots, deleteSlot, setSlots }: Props) {
           />
         </LocalizationProvider>
       </Box>
-      <Box sx={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap' }}>
-        {timeSlots.map((el, index) => (
-          <WordCard
-            key={el.format()}
-            text={`${el.get('hours')}:${el.get('minutes')}`}
-            clearHandler={() => removeTimeValue(index)}
-            editable
-          />
-        ))}
+      <Box sx={timeSlotsContainer}>
+        <TimeSlots data={timeSlots} deleteHandler={deleteSlot} />
       </Box>
-      <Box sx={{ marginTop: '1rem' }}>
+      <Box sx={weekdayToggleContainer}>
         <ToggleDays days={weekdays} setDays={handleWeekday} />
       </Box>
-      <Box sx={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap' }}>
+      <Box sx={timeSlotsContainer}>
         {newScheduleSlots.length > 0 && newScheduleSlots.map((el, index) => (
           <WordCard
             key={el.format()}
-            text={el.format('DD/MM/YYYY HH:ss')}
+            text={el.format('dddd DD/MM/YYYY HH:ss')}
             editable
             clearHandler={() => deleteSlot(index)}
           />
         ))}
       </Box>
-      <Box sx={{ margin: '1rem auto 0 auto', textAlign: 'end' }}>
+      <Box sx={buttonsContainer}>
         <Button
           variant="contained"
           disabled={isDisable.submit}
-          // onClick={onSubmit}
+          onClick={() => onResult(newScheduleSlots)}
         >
           Подтвердить
         </Button>
@@ -133,7 +126,7 @@ function SeveralDays({ newScheduleSlots, deleteSlot, setSlots }: Props) {
           variant="contained"
           disabled={isDisable.calc}
           onClick={calcSlots}
-          sx={{ marginLeft: '1rem' }}
+          sx={calcButton}
         >
           Вывести даты
         </Button>

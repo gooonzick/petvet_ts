@@ -6,6 +6,7 @@ import { RootState } from '../store';
 
 export const shcedulesApi = createApi({
   reducerPath: 'shcedulesApi',
+  tagTypes: ['Schedules'],
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_APP_HOST}/schedules`,
     prepareHeaders: (headers, { getState }) => {
@@ -22,8 +23,19 @@ export const shcedulesApi = createApi({
         url: '/',
         params: { date },
       }),
+      providesTags: (result, error, arg) => (result
+        ? [...result.map(({ id }) => ({ type: 'Schedules' as const, id })), 'Schedules']
+        : ['Schedules']),
+    }),
+    postNewSchedules: builder.mutation({
+      query: (schedules) => ({
+        method: 'POST',
+        url: '/',
+        body: schedules,
+      }),
+      invalidatesTags: ['Schedules'],
     }),
   }),
 });
 
-export const { useGetAllSchedulesQuery } = shcedulesApi;
+export const { useGetAllSchedulesQuery, usePostNewSchedulesMutation } = shcedulesApi;

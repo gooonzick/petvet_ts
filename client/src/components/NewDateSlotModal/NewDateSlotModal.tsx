@@ -1,17 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Box, Typography } from '@mui/material';
 
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
+
+import SeveralDays from './blocks/SeveralDays';
 import SelectType from './blocks/SelectType';
 
 import NewSlotType from './types';
-import SeveralDays from './blocks/SeveralDays';
+import SingleDay from './blocks/SingleDay';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -26,15 +23,14 @@ const style = {
 };
 
 type Props = {
-    open: boolean
-    onClose: () => void
+    onResult: (days: Dayjs[]) => void;
 }
 
-function NewDateSlotModal({ open, onClose }:Props) {
+function NewDateSlotModal({ onResult }:Props) {
   const [slotType, setSlotType] = useState(NewSlotType.default);
   const [newScheduleSlots, setNewScheduleSlots] = useState<Dayjs[]>([]);
 
-  const submitSlots = useCallback((value: Dayjs[]) => {
+  const calcSlots = useCallback((value: Dayjs[]) => {
     setNewScheduleSlots(value);
   }, [setNewScheduleSlots]);
 
@@ -42,50 +38,33 @@ function NewDateSlotModal({ open, onClose }:Props) {
     setNewScheduleSlots((prev) => prev.filter((_, index) => slotIndex !== index));
   }, [setNewScheduleSlots]);
 
-  const closeHandler = useCallback(() => {
-    setSlotType(NewSlotType.default);
-    setNewScheduleSlots([]);
-    onClose();
-  }, [onClose, setNewScheduleSlots]);
-
-  const renderDatePicker = useCallback(() => {
+  const renderPicker = useCallback(() => {
     if (slotType === NewSlotType.severalDays) {
       return (
         <SeveralDays
           newScheduleSlots={newScheduleSlots}
-          setSlots={submitSlots}
+          onResult={onResult}
+          setSlots={calcSlots}
           deleteSlot={deleteSlot}
         />
       );
     }
     if (slotType === NewSlotType.singleDay) {
       return (
-        <div>Bla</div>
+        <SingleDay onResult={onResult} />
       );
     }
     return <div>Choose type</div>;
-  }, [slotType, newScheduleSlots, submitSlots, deleteSlot]);
+  }, [slotType, newScheduleSlots, calcSlots, deleteSlot]);
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <Fade in={open}>
-        <Box sx={style}>
-          <Typography variant="h6" component="h2" sx={{ marginBottom: '1rem' }}>
-            Добавить новые окна для записи
-          </Typography>
-          <SelectType type={slotType} setType={setSlotType} />
-          {renderDatePicker()}
-        </Box>
-      </Fade>
-    </Modal>
+    <Box sx={style}>
+      <Typography variant="h6" component="h2" sx={{ marginBottom: '1rem' }}>
+        Добавить новые окна для записи
+      </Typography>
+      <SelectType type={slotType} setType={setSlotType} />
+      {renderPicker()}
+    </Box>
   );
 }
 
