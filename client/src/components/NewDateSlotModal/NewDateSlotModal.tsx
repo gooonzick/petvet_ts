@@ -9,18 +9,7 @@ import SelectType from './blocks/SelectType';
 
 import NewSlotType from './types';
 import SingleDay from './blocks/SingleDay';
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
-  maxWidth: '500px',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-};
+import { contentWrapper } from './styles';
 
 type Props = {
     onResult: (days: Dayjs[]) => void;
@@ -54,11 +43,11 @@ function NewDateSlotModal({ onResult }:Props) {
         <SingleDay onResult={onResult} />
       );
     }
-    return <div>Choose type</div>;
+    return null;
   }, [slotType, newScheduleSlots, calcSlots, deleteSlot]);
 
   return (
-    <Box sx={style}>
+    <Box sx={contentWrapper}>
       <Typography variant="h6" component="h2" sx={{ marginBottom: '1rem' }}>
         Добавить новые окна для записи
       </Typography>

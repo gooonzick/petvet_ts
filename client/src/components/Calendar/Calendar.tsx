@@ -6,7 +6,7 @@ import { MobileDatePicker, PickersDay, PickersDayProps } from '@mui/x-date-picke
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 
 import { styles } from './styles';
 import { Props } from './types';
@@ -25,8 +25,8 @@ export default function Calendar({ selectedDate, setSelectedDate, busyDays }:Pro
     selectedDays: Array<Dayjs | null>,
     DayProps: PickersDayProps<Dayjs>,
   ) => {
-    const isVisit = busyDays
-      .some((el) => day.isSame(el.date_of_receipt, 'day'));
+    const isVisit = busyDays && busyDays
+      .some((el) => day.isSame(el.dateOfReceipt, 'day'));
 
     if (isVisit) {
       return (

@@ -155,10 +155,10 @@ model DocSchedules {
   id            Int      @id @default(autoincrement())
   doc           User     @relation(name: "docSchedules", fields: [docId], references: [id])
   docId         Int
-  user          User     @relation(name: "userSchedules", fields: [userId], references: [id])
-  userId        Int
-  pet           Pet      @relation(fields: [petId], references: [id])
-  petId         Int
+  user          User?    @relation(name: "userSchedules", fields: [userId], references: [id])
+  userId        Int?
+  pet           Pet?     @relation(fields: [petId], references: [id])
+  petId         Int?
   dateOfReceipt DateTime
   isClose       Boolean
   createdAt     DateTime @default(now())

@@ -32,5 +32,6 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/schedules', scheduleRouter);
 
 app.listen(PORT, () => {
+  console.clear();
   console.log(`⚡️ Server started at port ${PORT}`);
 });

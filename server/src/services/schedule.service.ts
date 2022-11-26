@@ -1,9 +1,17 @@
+import { Prisma } from '@prisma/client';
+
 import prisma from '../../prisma';
+import { CreateShedules } from '../models/models';
 
 export default class ScheduleService {
   static async getAllSchedules(docId: number, dateOfReceipt: Date) {
     const schedules = await prisma.docSchedules.findMany({
-      where: { docId, dateOfReceipt },
+      where: {
+        docId,
+        dateOfReceipt: {
+          gte: dateOfReceipt,
+        },
+      },
       select: {
         id: true,
         dateOfReceipt: true,
@@ -27,5 +35,18 @@ export default class ScheduleService {
       },
     });
     return schedules;
+  }
+
+  static async createNewScheduleSlots(docId: number, dates: CreateShedules[]) {
+    const schedulesToCreate: Prisma.DocSchedulesCreateManyInput[] = dates
+      .map(({ dateOfReceipt }) => ({
+        dateOfReceipt,
+        docId,
+        isClose: false,
+      }));
+
+    await prisma.docSchedules.createMany({
+      data: schedulesToCreate,
+    });
   }
 }

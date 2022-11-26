@@ -19,14 +19,25 @@ function ScheduleCard({ schudleItem }: Props) {
     <Box sx={parentBoxStyle}>
       <Box>
         <Typography variant="h5">
-          {`${dayjs(schudleItem.dateOfReceipt).format('DD/MM/YYYY HH:mm')}`}
+          {`${dayjs(schudleItem.dateOfReceipt).format('DD.MM.YYYY HH:mm')}`}
         </Typography>
-        <Typography variant="h5">
-          {`${schudleItem.user.name}`}
-        </Typography>
-        <Typography variant="h6">
-          {`Питомец ${schudleItem.pet.name} (${schudleItem.pet.specie})`}
-        </Typography>
+        {schudleItem.user ? (
+          <Typography variant="h5">
+            {`${schudleItem.user.name}`}
+          </Typography>
+        ) : (
+          <Typography variant="h5">
+            На это время ещё никто не записался
+          </Typography>
+        )}
+        {
+          schudleItem.pet
+            ? (
+              <Typography variant="h6">
+                {`Питомец ${schudleItem.pet.name} (${schudleItem.pet.specie})`}
+              </Typography>
+            ) : null
+        }
       </Box>
       <Box>
         <Button variant="contained" onClick={() => startVisit()}>

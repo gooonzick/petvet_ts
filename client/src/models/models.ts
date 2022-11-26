@@ -121,12 +121,12 @@ export interface CatergoryProfile {
 export interface Scheules {
   id: number
   dateOfReceipt: string
-  pet: {
+  pet?: {
     id: number
     name: string
     specie: string
   }
-  user: {
+  user?: {
     id: number
     name: string
     phone: string

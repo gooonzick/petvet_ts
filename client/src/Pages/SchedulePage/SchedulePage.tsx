@@ -8,11 +8,11 @@ import dayjs, { Dayjs } from 'dayjs';
 import { useGetAllSchedulesQuery, usePostNewSchedulesMutation } from '@/redux/api/schedules.api';
 
 import Calendar from '@/components/Calendar/Calendar';
-import ScheduleCard from '@/components/ScheduleCard/ScheduleCard';
 import NewDateSlotModal from '@/components/NewDateSlotModal';
 
 import { dateSlotButtonStyle, mainBox } from './styles';
 import shceduleAdapter from './helpers/scheduleAdapter';
+import ScheduleCards from './blocks/ScheduleCards';
 
 function SchedulePage() {
   const [day, setDay] = useState<Dayjs>(dayjs());
@@ -31,7 +31,7 @@ function SchedulePage() {
 
   const submitSlots = useCallback(async (days: Dayjs[]) => {
     await createSchedules(shceduleAdapter(days));
-    refetch();
+    // refetch();
   }, [createSchedules]);
 
   return (
@@ -40,13 +40,11 @@ function SchedulePage() {
         <Calendar
           selectedDate={day}
           setSelectedDate={setDay}
-          busyDays={[{ date_of_receipt: dayjs('2022-10-26') }, { date_of_receipt: dayjs('2022-10-27') }]}
+          busyDays={data}
         />
         <Button variant="contained" onClick={openModalHandler}>Добавить слот</Button>
       </Box>
-      {data
-      && data.length > 0
-      && data.map((scheduleItem) => <ScheduleCard schudleItem={scheduleItem} />)}
+      <ScheduleCards data={data} day={day} />
       <Modal
         open={isModalOpen}
         onClose={closeModalHandler}

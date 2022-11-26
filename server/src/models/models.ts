@@ -44,3 +44,5 @@ export interface AuthLocals {
   userId: number
   userGroup: number
 }
+
+export interface CreateShedules { dateOfReceipt: string }
