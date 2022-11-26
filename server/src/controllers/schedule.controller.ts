@@ -29,7 +29,7 @@ export default class ScheduleController {
     const { userId } = res.locals;
     try {
       await ScheduleService.createNewScheduleSlots(userId, req.body);
-      return res.status(200);
+      return res.sendStatus(200);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

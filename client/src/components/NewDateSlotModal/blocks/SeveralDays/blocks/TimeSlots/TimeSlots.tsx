@@ -16,7 +16,7 @@ function TimeSlots({ data, deleteHandler }: Props) {
       {data.map((day, index) => (
         <WordCard
           key={day.format()}
-          text={`${day.get('hours')}:${day.get('minutes')}`}
+          text={`${day.format('hh:mm A')}`}
           clearHandler={() => deleteHandler(index)}
           editable
         />

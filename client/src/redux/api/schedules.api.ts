@@ -27,7 +27,7 @@ export const shcedulesApi = createApi({
         ? [...result.map(({ id }) => ({ type: 'Schedules' as const, id })), 'Schedules']
         : ['Schedules']),
     }),
-    postNewSchedules: builder.mutation({
+    createNewSchedules: builder.mutation({
       query: (schedules) => ({
         method: 'POST',
         url: '/',
@@ -35,7 +35,18 @@ export const shcedulesApi = createApi({
       }),
       invalidatesTags: ['Schedules'],
     }),
+    deleteSchedule: builder.mutation({
+      query: (scheduleId: number) => ({
+        method: 'DELETE',
+        url: `/${scheduleId}`,
+      }),
+      invalidatesTags: ['Schedules'],
+    }),
   }),
 });
 
-export const { useGetAllSchedulesQuery, usePostNewSchedulesMutation } = shcedulesApi;
+export const {
+  useGetAllSchedulesQuery,
+  useCreateNewSchedulesMutation,
+  useDeleteScheduleMutation,
+} = shcedulesApi;

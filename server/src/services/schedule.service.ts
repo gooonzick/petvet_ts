@@ -29,6 +29,7 @@ export default class ScheduleService {
             phone: true,
           },
         },
+        isClose: true,
       },
       orderBy: {
         dateOfReceipt: 'asc',

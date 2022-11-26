@@ -15,35 +15,67 @@ function ScheduleCard({ schudleItem }: Props) {
   const startVisit = useCallback(() => {
 
   }, []);
-  return (
-    <Box sx={parentBoxStyle}>
-      <Box>
-        <Typography variant="h5">
-          {`${dayjs(schudleItem.dateOfReceipt).format('DD.MM.YYYY HH:mm')}`}
-        </Typography>
-        {schudleItem.user ? (
+
+  const cancelVisit = useCallback(() => {
+
+  }, []);
+
+  const deleteVisit = useCallback(() => {
+
+  }, []);
+
+  const renderCardBody = useCallback(() => {
+    if (schudleItem.pet && schudleItem.user) {
+      return (
+        <>
+          <Box>
+            <Typography variant="h5">
+              {`${dayjs(schudleItem.dateOfReceipt).format('DD.MM.YYYY HH:mm')}`}
+            </Typography>
+            <Typography variant="h5">
+              {`${schudleItem.user.name}`}
+            </Typography>
+            <Typography variant="h6">
+              {`Питомец ${schudleItem.pet.name} (${schudleItem.pet.specie})`}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <Button variant="contained" onClick={() => startVisit()}>
+              Начать прием
+            </Button>
+            <Button variant="contained" onClick={() => cancelVisit()} color="error">
+              Отменить запись
+            </Button>
+            <Button variant="contained" onClick={() => deleteVisit()} color="warning">
+              Удалить запись
+            </Button>
+          </Box>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Box>
           <Typography variant="h5">
-            {`${schudleItem.user.name}`}
+            {`${dayjs(schudleItem.dateOfReceipt).format('DD.MM.YYYY HH:mm')}`}
           </Typography>
-        ) : (
           <Typography variant="h5">
             На это время ещё никто не записался
           </Typography>
-        )}
-        {
-          schudleItem.pet
-            ? (
-              <Typography variant="h6">
-                {`Питомец ${schudleItem.pet.name} (${schudleItem.pet.specie})`}
-              </Typography>
-            ) : null
-        }
-      </Box>
-      <Box>
-        <Button variant="contained" onClick={() => startVisit()}>
-          Начать прием
-        </Button>
-      </Box>
+        </Box>
+        <Box>
+          <Button variant="contained" onClick={() => startVisit()} color="warning">
+            Удалить запись
+          </Button>
+        </Box>
+      </>
+    );
+  }, [schudleItem, startVisit, deleteVisit, cancelVisit]);
+
+  return (
+    <Box sx={parentBoxStyle}>
+      {renderCardBody()}
     </Box>
   );
 }

@@ -21,11 +21,10 @@ type Props = {
   newScheduleSlots: Dayjs[];
   setSlots: (value: Dayjs[]) => void;
   deleteSlot: (slotInde: number) => void;
-  onResult: (days: Dayjs[]) => void;
 }
 
 function SeveralDays({
-  newScheduleSlots, deleteSlot, setSlots, onResult,
+  newScheduleSlots, deleteSlot, setSlots,
 }: Props) {
   const [startDate, setStartDate] = useState<Dayjs>(dayjs());
   const [endDate, setEndDate] = useState<Dayjs>(dayjs().add(7, 'day'));
@@ -109,13 +108,6 @@ function SeveralDays({
         <ScheduleSlots data={newScheduleSlots} deleteHandler={deleteSlot} />
       </Box>
       <Box sx={buttonsContainer}>
-        <Button
-          variant="contained"
-          disabled={isDisable.submit}
-          onClick={() => onResult(newScheduleSlots)}
-        >
-          Подтвердить
-        </Button>
         <Button
           variant="contained"
           disabled={isDisable.calc}

@@ -6,23 +6,18 @@ import { Dayjs } from 'dayjs';
 import { Box, Button, TextField } from '@mui/material';
 
 type Props = {
-  onResult: (days: Dayjs[]) => void;
+  calcSlots: (days: Dayjs[]) => void;
 }
 
-function SingleDay({ onResult }: Props) {
+function SingleDay({ calcSlots }: Props) {
   const [scheduleSlot, setSceduleSlot] = useState<Dayjs|null>(null);
 
   const onChange = useCallback((value: Dayjs | null) => {
     setSceduleSlot(value);
-  }, [setSceduleSlot]);
-
-  const onSubmit = useCallback(() => {
-    if (scheduleSlot) {
-      onResult([scheduleSlot]);
+    if (value) {
+      calcSlots([value]);
     }
-  }, [scheduleSlot]);
-
-  const isDisable = !scheduleSlot;
+  }, [setSceduleSlot, calcSlots]);
 
   return (
     <Box>
@@ -34,17 +29,6 @@ function SingleDay({ onResult }: Props) {
             renderInput={(params) => <TextField {...params} fullWidth />}
           />
         </LocalizationProvider>
-      </Box>
-      <Box sx={{ marginTop: '1rem' }}>
-        <Button
-          sx={{ display: 'block', marginLeft: 'auto' }}
-          disabled={isDisable}
-          variant="contained"
-          onClick={onSubmit}
-        >
-          Создать запись
-
-        </Button>
       </Box>
     </Box>
   );
