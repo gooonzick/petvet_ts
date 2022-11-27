@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 
 import dayjs, { Dayjs } from 'dayjs';
-import { useGetAllSchedulesQuery, useCreateNewSchedulesMutation, useDeleteScheduleMutation } from '@/redux/api/schedules.api';
+import { useGetAllSchedulesQuery } from '@/redux/api/schedules.api';
 
 import Calendar from '@/components/Calendar/Calendar';
 import NewDateSlotModal from '@/components/NewDateSlotModal';
@@ -18,8 +18,6 @@ function SchedulePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data } = useGetAllSchedulesQuery(day.format('YYYY-MM-DD'));
-  const [createSchedules, { isLoading }] = useCreateNewSchedulesMutation();
-  const [deleteSchedule] = useDeleteScheduleMutation();
 
   const openModalHandler = useCallback(() => {
     setIsModalOpen(true);

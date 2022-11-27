@@ -50,4 +50,16 @@ export default class ScheduleService {
       data: schedulesToCreate,
     });
   }
+
+  static async deleteScheduleSlot(slotId: number, docId: number) {
+    const scheduleSlot = await prisma.docSchedules.findUnique({ where: { id: slotId } });
+    if (scheduleSlot?.docId !== docId) {
+      return {
+        success: false,
+        error: { code: 401, message: 'Пользователь не авторизован' },
+      };
+    }
+    await prisma.docSchedules.delete({ where: { id: slotId } });
+    return { success: true, error: null };
+  }
 }

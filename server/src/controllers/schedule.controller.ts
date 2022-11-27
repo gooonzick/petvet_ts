@@ -38,4 +38,24 @@ export default class ScheduleController {
       return res.status(500).json({ message: 'Ошибка сервера' });
     }
   }
+
+  static async deleteScheduleSlot(
+    req: Request<{id: string}>,
+    res: Response<any, AuthLocals>,
+  ) {
+    const { userId } = res.locals;
+    const { id } = req.params;
+    try {
+      const { success, error } = await ScheduleService.deleteScheduleSlot(Number(id), userId);
+      if (success) return res.sendStatus(200);
+      if (error) return res.status(error.code).json({ message: error.message });
+      throw Error();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+        return res.status(500).json({ message: error.message });
+      }
+      return res.status(500).json({ message: 'Ошибка сервера' });
+    }
+  }
 }

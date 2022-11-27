@@ -6,12 +6,14 @@ import dayjs from 'dayjs';
 
 import { parentBoxStyle } from './styles';
 import { Scheules } from '@/models/models';
+import { useDeleteScheduleMutation } from '@/redux/api/schedules.api';
 
 type Props = {
   schudleItem: Scheules
 };
 
 function ScheduleCard({ schudleItem }: Props) {
+  const [deleteSchedule, { isLoading: isDeleting }] = useDeleteScheduleMutation();
   const startVisit = useCallback(() => {
 
   }, []);
@@ -20,9 +22,9 @@ function ScheduleCard({ schudleItem }: Props) {
 
   }, []);
 
-  const deleteVisit = useCallback(() => {
-
-  }, []);
+  // const deleteVisit = useCallback((id: number) => {
+  //   deleteSchedule(id);
+  // }, [deleteSchedule]);
 
   const renderCardBody = useCallback(() => {
     if (schudleItem.pet && schudleItem.user) {
@@ -46,7 +48,12 @@ function ScheduleCard({ schudleItem }: Props) {
             <Button variant="contained" onClick={() => cancelVisit()} color="error">
               Отменить запись
             </Button>
-            <Button variant="contained" onClick={() => deleteVisit()} color="warning">
+            <Button
+              variant="contained"
+              onClick={() => deleteSchedule(schudleItem.id)}
+              color="warning"
+              disabled={isDeleting}
+            >
               Удалить запись
             </Button>
           </Box>
@@ -65,13 +72,26 @@ function ScheduleCard({ schudleItem }: Props) {
           </Typography>
         </Box>
         <Box>
-          <Button variant="contained" onClick={() => startVisit()} color="warning">
+          <Button
+            variant="contained"
+            onClick={() => deleteSchedule(schudleItem.id)}
+            color="warning"
+            disabled={isDeleting}
+          >
             Удалить запись
           </Button>
         </Box>
       </>
     );
-  }, [schudleItem, startVisit, deleteVisit, cancelVisit]);
+  }, [cancelVisit,
+    deleteSchedule,
+    isDeleting,
+    schudleItem.dateOfReceipt,
+    schudleItem.id,
+    schudleItem.pet,
+    schudleItem.user,
+    startVisit,
+  ]);
 
   return (
     <Box sx={parentBoxStyle}>
