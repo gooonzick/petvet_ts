@@ -6,7 +6,9 @@ import {
 } from '@mui/material';
 import VacCard from '@/components/VacCard/VacCard';
 import { Pet, Vaccinations } from '@/models/models';
-import { parentBoxStyle, textFieldStyle, tytleStyle, vacFormStyle } from './styles';
+import {
+  parentBoxStyle, textFieldStyle, tytleStyle, vacFormStyle,
+} from './styles';
 import { initState } from './helpers/constants';
 
 type Props = {

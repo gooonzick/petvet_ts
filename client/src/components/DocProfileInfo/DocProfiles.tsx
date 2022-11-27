@@ -24,7 +24,7 @@ import { updateUser } from '../../redux/slices/userSlice';
 
 type Props = {
   profiles: Profile[]
-}
+};
 
 const collapsedAccordionStyle:SxProps<Theme> = {
   backgroundColor: '#D9D9D9',

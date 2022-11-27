@@ -8,7 +8,7 @@ type Props = {
   text: string
   editable: boolean
   clearHandler?: () => void
-}
+};
 
 const boxStyle: SxProps<Theme> = {
   backgroundColor: '#D9D9D9',

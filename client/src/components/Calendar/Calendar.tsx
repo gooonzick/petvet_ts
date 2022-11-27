@@ -41,7 +41,7 @@ export default function Calendar({ selectedDate, setSelectedDate, busyDays }:Pro
 
   const onChangeHandler = useCallback((newValue: Dayjs | null) => {
     if (newValue) {
-      setDate(newValue);
+      setDate(newValue.hour(0).minute(0).second(0));
     }
   }, [setDate]);
 

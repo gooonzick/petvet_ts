@@ -61,7 +61,7 @@ const modalStyle: SxProps<Theme> = {
 
 const textFieldStyle: SxProps<Theme> = { marginBottom: '6px' };
 
-function NewPetInfo({ open, closeHandler }: {open: boolean, closeHandler: () => void}) {
+function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () => void }) {
   const [newData, setNewData] = useState<any>(null);
   const [type, setType] = useState('');
   const [valid, setValid] = useState(false);

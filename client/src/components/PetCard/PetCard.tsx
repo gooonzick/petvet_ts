@@ -7,7 +7,7 @@ import { Pet } from '../../models/models';
 
 type Props = {
   pet: Pet
-}
+};
 
 function PetCard({ pet }: Props) {
   const navigate = useNavigate();

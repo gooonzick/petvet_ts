@@ -21,7 +21,7 @@ type Props = {
   newScheduleSlots: Dayjs[];
   setSlots: (value: Dayjs[]) => void;
   deleteSlot: (slotInde: number) => void;
-}
+};
 
 function SeveralDays({
   newScheduleSlots, deleteSlot, setSlots,
@@ -30,7 +30,7 @@ function SeveralDays({
   const [endDate, setEndDate] = useState<Dayjs>(dayjs().add(7, 'day'));
   const [weekdays, setWeekdays] = useState<number[]>([]);
   const [timeSlots, setTimeSlots] = useState<Dayjs[]>([]);
-  const [timeValue, setTimeValue] = useState<Dayjs|null>(null);
+  const [timeValue, setTimeValue] = useState<Dayjs | null>(null);
 
   const isDisable = {
     calc: Boolean(weekdays.length === 0 || timeSlots.length === 0),

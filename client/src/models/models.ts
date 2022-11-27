@@ -25,7 +25,7 @@ export interface Visit {
   updatedAt: Date
 }
 
-export interface ChronicDiseaseAllergy{
+export interface ChronicDiseaseAllergy {
   id: number
   name: string
 }

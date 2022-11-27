@@ -21,7 +21,7 @@ type Props = {
     setProfileId: Dispatch<SetStateAction<string>>;
     setCategoryId: Dispatch<SetStateAction<string>>;
   }
-}
+};
 
 const textFieldStyle: SxProps = { width: '100%', mb: '0.7rem' };
 

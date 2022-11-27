@@ -5,7 +5,7 @@ import DoctorCard from '../DoctorCard/DoctorCard';
 
 type Props = {
   docs: Doctor[]
-}
+};
 
 function DoctorCardList({ docs }: Props) {
   return (

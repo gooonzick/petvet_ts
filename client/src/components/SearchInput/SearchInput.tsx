@@ -1,13 +1,12 @@
 import { SxProps, TextField } from '@mui/material';
 import {
-  ChangeEvent, Dispatch, SetStateAction, useEffect, useState,
+  ChangeEvent, Dispatch, SetStateAction
 } from 'react';
-import useDebounce from '../../hooks/useDebounce';
 
 type Props = {
   docName: string
   inputHandler: Dispatch<SetStateAction<string>>
-}
+};
 
 const searchFieldStyle: SxProps = {
   width: { xs: '100%', sm: '100%', md: '70%' },

@@ -9,9 +9,9 @@ import { styled } from '@mui/material';
 import { DAYS } from './helpers/constants';
 
 type Props = {
-    days: number[]
-    setDays: (value: number[]) => void
-}
+  days: number[]
+  setDays: (value: number[]) => void
+};
 
 function ToggleDays({ days, setDays }: Props) {
   return (

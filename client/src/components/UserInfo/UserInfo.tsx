@@ -12,9 +12,9 @@ import EditableText from '../EditableText/EditableText';
 type Props = {
   user: User | Doctor
   editable: boolean
-}
+};
 
-type EditFields = 'name'| 'email' | 'phone' |'clinicAddress'
+type EditFields = 'name' | 'email' | 'phone' | 'clinicAddress';
 
 const parentBoxStyle: SxProps<Theme> = {
   display: 'flex',

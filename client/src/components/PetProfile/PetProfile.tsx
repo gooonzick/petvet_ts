@@ -7,7 +7,7 @@ import WordCard from '../WordCard/WordCard';
 
 type Props = {
   pet: Pet
-}
+};
 
 const parentBoxStyle: SxProps<Theme> = {
   backgroundColor: 'paper',

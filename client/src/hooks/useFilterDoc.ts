@@ -5,7 +5,7 @@ type DocFilter = {
   profileFilter: string
   categoryFilter: string
   userNameFilter: string
-}
+};
 
 function useFilterDoc(initialValue: DocFilter) {
   const { profileFilter, categoryFilter, userNameFilter } = initialValue;

@@ -7,7 +7,7 @@ import UserInfo from '../UserInfo/UserInfo';
 
 type Props = {
   doc: Doctor
-}
+};
 
 function DoctorCard({ doc }: Props) {
   const navigate = useNavigate();

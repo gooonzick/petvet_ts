@@ -8,7 +8,7 @@ import { parentBoxStyle, sexAndWeightInputStyle } from './styles';
 type Props = {
   petForm: Pet,
   inputHandler: (e: any) => void
-}
+};
 
 function PetformSetp1({ petForm, inputHandler }: Props) {
   const [focus, setFocused] = useState(false);

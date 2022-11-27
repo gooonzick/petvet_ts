@@ -30,7 +30,7 @@ import { updateUser } from '../../redux/slices/userSlice';
 
 type Props = {
   priceList: PriceList[]
-}
+};
 
 const collapsedAccordionStyle:SxProps<Theme> = {
   backgroundColor: '#D9D9D9',
@@ -128,7 +128,7 @@ function DocPriceList({ priceList }: Props) {
     setEdit(false);
   }, []);
 
-  const saveEditHandler = useCallback(async (priceListEntry: {price: string, service: string}) => {
+  const saveEditHandler = useCallback(async (priceListEntry: { price: string, service: string }) => {
     // do some fetch
     if (!priceListEntry.price || !priceListEntry.service) return;
     const result = await addService({ priceList: priceListEntry }).unwrap();

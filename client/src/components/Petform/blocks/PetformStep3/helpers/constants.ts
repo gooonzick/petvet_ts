@@ -1,5 +1,5 @@
 export const initState = {
-    description: '',
-    drugName: '',
-    drugDate: null,
-}
+  description: '',
+  drugName: '',
+  drugDate: null,
+};

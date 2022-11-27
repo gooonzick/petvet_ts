@@ -13,15 +13,15 @@ function UserProfilePage() {
   const user = useSelector((store: RootState) => store.auth.user) as User;
 
   const dispatch = useDispatch();
-  
+
   const { data, isLoading, isSuccess } = useGetAllPetsQuery();
-  
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(getPets(data));
     }
   }, [data]);
-  
+
   return (
     <Box sx={parentBoxStyle}>
       <UserInfo editable user={user} />

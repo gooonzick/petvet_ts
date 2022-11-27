@@ -9,9 +9,9 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import NewSlotType from '../../types';
 
 type Props = {
-    type: NewSlotType
-    setType: (type: NewSlotType) => void
-}
+  type: NewSlotType
+  setType: (type: NewSlotType) => void
+};
 
 function SelectType({ type, setType }: Props) {
   const handleChange = (event: SelectChangeEvent<NewSlotType>) => {

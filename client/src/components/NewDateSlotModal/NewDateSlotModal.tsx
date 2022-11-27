@@ -15,8 +15,8 @@ import { useCreateNewSchedulesMutation } from '@/redux/api/schedules.api';
 import shceduleAdapter from './helpers/scheduleAdapter';
 
 type Props = {
-    onResult: () => void;
-}
+  onResult: () => void;
+};
 
 function NewDateSlotModal({ onResult }:Props) {
   const [slotType, setSlotType] = useState(NewSlotType.default);

@@ -8,8 +8,8 @@ import { parentBoxStyle } from './styles';
 import { Scheules } from '@/models/models';
 
 type Props = {
-    schudleItem: Scheules
-}
+  schudleItem: Scheules
+};
 
 function ScheduleCard({ schudleItem }: Props) {
   const startVisit = useCallback(() => {

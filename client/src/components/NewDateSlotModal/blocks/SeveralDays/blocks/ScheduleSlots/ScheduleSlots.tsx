@@ -3,9 +3,9 @@ import React from 'react';
 import WordCard from '@/components/WordCard/WordCard';
 
 type Props = {
-    data: Dayjs[];
-    deleteHandler: (index: number) => void;
-}
+  data: Dayjs[];
+  deleteHandler: (index: number) => void;
+};
 
 function ScheduleSlots({ data, deleteHandler }: Props) {
   if (data.length === 0) {

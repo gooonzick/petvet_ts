@@ -8,7 +8,7 @@ type Props = {
   open: boolean
   handleClose: () => void
   priceList: PriceList[]
-}
+};
 
 const mainBoxStyle: SxProps<Theme> = {
   width: '70%',

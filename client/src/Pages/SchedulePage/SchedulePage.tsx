@@ -23,15 +23,15 @@ function SchedulePage() {
 
   const openModalHandler = useCallback(() => {
     setIsModalOpen(true);
-  }, [isModalOpen, setIsModalOpen]);
+  }, [setIsModalOpen]);
 
   const closeModalHandler = useCallback(() => {
     setIsModalOpen(false);
-  }, [isModalOpen, setIsModalOpen]);
+  }, [setIsModalOpen]);
 
   const onResult = useCallback(() => {
     setIsModalOpen(false);
-  }, [createSchedules]);
+  }, []);
 
   return (
     <Box sx={mainBox}>

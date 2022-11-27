@@ -6,7 +6,7 @@ import { RootState } from '../store';
 type ErrorState = {
   isError: boolean
   errorMessage: string | null
-}
+};
 
 const slice = createSlice({
   name: 'error',

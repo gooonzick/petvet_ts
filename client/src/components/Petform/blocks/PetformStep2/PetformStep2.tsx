@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography
+  TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography,
 } from '@mui/material';
 import { PetForm } from '@/models/models';
 import WordCard from '@/components/WordCard/WordCard';

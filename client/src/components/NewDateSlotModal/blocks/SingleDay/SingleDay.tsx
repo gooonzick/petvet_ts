@@ -7,10 +7,10 @@ import { Box, Button, TextField } from '@mui/material';
 
 type Props = {
   calcSlots: (days: Dayjs[]) => void;
-}
+};
 
 function SingleDay({ calcSlots }: Props) {
-  const [scheduleSlot, setSceduleSlot] = useState<Dayjs|null>(null);
+  const [scheduleSlot, setSceduleSlot] = useState<Dayjs | null>(null);
 
   const onChange = useCallback((value: Dayjs | null) => {
     setSceduleSlot(value);

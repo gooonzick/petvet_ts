@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 type Props = {
   text: string,
   onSubmitEdit: (newVal: string) => Promise<void>
-}
+};
 
 function EditableText({ text, onSubmitEdit }: Props) {
   const [isEdit, setIsEdit] = useState(false);

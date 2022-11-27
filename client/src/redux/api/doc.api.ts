@@ -8,7 +8,7 @@ type DocFilter = {
   profileId: string
   categoryId: string
   userName: string
-}
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export const docApi = createApi({

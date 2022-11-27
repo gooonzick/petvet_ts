@@ -7,7 +7,7 @@ import PetCard from '../PetCard/PetCard';
 
 type Props = {
   pets: Pet[]
-}
+};
 
 const boxParentStyle: SxProps<Theme> = {
   marginTop: '2rem',

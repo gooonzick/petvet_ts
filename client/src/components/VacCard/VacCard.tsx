@@ -7,7 +7,7 @@ import { Vaccinations } from '../../models/models';
 type Props = {
   vacData: Vaccinations
   deleteCardHandler: () => void
-}
+};
 
 const parentBoxStyle: SxProps<Theme> = {
   height: 'max-content',

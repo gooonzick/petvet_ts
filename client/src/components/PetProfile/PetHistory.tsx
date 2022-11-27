@@ -36,7 +36,7 @@ const styleCards: SxProps<Theme> = {
   boxShadow: 3,
 };
 
-export default function HistoryVisits({ pet }: {pet: Pet}) {
+export default function HistoryVisits({ pet }: { pet: Pet }) {
   const [modal, setModal] = useState(false);
 
   const closeModalHandler = useCallback(() => {

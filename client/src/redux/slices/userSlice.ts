@@ -7,7 +7,7 @@ import { Doctor, Pet, User } from '../../models/models';
 type AuthState = {
   user: User | Doctor | null
   token: string | null
-}
+};
 
 const slice = createSlice({
   name: 'auth',
@@ -16,7 +16,7 @@ const slice = createSlice({
     setCredentials:
     (
       state,
-      { payload: { user, token } }: PayloadAction<{user: User; token: string}>,
+      { payload: { user, token } }: PayloadAction<{ user: User; token: string }>,
     ) => {
       state.user = user;
       state.token = token;
