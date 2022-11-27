@@ -90,14 +90,14 @@ function DocExperience({ text }: Props) {
   const cancleEditHandler = useCallback(() => {
     setInput(text);
     setEdit(false);
-  }, []);
+  }, [text]);
 
   const saveEditHandler = useCallback(async (newExp: string) => {
     // do some fetch
     const result = await updateExperience({ experience: newExp }).unwrap();
     dispatch(updateUser(result));
     setEdit(false);
-  }, []);
+  }, [dispatch, updateExperience]);
 
   return (
     <Accordion

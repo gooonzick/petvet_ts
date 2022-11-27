@@ -102,13 +102,13 @@ function DocCategories({ categories }: Props) {
     const result = await updateCategory({ categoryId: id }).unwrap();
     dispatch(updateUser(result));
     setEdit(false);
-  }, []);
+  }, [dispatch, updateCategory]);
 
   const deleteCategoryHandler = useCallback(async (id: number) => {
     if (!id) return;
     const result = await deleteCategory({ categoryId: id }).unwrap();
     dispatch(updateUser(result));
-  }, []);
+  }, [deleteCategory, dispatch]);
 
   return (
     <Accordion

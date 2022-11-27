@@ -100,6 +100,8 @@ const serviceTextFieldStyle: SxProps<Theme> = {
 
 const priceTextFieldStyle: SxProps<Theme> = { backgroundColor: 'white' };
 
+type PriceListEntry = { price: string, service: string };
+
 function DocPriceList({ priceList }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -128,20 +130,20 @@ function DocPriceList({ priceList }: Props) {
     setEdit(false);
   }, []);
 
-  const saveEditHandler = useCallback(async (priceListEntry: { price: string, service: string }) => {
+  const saveEditHandler = useCallback(async (priceListEntry: PriceListEntry) => {
     // do some fetch
     if (!priceListEntry.price || !priceListEntry.service) return;
     const result = await addService({ priceList: priceListEntry }).unwrap();
     dispatch(updateUser(result));
     setEdit(false);
-  }, []);
+  }, [addService, dispatch]);
 
   const deleteServiceHandler = useCallback(async (id: number) => {
     // delete category
     if (!id) return;
     const result = await deleteService({ priceList: id }).unwrap();
     dispatch(updateUser(result));
-  }, []);
+  }, [deleteService, dispatch]);
 
   return (
     <Accordion
