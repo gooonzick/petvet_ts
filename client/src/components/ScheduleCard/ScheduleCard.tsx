@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 import { parentBoxStyle } from './styles';
 import { Scheules } from '@/models/models';
-import { useDeleteScheduleMutation } from '@/redux/api/schedules.api';
+import { useUpdateScheduleMutation, useDeleteScheduleMutation } from '@/redux/api/schedules.api';
 
 type Props = {
   schudleItem: Scheules
@@ -14,17 +14,20 @@ type Props = {
 
 function ScheduleCard({ schudleItem }: Props) {
   const [deleteSchedule, { isLoading: isDeleting }] = useDeleteScheduleMutation();
+  const [cancelSchedule, { isLoading: isCanceling }] = useUpdateScheduleMutation();
   const startVisit = useCallback(() => {
 
   }, []);
 
   const cancelVisit = useCallback(() => {
-
-  }, []);
-
-  // const deleteVisit = useCallback((id: number) => {
-  //   deleteSchedule(id);
-  // }, [deleteSchedule]);
+    const { user, pet, ...data } = schudleItem;
+    const updatedItem: Scheules = {
+      ...data,
+      userId: null,
+      petId: null,
+    };
+    cancelSchedule(updatedItem);
+  }, [cancelSchedule, schudleItem]);
 
   const renderCardBody = useCallback(() => {
     if (schudleItem.pet && schudleItem.user) {
@@ -45,16 +48,13 @@ function ScheduleCard({ schudleItem }: Props) {
             <Button variant="contained" onClick={() => startVisit()}>
               Начать прием
             </Button>
-            <Button variant="contained" onClick={() => cancelVisit()} color="error">
-              Отменить запись
-            </Button>
             <Button
               variant="contained"
-              onClick={() => deleteSchedule(schudleItem.id)}
-              color="warning"
-              disabled={isDeleting}
+              onClick={() => cancelVisit()}
+              color="error"
+              disabled={isCanceling}
             >
-              Удалить запись
+              Отменить запись
             </Button>
           </Box>
         </>

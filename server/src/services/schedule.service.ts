@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { DocSchedules, Prisma } from '@prisma/client';
 
 import prisma from '../../prisma';
 import { CreateShedules } from '../models/models';
@@ -60,6 +60,18 @@ export default class ScheduleService {
       };
     }
     await prisma.docSchedules.delete({ where: { id: slotId } });
+    return { success: true, error: null };
+  }
+
+  static async updateVisit(slotId: number, docId: number, slotItem: DocSchedules) {
+    const scheduleSlot = await prisma.docSchedules.findUnique({ where: { id: slotId } });
+    if (scheduleSlot?.docId !== docId) {
+      return {
+        success: false,
+        error: { code: 401, message: 'Пользователь не авторизован' },
+      };
+    }
+    await prisma.docSchedules.update({ where: { id: slotId }, data: slotItem });
     return { success: true, error: null };
   }
 }

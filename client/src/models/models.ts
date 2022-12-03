@@ -131,4 +131,10 @@ export interface Scheules {
     name: string
     phone: string
   }
+  docId: number;
+  userId: number | null;
+  petId: number | null;
+  isClose: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

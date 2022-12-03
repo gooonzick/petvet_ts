@@ -42,6 +42,14 @@ export const shcedulesApi = createApi({
       }),
       invalidatesTags: ['Schedules'],
     }),
+    updateSchedule: builder.mutation({
+      query: (schedule: Scheules) => ({
+        method: 'PATCH',
+        url: `/${schedule.id}`,
+        body: schedule,
+      }),
+      invalidatesTags: ['Schedules'],
+    }),
   }),
 });
 
@@ -49,4 +57,5 @@ export const {
   useGetAllSchedulesQuery,
   useCreateNewSchedulesMutation,
   useDeleteScheduleMutation,
+  useUpdateScheduleMutation,
 } = shcedulesApi;
