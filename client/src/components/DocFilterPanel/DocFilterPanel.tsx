@@ -7,6 +7,7 @@ import {
   MenuItem,
   Select,
   SxProps,
+  Theme,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -23,7 +24,7 @@ type Props = {
   }
 };
 
-const textFieldStyle: SxProps = { width: '100%', mb: '0.7rem' };
+const textFieldStyle: SxProps<Theme> = { width: '100%', mb: '0.7rem' };
 
 function DocFilterPanel({ categoryFilter, profileFilter, changeHandlers }:Props) {
   const { data: categories } = useGetAllCategoriesQuery();

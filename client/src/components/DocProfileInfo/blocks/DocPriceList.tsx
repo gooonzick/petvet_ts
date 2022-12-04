@@ -8,7 +8,6 @@ import {
   AccordionSummary,
   Button,
   Paper,
-  SxProps,
   Table,
   TableBody,
   TableCell,
@@ -16,89 +15,33 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Theme,
   Typography,
   useTheme,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { red } from '@mui/material/colors';
+
 import { useDispatch } from 'react-redux';
-import { PriceList } from '../../models/models';
-import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '../../redux/api/doc.api';
-import { updateUser } from '../../redux/slices/userSlice';
+import { PriceList } from '@/models/models';
+import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '@/redux/api/doc.api';
+import { updateUser } from '@/redux/slices/userSlice';
+
+import {
+  cancelButtonStyle,
+  collapsedAccordionStyle,
+  deleteButtonStyle,
+  editAccordionStyle,
+  editButtonStyle,
+  expandedAccordionStyle,
+  priceTextFieldStyle,
+  saveEditButtonStyle,
+  serviceTextFieldStyle,
+  tableContainerStyle,
+} from '../styles';
 
 type Props = {
   priceList: PriceList[]
 };
-
-const collapsedAccordionStyle:SxProps<Theme> = {
-  backgroundColor: '#D9D9D9',
-  padding: 2,
-  borderRadius: '9px',
-  marginBottom: '0.5rem',
-  transition: 'all .3s ease-in-out',
-  '&:hover': {
-    transform: 'scale(1.01)',
-  },
-  boxShadow: 3,
-  boxSizing: 'border-box',
-};
-
-const expandedAccordionStyle: SxProps<Theme> = {
-  backgroundColor: 'white',
-  p: 2,
-  m: '.5rem',
-  borderRadius: '9px',
-  border: '.5px solid #FFD35A',
-};
-
-const saveEditButtonStyle: SxProps<Theme> = {
-  color: 'black',
-  borderRadius: '9px',
-  p: '0.5rem',
-  ml: 2,
-};
-
-const cancelButtonStyle: SxProps<Theme> = {
-  color: 'black',
-  borderRadius: '9px',
-  p: '0.5rem',
-  ml: 2,
-};
-
-const editButtonStyle: SxProps<Theme> = {
-  color: 'black',
-  borderRadius: '9px',
-  p: '0.5rem',
-};
-
-const editAccordionStyle: SxProps<Theme> = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  pt: 2,
-  height: 'max-content',
-};
-
-const tableContainerStyle: SxProps<Theme> = {
-  width: '85%',
-  height: 'max-content',
-  borderRadius: '9px',
-};
-
-const deleteButtonStyle: SxProps<Theme> = {
-  color: red[600],
-  cursor: 'pointer',
-};
-
-const serviceTextFieldStyle: SxProps<Theme> = {
-  width: '50%',
-  backgroundColor: 'white',
-  mr: '0.5rem',
-};
-
-const priceTextFieldStyle: SxProps<Theme> = { backgroundColor: 'white' };
 
 type PriceListEntry = { price: string, service: string };
 

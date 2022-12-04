@@ -1,13 +1,13 @@
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import DocCategories from '@/components/DocProfileInfo/DocCategories';
-import DocExperience from '@/components/DocProfileInfo/DocExperience';
+
+import {
+  DocExperience, DocCategories, DocPriceList, DocProfiles,
+} from '@/components/DocProfileInfo';
 import UserInfo from '@/components/UserInfo/UserInfo';
 import { Doctor } from '@/models/models';
 
 import { RootState } from '@/redux/store';
-import DocProfiles from '@/components/DocProfileInfo/DocProfiles';
-import DocPriceList from '@/components/DocProfileInfo/DocPriceList';
 import { boxWrapperStyle, parentBoxStyle } from './syles';
 
 function DocProfilePage() {

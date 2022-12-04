@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import DocFilterPanel from '@/components/DocFilterPanel/DocFilterPanel';
+import DocFilterPanel from '@/components/DocFilterPanel';
 import DoctorCardList from '@/components/DoctorCardList/DoctorCardList';
 import Loader from '@/components/Loader/Loader';
 import SearchInput from '@/components/SearchInput/SearchInput';

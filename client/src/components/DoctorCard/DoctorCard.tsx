@@ -1,5 +1,5 @@
 import {
-  Avatar, Box, CardActionArea, SxProps,
+  Box, CardActionArea,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Doctor } from '../../models/models';

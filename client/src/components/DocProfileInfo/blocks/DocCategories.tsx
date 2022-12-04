@@ -9,72 +9,29 @@ import {
   FormControl,
   MenuItem,
   Select,
-  SxProps,
-  Theme,
   Typography,
   useTheme,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch } from 'react-redux';
-import { Category } from '../../models/models';
-import WordCard from '../WordCard/WordCard';
-import { useGetAllCategoriesQuery } from '../../redux/api/category.api';
-import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '../../redux/api/doc.api';
-import { updateUser } from '../../redux/slices/userSlice';
+import { Category } from '../../../models/models';
+import WordCard from '../../WordCard/WordCard';
+import { useGetAllCategoriesQuery } from '../../../redux/api/category.api';
+import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '../../../redux/api/doc.api';
+import { updateUser } from '../../../redux/slices/userSlice';
+import {
+  cancelButtonStyle,
+  collapsedAccordionStyle,
+  editAccordionStyle,
+  editButtonStyle,
+  expandedAccordionStyle,
+  formControlStyle,
+  saveEditButtonStyle,
+} from '../styles';
 
 type Props = {
   categories: Category[]
 };
-
-const collapsedAccordionStyle:SxProps<Theme> = {
-  backgroundColor: '#D9D9D9',
-  padding: 2,
-  borderRadius: '9px',
-  marginBottom: '0.5rem',
-  transition: 'all .3s ease-in-out',
-  '&:hover': {
-    transform: 'scale(1.01)',
-  },
-  boxShadow: 3,
-  boxSizing: 'border-box',
-};
-
-const expandedAccordionStyle: SxProps<Theme> = {
-  backgroundColor: 'white',
-  p: 2,
-  m: '.5rem',
-  borderRadius: '9px',
-  border: '.5px solid #FFD35A',
-};
-
-const saveEditButtonStyle: SxProps<Theme> = {
-  color: 'black',
-  borderRadius: '9px',
-  p: '0.5rem',
-  ml: 2,
-};
-
-const editButtonStyle: SxProps<Theme> = {
-  color: 'black',
-  borderRadius: '9px',
-  p: '0.5rem',
-};
-
-const cancelButtonStyle: SxProps<Theme> = {
-  color: 'black',
-  borderRadius: '9px',
-  p: '0.5rem',
-  ml: 2,
-};
-
-const editAccordionStyle: SxProps<Theme> = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  pt: 2,
-};
-
-const formControlStyle: SxProps<Theme> = { m: 1, minWidth: 120, width: '20rem' };
 
 function DocCategories({ categories }: Props) {
   const [expanded, setExpanded] = useState(false);
