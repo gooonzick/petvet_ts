@@ -4,17 +4,25 @@ import { Box, Button, Typography } from '@mui/material';
 
 import dayjs from 'dayjs';
 
+import { useDispatch } from 'react-redux';
 import { parentBoxStyle } from './styles';
 import { Scheules } from '@/models/models';
 import { useUpdateScheduleMutation, useDeleteScheduleMutation } from '@/redux/api/schedules.api';
+import { showDialog } from '@/redux/slices/dialogSlice';
 
 type Props = {
   schudleItem: Scheules
 };
 
+const deleteAsk = 'Вы уверены что хотите удалить слот?';
+const cancelAsk = 'Вы уверены что хотите отменить запись?';
+
 function ScheduleCard({ schudleItem }: Props) {
   const [deleteSchedule, { isLoading: isDeleting }] = useDeleteScheduleMutation();
   const [cancelSchedule, { isLoading: isCanceling }] = useUpdateScheduleMutation();
+
+  const dispatch = useDispatch();
+
   const startVisit = useCallback(() => {
 
   }, []);
@@ -26,8 +34,12 @@ function ScheduleCard({ schudleItem }: Props) {
       userId: null,
       petId: null,
     };
-    cancelSchedule(updatedItem);
-  }, [cancelSchedule, schudleItem]);
+    dispatch(showDialog({ message: cancelAsk, confirm: () => cancelSchedule(updatedItem) }));
+  }, [cancelSchedule, dispatch, schudleItem]);
+
+  const deleteSlot = useCallback(() => {
+    dispatch(showDialog({ message: deleteAsk, confirm: () => deleteSchedule(schudleItem.id) }));
+  }, [deleteSchedule, dispatch, schudleItem.id]);
 
   const renderCardBody = useCallback(() => {
     if (schudleItem.pet && schudleItem.user) {
@@ -50,7 +62,7 @@ function ScheduleCard({ schudleItem }: Props) {
             </Button>
             <Button
               variant="contained"
-              onClick={() => cancelVisit()}
+              onClick={cancelVisit}
               color="error"
               disabled={isCanceling}
             >
@@ -74,7 +86,7 @@ function ScheduleCard({ schudleItem }: Props) {
         <Box>
           <Button
             variant="contained"
-            onClick={() => deleteSchedule(schudleItem.id)}
+            onClick={deleteSlot}
             color="warning"
             disabled={isDeleting}
           >
@@ -83,13 +95,15 @@ function ScheduleCard({ schudleItem }: Props) {
         </Box>
       </>
     );
-  }, [cancelVisit,
+  }, [
+    cancelVisit,
     deleteSchedule,
+    isCanceling,
     isDeleting,
-    schudleItem.dateOfReceipt,
-    schudleItem.id,
-    schudleItem.pet,
-    schudleItem.user,
+    schudleItem,
+    schudleItem,
+    schudleItem,
+    schudleItem,
     startVisit,
   ]);
 

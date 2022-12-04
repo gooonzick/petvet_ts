@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import authReducer from './slices/userSlice';
 import errorSlice from './slices/errorSlice';
+import dialogSlice from './slices/dialogSlice';
+
 import { authApi } from './api/auth.api';
 import { petApi } from './api/pet.api';
 import { docApi } from './api/doc.api';
@@ -14,6 +16,7 @@ const store = configureStore({
   reducer: {
     auth: authReducer,
     error: errorSlice,
+    dialog: dialogSlice,
     [authApi.reducerPath]: authApi.reducer,
     [petApi.reducerPath]: petApi.reducer,
     [docApi.reducerPath]: docApi.reducer,
