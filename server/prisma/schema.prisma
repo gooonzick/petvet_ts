@@ -15,7 +15,7 @@ model UserGroup {
   name      String
   users     User[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
@@ -28,7 +28,7 @@ model User {
   userGroup     UserGroup        @relation(fields: [userGroupId], references: [id])
   userGroupId   Int
   createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
   profiles      ProfileOnUser[]
   categories    CategoryOnUser[]
   docInfo       DocInfo?
@@ -44,7 +44,7 @@ model Profile {
   id        Int             @id @default(autoincrement())
   name      String
   createdAt DateTime        @default(now())
-  updatedAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
   userId    Int?
   docs      ProfileOnUser[]
 }
@@ -55,7 +55,7 @@ model ProfileOnUser {
   profile   Profile  @relation(fields: [profileId], references: [id])
   profileId Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@id([docId, profileId])
 }
@@ -64,7 +64,7 @@ model Category {
   id             Int              @id @default(autoincrement())
   name           String
   createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   CategoryOnUser CategoryOnUser[]
 }
 
@@ -74,7 +74,7 @@ model CategoryOnUser {
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@id([docId, categoryId])
 }
@@ -86,7 +86,7 @@ model PriceList {
   service   String
   price     Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model DocInfo {
@@ -96,7 +96,7 @@ model DocInfo {
   doc           User     @relation(fields: [docId], references: [id])
   docId         Int      @unique
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Pet {
@@ -114,7 +114,7 @@ model Pet {
   ownerId         Int
   img             String?           @db.Text
   createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   vaccinations    Vaccination[]
   chronicDiseases ChronicDiseases[]
   allergies       Allergy[]
@@ -128,7 +128,7 @@ model Vaccination {
   drugName    String
   drugDate    DateTime
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   pet         Pet      @relation(fields: [petId], references: [id])
   petId       Int
 }
@@ -137,7 +137,7 @@ model ChronicDiseases {
   id        Int      @id @default(autoincrement())
   name      String
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   pet       Pet      @relation(fields: [petId], references: [id])
   petId     Int
 }
@@ -146,7 +146,7 @@ model Allergy {
   id        Int      @id @default(autoincrement())
   name      String
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   pet       Pet      @relation(fields: [petId], references: [id])
   petId     Int
 }
@@ -159,10 +159,10 @@ model DocSchedules {
   userId        Int?
   pet           Pet?     @relation(fields: [petId], references: [id])
   petId         Int?
-  dateOfReceipt DateTime
+  dateOfReceipt DateTime @db.Timestamptz()
   isClose       Boolean
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Visit {
@@ -178,5 +178,5 @@ model Visit {
   treatment   String
   petId       Int
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

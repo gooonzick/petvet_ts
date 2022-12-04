@@ -16,11 +16,11 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch } from 'react-redux';
-import { Profile } from '../../models/models';
-import WordCard from '../WordCard/WordCard';
-import { useGetAllProfilesQuery } from '../../redux/api/profile.api';
-import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '../../redux/api/doc.api';
-import { updateUser } from '../../redux/slices/userSlice';
+import { Profile } from '@/models/models';
+import WordCard from '@/components/WordCard/WordCard';
+import { useGetAllProfilesQuery } from '@/redux/api/profile.api';
+import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '@/redux/api/doc.api';
+import { updateUser } from '@/redux/slices/userSlice';
 
 type Props = {
   profiles: Profile[]

@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import { Dayjs } from 'dayjs';
-
-import { styled } from '@mui/material';
 import { DAYS } from './helpers/constants';
 
 type Props = {

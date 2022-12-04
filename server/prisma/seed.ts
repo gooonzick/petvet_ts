@@ -1472,7 +1472,7 @@ const load = async () => {
           docId: 11,
           userId: 1,
           petId: 1,
-          dateOfReceipt: new Date(2022, 7, 5, 9, 0),
+          dateOfReceipt: '2022-08-05T12:00:00.000+03:00',
           isClose: false,
           createdAt: new Date(Date.parse('2022-08-01 00:00')),
           updatedAt: new Date(Date.parse('2022-08-01 00:00')),
