@@ -1,11 +1,11 @@
 import {
-  Box, Button, Typography, useTheme,
+  Box, Button, Modal, Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from '@/components/Loader/Loader';
-import PriceListModal from '@/components/PriceListModal/PriceListModal';
-import UserInfo from '@/components/UserInfo/UserInfo';
+import PriceListModal from './blocks/PriceList';
+import UserInfo from '@/components/UserInfo';
 import WordCard from '@/components/WordCard/WordCard';
 import { useGetOneDocQuery } from '@/redux/api/doc.api';
 import {
@@ -17,14 +17,32 @@ import {
   wordCardListStyle,
   wordCardWraperStyle,
 } from './styles';
+import Schedule from './blocks/Schedule';
 
 function DocPublicPage() {
   const { id } = useParams();
   const { data, isLoading } = useGetOneDocQuery(id!);
-  const [modals, setModals] = useState({
-    priceList: false,
-    schedule: false,
-  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalNode, setModalNode] = useState<'priceList' | 'schedule' | null>(null);
+
+  const openModal = useCallback((type: 'priceList' | 'schedule') => {
+    setIsModalOpen(true);
+    setModalNode(type);
+  }, []);
+
+  const modalClose = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  const renderModalBody = useCallback(() => {
+    if (modalNode === 'priceList' && data) {
+      return <PriceListModal priceList={data.priceList} />;
+    }
+    if (modalNode === 'schedule' && data) {
+      return <Schedule schedules={data?.docSchedules} />;
+    }
+    return <div>dsdsa</div>;
+  }, [data, modalNode]);
 
   if (isLoading) return <Loader />;
 
@@ -68,21 +86,29 @@ function DocPublicPage() {
                 <Button
                   variant="outlined"
                   sx={{ backgroundColor: 'white' }}
-                  onClick={() => setModals((prev) => ({ ...prev, priceList: true }))}
+                  onClick={() => openModal('priceList')}
                 >
                   Прайс лист
                 </Button>
-                <Button variant="contained">Записаться</Button>
+                <Button
+                  variant="contained"
+                  onClick={() => openModal('schedule')}
+                >
+                  Записаться
+                </Button>
               </Box>
             </Box>
           </Box>
-          {modals.priceList && (
-            <PriceListModal
-              priceList={data.priceList}
-              open={modals.priceList}
-              handleClose={() => setModals((prev) => ({ ...prev, priceList: false }))}
-            />
-          )}
+          <Modal
+            open={isModalOpen}
+            onClose={modalClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <div>
+              {renderModalBody()}
+            </div>
+          </Modal>
         </>
       )}
     </Box>

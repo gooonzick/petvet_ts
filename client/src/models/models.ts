@@ -93,6 +93,7 @@ export interface Doctor extends User {
   priceList: PriceList[]
   categories: Category[]
   profiles: Profile[]
+  docSchedules: Scheules[]
 }
 
 export interface UserResponse {

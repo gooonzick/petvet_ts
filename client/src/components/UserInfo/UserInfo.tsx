@@ -8,6 +8,7 @@ import { useUpdateDocInfoMutation } from '../../redux/api/doc.api';
 import { useUpdateUserInfoMutation } from '../../redux/api/user.api';
 import { updateUser } from '../../redux/slices/userSlice';
 import EditableText from '../EditableText/EditableText';
+import { avatarStyle, parentBoxStyle } from './styles';
 
 type Props = {
   user: User | Doctor
@@ -15,24 +16,6 @@ type Props = {
 };
 
 type EditFields = 'name' | 'email' | 'phone' | 'clinicAddress';
-
-const parentBoxStyle: SxProps<Theme> = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: 2,
-  flexDirection: { xs: 'column', sm: 'row', md: 'row' },
-  justifyContent: { xs: 'center', sm: 'start', md: 'start' },
-  width: '100%',
-  boxSizing: 'border-box',
-  boxShadow: '4px 4px 8px rgba(0,0,0,0.2)',
-  borderRadius: '8px',
-  padding: '0.6rem',
-};
-
-const avatarStyle: SxProps<Theme> = {
-  height: '8rem',
-  width: '8rem',
-};
 
 function UserInfo({ user, editable }: Props) {
   const input = useRef<HTMLInputElement>(null);
@@ -57,7 +40,7 @@ function UserInfo({ user, editable }: Props) {
       default:
         break;
     }
-  }, []);
+  }, [dispatch, updateDocInfo, updateUserInfo]);
 
   return (
     <Box sx={parentBoxStyle}>
@@ -70,7 +53,7 @@ function UserInfo({ user, editable }: Props) {
         {editable && <input hidden type="file" ref={input} />}
         {!user.img && user.name.slice(0, 1)}
       </Avatar>
-      <Box>
+      <Box sx={{ textAlign: { xs: 'center', sm: 'left', md: 'left' } }}>
         {editable
           ? (
             <>
