@@ -14,7 +14,7 @@ import NewDateSlotModal from '@/components/NewDateSlotModal';
 import ScheduleCards from './blocks/ScheduleCards';
 
 import { dateSlotButtonStyle, mainBox } from './styles';
-import { RootState } from '@/redux/store';
+import { RootState } from '@/redux/types';
 import { closeDialog } from '@/redux/slices/dialogSlice';
 
 function SchedulePage() {

@@ -1,28 +1,27 @@
 import {
   Box, Button, Modal, Typography, Stack,
 } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
-import { hideError } from '../../redux/slices/errorSlice';
-import { RootState } from '../../redux/store';
+import { connect } from 'react-redux';
+import { memo } from 'react';
+import { hideError } from '@/redux/slices/errorSlice';
+import type { AppDispatch, RootState } from '@/redux/types';
+import { errorTextSelecotor, isErrorSelecotr } from '@/redux/selectors/errorSelector';
+import { boxStyle, headerStyle } from './styles';
 
-const boxStyle = {
-  width: '40%',
-  height: 'max-content',
-  margin: 'auto',
-  marginTop: '20%',
-  backgroundColor: 'white',
-  borderRadius: '0.5rem',
-  padding: '1rem',
+type Props = {
+  isError: boolean;
+  errorMessage: string | null;
+  dispatch: AppDispatch;
 };
 
-const headerStyle = {
-  margin: 'auto', width: 'max-content', fontWeight: 'bold',
+const mapStateToProps = (state: RootState) => {
+  const isError = isErrorSelecotr(state);
+  const errorMessage = errorTextSelecotor(state);
+
+  return { isError, errorMessage };
 };
 
-function ErrorModal() {
-  const { isError, errorMessage } = useSelector((store: RootState) => store.error);
-  const dispatch = useDispatch();
-
+function ErrorModal({ dispatch, errorMessage, isError }: Props) {
   const handleClose = () => {
     dispatch(hideError());
   };
@@ -54,4 +53,4 @@ function ErrorModal() {
   );
 }
 
-export default ErrorModal;
+export default connect(mapStateToProps)(memo(ErrorModal));

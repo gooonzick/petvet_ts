@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import {
-  Box, Button, Stack, SxProps, Theme, Typography,
+  Box, Button, Stack, Typography,
 } from '@mui/material';
-import { RootState } from '@/redux/store';
+import { RootState } from '@/redux/types';
 import { closeDialog } from '@/redux/slices/dialogSlice';
 import { contentWrapper, headerStyle } from './styles';
 

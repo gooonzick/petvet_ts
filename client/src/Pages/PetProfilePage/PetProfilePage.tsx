@@ -15,8 +15,8 @@ import { pageWraperBoxStyle } from './styles';
 function PetProfilePage() {
   const { id } = useParams();
   const [page, setPage] = useState(1);
-  // const user = useSelector((state: RootState) => state.auth.user);
-  const { data: pet, isLoading, isError } = useGetOnePetQuery(Number(id));
+
+  const { data: pet, isLoading } = useGetOnePetQuery(Number(id));
 
   const clickHandler = useCallback((pageId:number) => {
     setPage(pageId);

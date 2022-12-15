@@ -1,9 +1,6 @@
-import { AccountCircle } from '@mui/icons-material';
 import {
-  AppBar, Button, Container, Toolbar, Typography,
+  AppBar, Button, Toolbar, Typography,
   Box,
-  useTheme,
-  useMediaQuery,
   Menu,
   MenuItem,
   IconButton,
@@ -12,8 +9,8 @@ import {
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { signOut } from '../../redux/slices/userSlice';
-import { RootState } from '../../redux/store';
+import { signOut } from '@/redux/slices/userSlice';
+import { RootState } from '@/redux/type';
 
 function NavBar() {
   const user = useSelector((state: RootState) => state.auth.user);

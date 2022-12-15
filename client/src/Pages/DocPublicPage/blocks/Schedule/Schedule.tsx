@@ -2,8 +2,9 @@ import { useCallback, useMemo, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { Box, Button } from '@mui/material';
 import { Scheules } from '@/models/models';
-import DatePicker from './blocks/DatePicker/DatePicker';
+import DatePicker from './blocks/DatePicker';
 import { mainBoxStyle } from './styles';
+import PetPicker from './blocks/PetPicker';
 
 type Props = {
   schedules: Scheules[];
@@ -11,6 +12,8 @@ type Props = {
 
 function Schedule({ schedules }: Props) {
   const [date, setDate] = useState<Dayjs | null>(null);
+  const [selectedSchedule, setSelectedSchedule] = useState<number | null>(null);
+  const [currentPet, setCurrentPet] = useState<number | null>(null);
 
   const handleChangeDate = useCallback((value: Dayjs | null) => {
     setDate(value);
@@ -31,6 +34,7 @@ function Schedule({ schedules }: Props) {
             key={schedule.id}
             disabled={isDisabled}
             variant="contained"
+            onClick={() => setSelectedSchedule(schedule.id)}
           >
             {buttonText}
           </Button>
@@ -38,8 +42,7 @@ function Schedule({ schedules }: Props) {
       });
   }, [date, schedules]);
 
-  console.log(schedules
-    .filter(({ dateOfReceipt }) => dayjs(date).isSame(dateOfReceipt, 'date')));
+  const isDisabled = Boolean(!currentPet && !selectedSchedule);
 
   return (
     <Box sx={mainBoxStyle}>
@@ -49,7 +52,24 @@ function Schedule({ schedules }: Props) {
       }}
       >
         {enrollItems}
+        {selectedSchedule && (
+        <PetPicker
+          setPet={setCurrentPet}
+          currentPet={currentPet}
+        />
+        )}
       </Box>
+      <Button
+        variant="contained"
+        disabled={isDisabled}
+        sx={{
+          display: 'block',
+          marginTop: '1rem',
+          marginLeft: 'auto',
+        }}
+      >
+        Записаться
+      </Button>
     </Box>
   );
 }

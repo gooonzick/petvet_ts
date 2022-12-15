@@ -4,7 +4,7 @@ import {
 import {
   CustomError, User,
 } from '../../models/models';
-import { RootState } from '../store';
+import type { RootState } from '../types';
 
 export const userApi = createApi({
   reducerPath: 'userapi',

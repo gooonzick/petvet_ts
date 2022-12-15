@@ -1,8 +1,8 @@
 import {
-  BaseQueryFn, createApi, FetchArgs, fetchBaseQuery,
+  BaseQueryFn, createApi, fetchBaseQuery,
 } from '@reduxjs/toolkit/dist/query/react';
-import { CustomError, Doctor } from '../../models/models';
-import { RootState } from '../store';
+import { Doctor } from '../../models/models';
+import type { RootState } from '../types';
 
 type DocFilter = {
   profileId: string

@@ -4,7 +4,7 @@ import {
 import {
   CustomError, SigninRequest, SignupRequest, UserResponse,
 } from '../../models/models';
-import { RootState } from '../store';
+import type { RootState } from '../types';
 
 export const authApi = createApi({
   reducerPath: 'authapi',

@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material';
 
 export const mainBoxStyle: SxProps<Theme> = {
-  width: '70%',
+  width: { xs: '70%', sm: '600px', md: '600px' },
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -11,6 +11,7 @@ export const mainBoxStyle: SxProps<Theme> = {
   boxShadow: 24,
   p: 4,
   borderRadius: '19px',
+  boxSizing: 'border-box',
   animation: 'open 0.2s ease-in-out',
   '@keyframes open': {
     '0%': {

@@ -6,7 +6,7 @@ import UserInfo from '@/components/UserInfo/UserInfo';
 import { User } from '@/models/models';
 import { useGetAllPetsQuery } from '@/redux/api/pet.api';
 import { getPets } from '@/redux/slices/userSlice';
-import { RootState } from '@/redux/store';
+import { RootState } from '@/redux/types';
 import { parentBoxStyle } from './styles';
 
 function UserProfilePage() {

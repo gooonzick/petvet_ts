@@ -4,7 +4,7 @@ import {
 import {
   Pet,
 } from '../../models/models';
-import { RootState } from '../store';
+import type { RootState } from '../types';
 
 export const petApi = createApi({
   reducerPath: 'petapi',

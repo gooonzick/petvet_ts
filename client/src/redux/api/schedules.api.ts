@@ -2,7 +2,7 @@ import {
   BaseQueryFn, createApi, FetchArgs, fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
 import { CustomError, Scheules } from '../../models/models';
-import { RootState } from '../store';
+import type { RootState } from '../types';
 
 export const shcedulesApi = createApi({
   reducerPath: 'shcedulesApi',

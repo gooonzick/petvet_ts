@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import type { RootState } from '../types';
 
 type DialogState = {
   isOpen: boolean;

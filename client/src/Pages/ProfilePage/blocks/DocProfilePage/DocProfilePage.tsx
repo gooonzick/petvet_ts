@@ -7,7 +7,7 @@ import {
 import UserInfo from '@/components/UserInfo/UserInfo';
 import { Doctor } from '@/models/models';
 
-import { RootState } from '@/redux/store';
+import { RootState } from '@/redux/types';
 import { boxWrapperStyle, parentBoxStyle } from './syles';
 
 function DocProfilePage() {

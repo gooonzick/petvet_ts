@@ -11,7 +11,7 @@ import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import TabPanel from '@/components/TabPanel/TabPanel';
 
 import { SigninRequest, SignupRequest } from '@/models/models';
-import { RootState } from '@/redux/store';
+import { RootState } from '@/redux/types';
 import { mainBox } from './styles';
 
 function AuthPage() {
