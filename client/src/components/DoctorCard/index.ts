@@ -1,3 +1,4 @@
 import DoctorCard from './DoctorCard';
+import DoctorCardList from './DoctorCardList';
 
-export default DoctorCard;
+export { DoctorCard, DoctorCardList };

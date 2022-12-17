@@ -17,9 +17,33 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
 
   return (
     <Box sx={parentBoxStyle}>
-      <TextField id="petname" label="Имя" variant="standard" name="name" type="text" value={petForm.name} onChange={inputHandler} />
-      <TextField id="petspice" label="Вид" variant="standard" name="specie" type="text" value={petForm.specie} onChange={inputHandler} />
-      <TextField id="petbreed" label="Порода" variant="standard" name="breed" type="text" value={petForm.breed} onChange={inputHandler} />
+      <TextField
+        id="petname"
+        label="Имя"
+        variant="standard"
+        name="name"
+        type="text"
+        value={petForm.name}
+        onChange={inputHandler}
+      />
+      <TextField
+        id="petspice"
+        label="Вид"
+        variant="standard"
+        name="specie"
+        type="text"
+        value={petForm.specie}
+        onChange={inputHandler}
+      />
+      <TextField
+        id="petbreed"
+        label="Порода"
+        variant="standard"
+        name="breed"
+        type="text"
+        value={petForm.breed}
+        onChange={inputHandler}
+      />
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <FormControl sx={sexAndWeightInputStyle}>
           <InputLabel id="petsex">Пол</InputLabel>

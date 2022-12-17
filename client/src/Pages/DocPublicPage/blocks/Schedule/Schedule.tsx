@@ -2,9 +2,9 @@ import { useCallback, useMemo, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { Box, Button } from '@mui/material';
 import { Scheules } from '@/models/models';
-import DatePicker from './blocks/DatePicker';
+import DatePicker from '@/components/DatePicker';
 import { mainBoxStyle } from './styles';
-import PetPicker from './blocks/PetPicker';
+import PetPicker from '@/components/PetPicker';
 
 type Props = {
   schedules: Scheules[];

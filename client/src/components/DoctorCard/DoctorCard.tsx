@@ -1,20 +1,24 @@
 import {
-  Box, CardActionArea,
+  Box, CardActionArea, SxProps, Theme,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { Doctor } from '../../models/models';
 import UserInfo from '../UserInfo/UserInfo';
 
+const cardActionStyle: SxProps<Theme> = { boxShadow: '4px 4px 8px rgba(0,0,0,0.2)' };
+
 type Props = {
-  doc: Doctor
+  doc: Doctor;
+  onClick: (id: number) => void;
 };
 
-function DoctorCard({ doc }: Props) {
-  const navigate = useNavigate();
+function DoctorCard({ doc, onClick }: Props) {
   return (
-    <CardActionArea sx={{ boxShadow: '4px 4px 8px rgba(0,0,0,0.2)' }} onClick={() => navigate(`/vets/${doc.id}`)}>
+    <CardActionArea sx={cardActionStyle} onClick={() => onClick(doc.id)}>
       <Box>
-        <UserInfo user={doc} editable={false} />
+        <UserInfo
+          user={doc}
+          editable={false}
+        />
       </Box>
     </CardActionArea>
   );

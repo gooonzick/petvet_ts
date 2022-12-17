@@ -4,6 +4,11 @@ import prisma from '../../prisma';
 import { CreateShedules } from '../models/models';
 
 export default class ScheduleService {
+  static async getSchedule(slotId: number) {
+    const scheduleSlot = await prisma.docSchedules.findUnique({ where: { id: slotId } });
+    return scheduleSlot;
+  }
+
   static async getAllSchedules(docId: number, dateOfReceipt: Date) {
     const startOfYear = new Date(dateOfReceipt.getFullYear(), 0, 1);
     const schedules = await prisma.docSchedules.findMany({
@@ -52,27 +57,11 @@ export default class ScheduleService {
     });
   }
 
-  static async deleteScheduleSlot(slotId: number, docId: number) {
-    const scheduleSlot = await prisma.docSchedules.findUnique({ where: { id: slotId } });
-    if (scheduleSlot?.docId !== docId) {
-      return {
-        success: false,
-        error: { code: 401, message: 'Пользователь не авторизован' },
-      };
-    }
+  static async deleteScheduleSlot(slotId: number) {
     await prisma.docSchedules.delete({ where: { id: slotId } });
-    return { success: true, error: null };
   }
 
   static async updateVisit(slotId: number, docId: number, slotItem: DocSchedules) {
-    const scheduleSlot = await prisma.docSchedules.findUnique({ where: { id: slotId } });
-    if (scheduleSlot?.docId !== docId) {
-      return {
-        success: false,
-        error: { code: 401, message: 'Пользователь не авторизован' },
-      };
-    }
     await prisma.docSchedules.update({ where: { id: slotId }, data: slotItem });
-    return { success: true, error: null };
   }
 }

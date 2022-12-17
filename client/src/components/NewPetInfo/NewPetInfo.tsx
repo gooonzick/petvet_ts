@@ -4,7 +4,7 @@ import {
   TextField, Theme, Typography,
 } from '@mui/material';
 import {
-  ChangeEvent, CSSProperties, forwardRef, useCallback, useEffect, useState,
+  ChangeEvent, useCallback, useEffect, useState,
 } from 'react';
 
 const formHelper = (type: string) => {

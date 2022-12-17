@@ -47,10 +47,16 @@ export default class ScheduleController {
     const { userId } = res.locals;
     const { id } = req.params;
     try {
-      const { success, error } = await ScheduleService.deleteScheduleSlot(Number(id), userId);
-      if (success) return res.sendStatus(200);
-      if (error) return res.status(error.code).json({ message: error.message });
-      throw Error();
+      const schedule = await ScheduleService.getSchedule(Number(id));
+      if (!schedule) {
+        return res.status(404).json({ error: 'Запись не найдена', result: null });
+      }
+      if (schedule.docId !== userId) {
+        return res.status(403).json({ error: 'Вы не можете удалять чужие записи', result: null });
+      }
+
+      await ScheduleService.deleteScheduleSlot(Number(id));
+      return res.status(200).json({ error: null, result: null });
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
@@ -67,10 +73,15 @@ export default class ScheduleController {
     const { userId } = res.locals;
     const { id } = req.params;
     try {
-      const { success, error } = await ScheduleService.updateVisit(Number(id), userId, req.body);
-      if (success) return res.sendStatus(200);
-      if (error) return res.status(error.code).json({ message: error.message });
-      throw Error();
+      const schedule = await ScheduleService.getSchedule(Number(id));
+      if (!schedule) {
+        return res.status(404).json({ error: 'Запись не найдена', result: null });
+      }
+      if (schedule.docId !== userId) {
+        return res.status(403).json({ error: 'Вы не можете удалять чужие записи', result: null });
+      }
+      await ScheduleService.updateVisit(Number(id), userId, req.body);
+      return res.status(200).json({ error: null, result: null });
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

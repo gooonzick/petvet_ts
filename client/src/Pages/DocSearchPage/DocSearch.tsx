@@ -1,6 +1,8 @@
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 import DocFilterPanel from '@/components/DocFilterPanel';
-import DoctorCardList from '@/components/DoctorCardList/DoctorCardList';
+import DoctorCardList from '@/components/DoctorCard/DoctorCardList';
 import Loader from '@/components/Loader/Loader';
 import SearchInput from '@/components/SearchInput/SearchInput';
 import useFilterDoc from '@/hooks/useFilterDoc';
@@ -17,6 +19,12 @@ function DocSearchPage() {
     categoryFilter: '',
     profileFilter: '',
   });
+
+  const navigate = useNavigate();
+
+  const navigateToDoc = useCallback((id: number) => {
+    navigate(`/vets/${id}`);
+  }, []);
 
   const { data, isLoading } = useGetAllDocsQuery({
     userName: userNameD, profileId, categoryId,
@@ -36,7 +44,7 @@ function DocSearchPage() {
           />
         </Box>
         <Box sx={docListBoxStyle}>
-          {data && <DoctorCardList docs={data} />}
+          {data && <DoctorCardList docs={data} onClick={navigateToDoc} />}
         </Box>
       </Box>
     </Box>
