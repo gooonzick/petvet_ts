@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
 import {
   DocExperience, DocCategories, DocPriceList, DocProfiles,
@@ -7,23 +7,34 @@ import {
 import UserInfo from '@/components/UserInfo/UserInfo';
 import { Doctor } from '@/models/models';
 
-import { RootState } from '@/redux/types';
+import type { RootState } from '@/redux/types';
 import { boxWrapperStyle, parentBoxStyle } from './syles';
+import { userSelector } from '@/redux/selectors/userSelector';
 
-function DocProfilePage() {
-  const user = useSelector((store: RootState) => store.auth.user) as Doctor;
+type Props = {
+  doc: Doctor;
+};
 
+const mapStateToProps = (state: RootState) => {
+  const doc = userSelector(state) as Doctor;
+
+  return {
+    doc,
+  };
+};
+
+function DocProfilePage({ doc }: Props) {
   return (
     <Box sx={parentBoxStyle}>
-      <UserInfo editable user={user} />
+      <UserInfo editable user={doc} />
       <Box sx={boxWrapperStyle}>
-        <DocExperience text={user.docInfo?.experience} />
-        <DocCategories categories={user.categories} />
-        <DocProfiles profiles={user.profiles} />
-        <DocPriceList priceList={user.priceList} />
+        <DocExperience text={doc.docInfo?.experience} />
+        <DocCategories categories={doc.categories} />
+        <DocProfiles profiles={doc.profiles} />
+        <DocPriceList priceList={doc.priceList} />
       </Box>
     </Box>
   );
 }
 
-export default DocProfilePage;
+export default connect(mapStateToProps)(DocProfilePage);

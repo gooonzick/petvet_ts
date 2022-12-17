@@ -2,7 +2,7 @@ import {
   Box, Tab, Tabs,
 } from '@mui/material';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import ErrorModal from '@/components/ErrorModal/ErrorModal';
@@ -11,11 +11,23 @@ import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import TabPanel from '@/components/TabPanel/TabPanel';
 
 import { SigninRequest, SignupRequest } from '@/models/models';
-import { RootState } from '@/redux/types';
+import type { RootState } from '@/redux/types';
 import { mainBox } from './styles';
+import { userNameSelector } from '@/redux/selectors/userSelector';
 
-function AuthPage() {
-  const user = useSelector((state: RootState) => state.auth.user);
+type Props = {
+  userName: string | undefined
+};
+
+const mapStateToProps = (state: RootState) => {
+  const userName = userNameSelector(state);
+
+  return {
+    userName,
+  };
+};
+
+function AuthPage({ userName }: Props) {
   const [tabIndex, setTabIndex] = useState(0);
   const [formData, setFormData] = useState < SignupRequest & SigninRequest >({
     phone: '',
@@ -38,7 +50,7 @@ function AuthPage() {
     setTabIndex(newValue);
   };
 
-  if (user?.name) return <Navigate to="/profile" />;
+  if (userName) return <Navigate to="/profile" />;
 
   return (
     <Box sx={mainBox}>
@@ -59,4 +71,4 @@ function AuthPage() {
   );
 }
 
-export default AuthPage;
+export default connect(mapStateToProps)(AuthPage);

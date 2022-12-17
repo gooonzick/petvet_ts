@@ -6,26 +6,40 @@ import {
   IconButton,
   Avatar,
 } from '@mui/material';
-import { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo, useCallback, useState } from 'react';
+import { connect } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { signOut } from '@/redux/slices/userSlice';
-import { RootState } from '@/redux/type';
+import type { AppDispatch, RootState } from '@/redux/types';
+import { userGroupSelector, userImageSelector, userNameSelector } from '@/redux/selectors/userSelector';
 
-function NavBar() {
-  const user = useSelector((state: RootState) => state.auth.user);
-  const dispatch = useDispatch();
+type Props = {
+  userName: string | undefined;
+  userGroup: number | undefined;
+  userImage: string | undefined;
+  dispatch: AppDispatch;
+};
+
+const mapStateToProps = (state: RootState) => {
+  const userName = userNameSelector(state);
+  const userGroup = userGroupSelector(state);
+  const userImage = userImageSelector(state);
+
+  return { userName, userGroup, userImage };
+};
+
+function NavBar({
+  userName, userGroup, userImage, dispatch,
+}:Props) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-  // const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const logOutHandler = useCallback(() => {
     dispatch(signOut());
     localStorage.removeItem('user');
     sessionStorage.removeItem('token');
     navigate('/');
-  }, []);
+  }, [dispatch, navigate]);
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -46,14 +60,14 @@ function NavBar() {
           </Typography>
         </NavLink>
         <Box sx={{ flexGrow: 1, display: 'flex' }}>
-          {user?.userGroupId === 2 && (
+          {userGroup === 2 && (
             <NavLink to="/vets" style={{ textDecoration: 'none', color: 'currentcolor' }}>
               <Button sx={{ my: 2, color: 'black', display: 'block' }}>
                 Ветеринары
               </Button>
             </NavLink>
           )}
-          {user?.userGroupId === 1 && (
+          {userGroup === 1 && (
             <NavLink to="/schedule" style={{ textDecoration: 'none', color: 'currentcolor' }}>
               <Button sx={{ my: 2, color: 'black', display: 'block' }}>
                 Приемы
@@ -63,7 +77,7 @@ function NavBar() {
         </Box>
 
         <Box sx={{ flexGrow: 0, display: 'flex' }}>
-          {user?.name ? (
+          {userName ? (
             <>
               <IconButton
                 size="large"
@@ -73,7 +87,7 @@ function NavBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <Avatar src={user.img} alt={user.name} />
+                <Avatar src={userImage} alt={userName} />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -121,4 +135,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default connect(mapStateToProps)(memo(NavBar));

@@ -1,14 +1,23 @@
-import { lazy } from 'react';
-import { useSelector } from 'react-redux';
-import { User } from '@/models/models';
-import { RootState } from '@/redux/store';
+import { lazy, memo } from 'react';
+import { connect } from 'react-redux';
+
+import { userGroupSelector } from '@/redux/selectors/userSelector';
+import type { RootState } from '@/redux/types';
 
 const UserProfilePage = lazy(() => import('./blocks/UserProfilePage/UserProfilePage'));
 const DocProfilePage = lazy(() => import('./blocks/DocProfilePage/DocProfilePage'));
 
-function ProfilePage() {
-  const user = useSelector((store: RootState) => store.auth.user) as User;
-  return user.userGroupId === 1 ? <DocProfilePage /> : <UserProfilePage />;
+type Props = {
+  userGroup: number | undefined;
+};
+
+const mapStateToProps = (state: RootState) => {
+  const userGroup = userGroupSelector(state);
+  return { userGroup };
+};
+
+function ProfilePage({ userGroup }: Props) {
+  return userGroup === 1 ? <DocProfilePage /> : <UserProfilePage />;
 }
 
-export default ProfilePage;
+export default connect(mapStateToProps)(memo(ProfilePage));

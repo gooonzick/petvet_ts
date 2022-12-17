@@ -1,19 +1,29 @@
 import { Box, CircularProgress } from '@mui/material';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo, useEffect } from 'react';
+import { connect } from 'react-redux';
 import PetCardList from '@/components/PetCardList/PetCardList';
 import UserInfo from '@/components/UserInfo/UserInfo';
 import { User } from '@/models/models';
 import { useGetAllPetsQuery } from '@/redux/api/pet.api';
 import { getPets } from '@/redux/slices/userSlice';
-import { RootState } from '@/redux/types';
+import { AppDispatch, RootState } from '@/redux/types';
 import { parentBoxStyle } from './styles';
+import { userSelector } from '@/redux/selectors/userSelector';
 
-function UserProfilePage() {
-  const user = useSelector((store: RootState) => store.auth.user) as User;
+type Props = {
+  user: User;
+  dispatch: AppDispatch;
+};
 
-  const dispatch = useDispatch();
+const mapStateToProps = (state: RootState) => {
+  const user = userSelector(state) as User;
 
+  return {
+    user,
+  };
+};
+
+function UserProfilePage({ user, dispatch }: Props) {
   const { data, isLoading, isSuccess } = useGetAllPetsQuery();
 
   useEffect(() => {
@@ -30,4 +40,4 @@ function UserProfilePage() {
   );
 }
 
-export default UserProfilePage;
+export default connect(mapStateToProps)(memo(UserProfilePage));
