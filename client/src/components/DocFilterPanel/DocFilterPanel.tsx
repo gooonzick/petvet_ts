@@ -6,14 +6,13 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SxProps,
-  Theme,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Dispatch, SetStateAction } from 'react';
 import { useGetAllCategoriesQuery } from '../../redux/api/category.api';
 import { useGetAllProfilesQuery } from '../../redux/api/profile.api';
+import { textFieldStyle } from './styles';
 
 type Props = {
   categoryFilter: string
@@ -23,8 +22,6 @@ type Props = {
     setCategoryId: Dispatch<SetStateAction<string>>;
   }
 };
-
-const textFieldStyle: SxProps<Theme> = { width: '100%', mb: '0.7rem' };
 
 function DocFilterPanel({ categoryFilter, profileFilter, changeHandlers }:Props) {
   const { data: categories } = useGetAllCategoriesQuery();

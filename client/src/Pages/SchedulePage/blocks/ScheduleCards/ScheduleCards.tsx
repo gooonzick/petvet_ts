@@ -1,11 +1,12 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { useMemo } from 'react';
+
 import { Scheules } from '@/models/models';
-import ScheduleCard from '@/components/ScheduleCard/ScheduleCard';
+import ScheduleCard from '@/components/ScheduleCard';
 
 type Props = {
   data: Scheules[] | undefined;
-  day: Dayjs
+  day: Dayjs;
 };
 
 function ScheduleCards({ data, day }: Props) {
@@ -25,7 +26,10 @@ function ScheduleCards({ data, day }: Props) {
   return (
     <div>
       {fiteredDays ? fiteredDays.map((scheduleItem) => (
-        <ScheduleCard key={scheduleItem.dateOfReceipt} schudleItem={scheduleItem} />
+        <ScheduleCard
+          key={scheduleItem.dateOfReceipt}
+          schudleItem={scheduleItem}
+        />
       )) : null}
     </div>
   );

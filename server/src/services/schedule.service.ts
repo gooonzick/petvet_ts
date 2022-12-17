@@ -5,11 +5,12 @@ import { CreateShedules } from '../models/models';
 
 export default class ScheduleService {
   static async getAllSchedules(docId: number, dateOfReceipt: Date) {
+    const startOfYear = new Date(dateOfReceipt.getFullYear(), 0, 1);
     const schedules = await prisma.docSchedules.findMany({
       where: {
         docId,
         dateOfReceipt: {
-          gte: dateOfReceipt,
+          gte: startOfYear,
         },
       },
       select: {

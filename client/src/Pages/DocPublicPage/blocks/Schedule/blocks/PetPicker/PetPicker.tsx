@@ -1,25 +1,34 @@
-import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { memo, useCallback } from 'react';
 import {
   FormControl,
   InputLabel,
   MenuItem, Select, SelectChangeEvent,
 } from '@mui/material';
+import { connect } from 'react-redux';
 import { RootState } from '@/redux/types';
+import { usersPetsSelector } from '@/redux/selectors/userSelector';
+import { Pet } from '@/models/models';
 
 type Props = {
+  pets?: Pet[];
   currentPet: number | null;
   setPet: (id: number | null) => void;
 };
 
-function PetPicker({ currentPet, setPet }: Props) {
-  const pets = useSelector((state: RootState) => state.auth.user?.pets);
+const mapStateToProps = (state: RootState) => {
+  const pets = usersPetsSelector(state);
 
+  return {
+    pets,
+  };
+};
+
+function PetPicker({ pets = [], currentPet, setPet }: Props) {
   const handleChange = useCallback((event: SelectChangeEvent<number | null>) => {
     setPet(Number(event.target.value));
   }, [setPet]);
 
-  if (!pets) {
+  if (pets?.length === 0) {
     return <p>У вас нет питомца</p>;
   }
 
@@ -42,4 +51,4 @@ function PetPicker({ currentPet, setPet }: Props) {
   );
 }
 
-export default PetPicker;
+export default connect(mapStateToProps)(memo(PetPicker));
