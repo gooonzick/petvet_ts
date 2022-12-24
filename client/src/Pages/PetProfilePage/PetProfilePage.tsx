@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
-import { useGetOnePetQuery } from '../../redux/api/pet.api';
+import { useGetOnePetQuery } from '@/redux/api/pet.api';
 
 import Loader from '@/components/Loader/Loader';
-import PetProfile from '@/components/PetProfile/PetProfile';
-import PageSelector from '@/components/PetProfile/PageSelector';
-import HistoryVisits from '@/components/PetProfile/PetHistory';
+
+import PetProfile from './blocks/PetProfile';
+import PageSelector from './blocks/PageSelector';
+import PetHistory from './blocks/PetHistory';
 
 import { pageWraperBoxStyle } from './styles';
 
@@ -18,17 +19,31 @@ function PetProfilePage() {
 
   const { data: pet, isLoading } = useGetOnePetQuery(Number(id));
 
-  const clickHandler = useCallback((pageId:number) => {
+  const clickHandler = useCallback((pageId: number) => {
     setPage(pageId);
   }, []);
+
+  const renderBody = useCallback(() => {
+    if (!pet) {
+      return null;
+    }
+
+    if (page === 1) {
+      return <PetProfile pet={pet} />;
+    }
+    if (page === 2) {
+      return <PetHistory pet={pet} />;
+    }
+
+    return null;
+  }, [page, pet]);
 
   if (isLoading) return <Loader />;
 
   return (
     <Box sx={pageWraperBoxStyle}>
       <PageSelector page={page} clickHandler={clickHandler} />
-      {page === 1 && pet && <PetProfile pet={pet} />}
-      {page === 2 && pet && <HistoryVisits pet={pet} />}
+      {renderBody()}
     </Box>
   );
 }
