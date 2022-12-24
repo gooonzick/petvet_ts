@@ -1,6 +1,6 @@
-import { Pet } from '../../../models/models';
+import { PetForm } from '../../../models/models';
 
-export const pageOneValidation = (state: Pet) => {
+export const pageOneValidation = (state: PetForm) => {
   if (
     state.name === ''
    || state.specie === ''
@@ -13,7 +13,7 @@ export const pageOneValidation = (state: Pet) => {
   return true;
 };
 
-export const pageTwoValidation = (state: Pet) => {
+export const pageTwoValidation = (state: PetForm) => {
   if (!state.sterilized) {
     return false;
   }

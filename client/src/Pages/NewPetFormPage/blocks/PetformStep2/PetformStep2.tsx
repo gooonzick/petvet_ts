@@ -1,24 +1,43 @@
-import { useState } from 'react';
 import {
-  TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography,
+  ChangeEvent, KeyboardEvent, useCallback, useState,
+} from 'react';
+import {
+  TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography, SelectChangeEvent,
 } from '@mui/material';
 import { PetForm } from '@/models/models';
 import WordCard from '@/components/WordCard/WordCard';
 import { parentBoxStyle } from './styles';
+import { InputFunc } from '@/pages/NewPetFormPage/types';
 
 type Props = {
-  petForm: PetForm,
-  inputHandler: {
-    simpelInputHandler: (e: any) => void,
-    arrayInputHandler: (e: any, key: 'vaccinations' | 'chronicDiseases' | 'allergies') => void,
-    removeFromArray: (property: 'vaccinations' | 'chronicDiseases' | 'allergies', removeIndex: number) => void,
-  }
+  petForm: PetForm;
+  inputHandler: InputFunc;
 };
 
 function PetformStep2({ petForm, inputHandler }: Props) {
   const [focus, setFocused] = useState(false);
+  const [currentAllergy, setCurrentAllergy] = useState('');
+  const [currentDiseases, setCurrentDiseases] = useState('');
+
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
+
+  const onInputChange = useCallback((e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    inputHandler(e.target.name, e.target.value);
+  }, []);
+
+  const onSelectChange = useCallback((e: SelectChangeEvent<boolean>) => {
+    inputHandler(e.target.name, Boolean(e.target.value));
+  }, []);
+
+  const onKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>, name: string, value: string) => {
+    if (e.key === 'Enter') {
+      console.log(name, value);
+      inputHandler(name, value);
+      setCurrentAllergy('');
+      setCurrentDiseases('');
+    }
+  }, []);
 
   return (
     <Box sx={parentBoxStyle}>
@@ -31,7 +50,7 @@ function PetformStep2({ petForm, inputHandler }: Props) {
             label="Стерелизация"
             name="sterilized"
             value={petForm.sterilized}
-            onChange={inputHandler.simpelInputHandler}
+            onChange={onSelectChange}
           >
             <MenuItem value={true as any}>Да</MenuItem>
             <MenuItem value={false as any}>Нет</MenuItem>
@@ -46,7 +65,7 @@ function PetformStep2({ petForm, inputHandler }: Props) {
           onBlur={onBlur}
           type={focus || petForm.sterilizedDate ? 'date' : 'text'}
           value={petForm.sterilizedDate ?? ''}
-          onChange={inputHandler.simpelInputHandler}
+          onChange={onInputChange}
           sx={{ width: '48%' }}
           disabled={!petForm.sterilized}
         />
@@ -56,21 +75,24 @@ function PetformStep2({ petForm, inputHandler }: Props) {
         <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {petForm.allergies.map((allergy, index) => (
             <WordCard
-              key={`${index}-${allergy}`}
+              key={allergy}
               text={allergy}
               editable
-              clearHandler={() => inputHandler.removeFromArray('allergies', index)}
+              clearHandler={() => inputHandler('allergies', index, 'delete')}
             />
           ))}
         </Box>
       )}
+
       <TextField
         id="petallergies"
         label="Аллергия"
         variant="standard"
         name="allergies"
         type="text"
-        onKeyDown={(e) => inputHandler.arrayInputHandler(e, 'allergies')}
+        value={currentAllergy}
+        onChange={(e) => setCurrentAllergy(e.target.value)}
+        onKeyDown={(e) => onKeyDown(e, 'allergies', currentAllergy)}
       />
 
       <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Хронические болезни</Typography>
@@ -78,21 +100,23 @@ function PetformStep2({ petForm, inputHandler }: Props) {
         <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {petForm.chronicDiseases.map((disease, index) => (
             <WordCard
-              key={`${index}-${disease}`}
+              key={disease}
               text={disease}
               editable
-              clearHandler={() => inputHandler.removeFromArray('chronicDiseases', index)}
+              clearHandler={() => inputHandler('chronicDiseases', index, 'delete')}
             />
           ))}
         </Box>
       )}
       <TextField
-        id="petallergies"
+        id="petchronicdiseases"
         label="Болезнь"
         variant="standard"
-        name="chronic_diseases"
+        name="chronicDiseases"
         type="text"
-        onKeyDown={(e) => inputHandler.arrayInputHandler(e, 'chronicDiseases')}
+        value={currentDiseases}
+        onChange={(e) => setCurrentDiseases(e.target.value)}
+        onKeyDown={(e) => onKeyDown(e, 'chronicDiseases', currentDiseases)}
       />
     </Box>
   );

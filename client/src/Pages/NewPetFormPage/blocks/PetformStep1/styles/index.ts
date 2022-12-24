@@ -14,4 +14,10 @@ export const parentBoxStyle: SxProps<Theme> = {
   minHeight: '60vh',
 };
 
-export const sexAndWeightInputStyle: SxProps<Theme> = { width: '48%' };
+export const sexAndWeightInputStyle: SxProps<Theme> = { width: { xs: '100%', sm: '100%', md: '48%' } };
+
+export const sexAndWeightWrapperStyle: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+  justifyContent: 'space-between',
+};

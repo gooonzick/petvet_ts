@@ -48,11 +48,11 @@ export interface Pet {
   visits?: Visit[]
 }
 
-export interface PetForm extends Pet {
-  allergies: [],
-  chronicDiseases: [],
+export type PetForm = Omit<Pet, 'chronicDiseases' | 'allergies' | 'vaccinations' | 'visits'> & {
+  allergies: string[],
+  chronicDiseases: string[],
   vaccinations: Vaccinations[],
-}
+};
 
 export interface User {
   id: number

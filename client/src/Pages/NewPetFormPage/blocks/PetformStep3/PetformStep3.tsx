@@ -1,24 +1,20 @@
 import {
-  ChangeEvent, CSSProperties, FormEvent, useState,
+  ChangeEvent, FormEvent, useState,
 } from 'react';
 import {
-  TextField, Box, Typography, Button, SxProps, Theme,
+  TextField, Box, Typography, Button,
 } from '@mui/material';
 import VacCard from '@/components/VacCard/VacCard';
-import { Pet, Vaccinations } from '@/models/models';
+import { PetForm, Vaccinations } from '@/models/models';
 import {
   parentBoxStyle, textFieldStyle, tytleStyle, vacFormStyle,
 } from './styles';
 import { initState } from './helpers/constants';
+import { InputFunc } from '@/pages/NewPetFormPage/types';
 
 type Props = {
-  petForm: Pet,
-  inputHandler: {
-    simpelInputHandler: (e: any) => void,
-    arrayInputHandler: (e: any, key: 'vaccinations' | 'chronicDiseases' | 'allergies') => void,
-    removeFromArray: (property: 'vaccinations' | 'chronicDiseases' | 'allergies', removeIndex: number) => void,
-    objectInputHandler: (property: 'vaccinations' | 'chronicDiseases' | 'allergies', obj: Vaccinations) => void
-  }
+  petForm: PetForm;
+  inputHandler: InputFunc;
 };
 
 function PetformStep3({ petForm, inputHandler }: Props) {
@@ -35,7 +31,7 @@ function PetformStep3({ petForm, inputHandler }: Props) {
   const submitHanlder = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (vac.description === '' || vac.drugDate === null || vac.drugName === '') return;
-    inputHandler.objectInputHandler('vaccinations', vac);
+    inputHandler('vaccinations', vac);
     setVac(initState);
   };
 
@@ -48,9 +44,9 @@ function PetformStep3({ petForm, inputHandler }: Props) {
           { petForm.vaccinations
             .map((vacData, index) => (
               <VacCard
-                key={index}
+                key={vacData.drugDate}
                 vacData={vacData}
-                deleteCardHandler={() => inputHandler.removeFromArray('vaccinations', index)}
+                deleteCardHandler={() => inputHandler('vaccinations', index, 'delete')}
               />
             ))}
         </Box>

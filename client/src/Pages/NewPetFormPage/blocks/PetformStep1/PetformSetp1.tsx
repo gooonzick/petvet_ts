@@ -1,19 +1,28 @@
-import { useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import {
-  TextField, Box, FormControl, InputLabel, Select, MenuItem, SxProps, Theme,
+  TextField, Box, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent,
 } from '@mui/material';
-import { Pet } from '@/models/models';
-import { parentBoxStyle, sexAndWeightInputStyle } from './styles';
+import { PetForm } from '@/models/models';
+import { parentBoxStyle, sexAndWeightInputStyle, sexAndWeightWrapperStyle } from './styles';
+import { Field, Payload } from '@/pages/NewPetFormPage/types';
 
 type Props = {
-  petForm: Pet,
-  inputHandler: (e: any) => void
+  petForm: PetForm,
+  inputHandler: (name: Field, payload: Payload, operation?: 'insert' | 'delete') => void
 };
 
 function PetformSetp1({ petForm, inputHandler }: Props) {
   const [focus, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
+
+  const onInputChange = useCallback((e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    inputHandler(e.target.name, e.target.value);
+  }, []);
+
+  const onSelectChange = useCallback((e: SelectChangeEvent<number>) => {
+    inputHandler(e.target.name, e.target.value);
+  }, []);
 
   return (
     <Box sx={parentBoxStyle}>
@@ -24,7 +33,7 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
         name="name"
         type="text"
         value={petForm.name}
-        onChange={inputHandler}
+        onChange={onInputChange}
       />
       <TextField
         id="petspice"
@@ -33,7 +42,7 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
         name="specie"
         type="text"
         value={petForm.specie}
-        onChange={inputHandler}
+        onChange={onInputChange}
       />
       <TextField
         id="petbreed"
@@ -42,10 +51,10 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
         name="breed"
         type="text"
         value={petForm.breed}
-        onChange={inputHandler}
+        onChange={onInputChange}
       />
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <FormControl sx={sexAndWeightInputStyle}>
+      <Box sx={sexAndWeightWrapperStyle}>
+        <FormControl variant="standard" sx={sexAndWeightInputStyle}>
           <InputLabel id="petsex">Пол</InputLabel>
           <Select
             labelId="petsex"
@@ -53,7 +62,7 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
             label="Пол"
             name="sex"
             value={petForm.sex}
-            onChange={inputHandler}
+            onChange={onSelectChange}
           >
             <MenuItem value={0}>Ж</MenuItem>
             <MenuItem value={1}>М</MenuItem>
@@ -66,7 +75,7 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
           name="weight"
           type="number"
           value={petForm.weight}
-          onChange={inputHandler}
+          onChange={onInputChange}
           sx={sexAndWeightInputStyle}
         />
       </Box>
@@ -79,7 +88,7 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
         variant="standard"
         name="birthday"
         value={petForm.birthday ?? ''}
-        onChange={inputHandler}
+        onChange={onInputChange}
       />
       <TextField
         id="petcolor"
@@ -88,7 +97,7 @@ function PetformSetp1({ petForm, inputHandler }: Props) {
         name="color"
         type="text"
         value={petForm.color}
-        onChange={inputHandler}
+        onChange={onInputChange}
       />
     </Box>
   );
