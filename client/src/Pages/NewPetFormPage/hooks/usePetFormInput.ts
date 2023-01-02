@@ -61,7 +61,6 @@ function usePetFormInput(initialValue: PetForm) {
       );
     }
   };
-  console.log(petForm);
 
   return {
     petForm,

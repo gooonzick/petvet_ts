@@ -9,7 +9,6 @@ import {
   CircularProgress,
   useTheme,
   useMediaQuery,
-  Paper,
 } from '@mui/material';
 
 import ErrorModal from '@/components/ErrorModal/ErrorModal';
@@ -76,20 +75,19 @@ function NewPetFormPage() {
   const renderHeader = useCallback(() => {
     if (matches) {
       return (
-        <Paper
-          square
-          elevation={0}
+        <Typography
           sx={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 50,
             pl: 2,
-            backgroundColor: (t) => t.palette.primary.main,
+            margin: '1rem 0 0 0',
           }}
+          variant="h5"
         >
-          <Typography>{steps[activeStep]}</Typography>
-        </Paper>
+          {steps[activeStep]}
+
+        </Typography>
       );
     }
     return <PetFormStepper step={activeStep} />;
@@ -161,19 +159,21 @@ function NewPetFormPage() {
       );
     }
     const isStepBackDisable = activeStep === 0 || activeStep === 3;
+
     return (
-      <Box sx={{ width: '80%', margin: 'auto' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+      <Box sx={{ width: { xs: '80%', sm: '80%', md: '750px' }, margin: 'auto' }}>
+        <Box sx={{
+          display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pt: 2,
+        }}
+        >
           <Button
             color="inherit"
             variant="outlined"
             disabled={isStepBackDisable}
             onClick={handleBack}
-            sx={{ mr: 1 }}
           >
             Назад
           </Button>
-          <Box sx={{ flex: '1 1 auto' }} />
 
           <Button onClick={handleNext} variant="contained" disabled={isLoading}>
             {nextStepButtonBody()}

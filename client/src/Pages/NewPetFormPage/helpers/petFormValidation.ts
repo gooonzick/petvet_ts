@@ -14,7 +14,7 @@ export const pageOneValidation = (state: PetForm) => {
 };
 
 export const pageTwoValidation = (state: PetForm) => {
-  if (!state.sterilized) {
+  if (state.sterilized) {
     return false;
   }
   if (state.sterilized && !state.sterilizedDate) {

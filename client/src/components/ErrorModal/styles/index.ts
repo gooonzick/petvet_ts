@@ -1,10 +1,13 @@
 import { SxProps, Theme } from '@mui/material';
 
 export const boxStyle: SxProps<Theme> = {
-  width: '40%',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%,-50%)',
+  width: { xs: '80%', sm: '500px', md: '500px' },
   height: 'max-content',
-  margin: 'auto',
-  marginTop: '20%',
+  maxHeight: '600px',
   backgroundColor: 'white',
   borderRadius: '0.5rem',
   padding: '1rem',

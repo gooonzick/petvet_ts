@@ -42,13 +42,14 @@ function PetformStep2({ petForm, inputHandler }: Props) {
   return (
     <Box sx={parentBoxStyle}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <FormControl sx={{ width: '48%' }}>
+        <FormControl variant="standard" sx={{ width: '48%' }}>
           <InputLabel id="petster">Стерелизация</InputLabel>
           <Select
             labelId="petsterilized"
             id="petsex-select"
             label="Стерелизация"
             name="sterilized"
+            variant="standard"
             value={petForm.sterilized}
             onChange={onSelectChange}
           >
