@@ -68,7 +68,7 @@ function FloatingActionsButton({
                   aria-labelledby="composition-button"
                 >
                   {actions.map(({ handleClick, lable }) => (
-                    <MenuItem onClick={handleClick}>
+                    <MenuItem key={lable} onClick={handleClick}>
                       {lable}
                     </MenuItem>
                   ))}

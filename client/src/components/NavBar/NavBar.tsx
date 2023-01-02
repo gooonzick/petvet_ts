@@ -48,6 +48,7 @@ function NavBar({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <AppBar position="static">
       <Toolbar disableGutters sx={{ padding: '0 1rem' }}>
@@ -105,20 +106,18 @@ function NavBar({
                 onClose={handleClose}
               >
                 <MenuItem onClick={() => {
-                  navigate('/profile');
                   handleClose();
+                  navigate('/profile');
                 }}
                 >
                   Профиль
-
                 </MenuItem>
                 <MenuItem onClick={() => {
-                  logOutHandler();
                   handleClose();
+                  logOutHandler();
                 }}
                 >
                   Выйти
-
                 </MenuItem>
               </Menu>
             </>

@@ -29,3 +29,16 @@ export const styleCards: SxProps<Theme> = {
   padding: '1rem 1.5rem 1rem 1.5rem',
   boxShadow: 3,
 };
+
+export const modalBodyContainer: SxProps<Theme> = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%,-50%)',
+  width: { xs: '80%', sm: '500px', md: '500px' },
+  height: 'max-content',
+  maxHeight: '600px',
+  backgroundColor: 'white',
+  borderRadius: '0.5rem',
+  padding: '1rem',
+};

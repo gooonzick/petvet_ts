@@ -11,6 +11,8 @@ import { profileApi } from './api/profile.api';
 import { userApi } from './api/user.api';
 import { shcedulesApi } from './api/schedules.api';
 import type { AppDispatch } from './types';
+import { allergyApi } from './api/allergy.api';
+import { diseaseApi } from './api/disease.api';
 
 const store = configureStore({
   reducer: {
@@ -23,6 +25,8 @@ const store = configureStore({
     [categoryApi.reducerPath]: categoryApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
     [shcedulesApi.reducerPath]: shcedulesApi.reducer,
+    [allergyApi.reducerPath]: allergyApi.reducer,
+    [diseaseApi.reducerPath]: diseaseApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat([
@@ -33,6 +37,8 @@ const store = configureStore({
       categoryApi.middleware,
       profileApi.middleware,
       shcedulesApi.middleware,
+      allergyApi.middleware,
+      diseaseApi.middleware,
     ]),
 });
 

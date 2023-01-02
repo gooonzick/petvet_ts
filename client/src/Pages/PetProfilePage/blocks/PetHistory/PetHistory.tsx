@@ -8,10 +8,13 @@ import {
 
 import { Pet } from '@/models/models';
 
-import { floatinButtonStyle, parentBoxStyle } from './styles';
+import { floatinButtonStyle, modalBodyContainer, parentBoxStyle } from './styles';
 
 import DocHistory from '../DocHistory';
 import VacHistory from '../VacHistory';
+import NewAllergy from '../NewAllergy';
+import NewChronicDisease from '../NewChronicDisease';
+
 import FloatingActionsButton from '@/components/FloatingActionsButton';
 
 export default function PetHistory({ pet }: { pet: Pet }) {
@@ -35,11 +38,22 @@ export default function PetHistory({ pet }: { pet: Pet }) {
     setIsActionOpen(false);
   };
 
-  const renderModalBody = useCallback(() => <div>{recordType}</div>, [recordType]);
+  const renderModalBody = useCallback(() => {
+    let node;
+    if (recordType === 'allergy') {
+      node = <NewAllergy petId={pet.id} />;
+    }
+    if (recordType === 'chronicDisease') {
+      node = <NewChronicDisease petId={pet.id} />;
+    }
+    return <Box sx={modalBodyContainer}>{node}</Box>;
+  }, [recordType]);
 
   const actions = useMemo(() => [
     { lable: 'Визит', handleClick: () => clickAction('visit') },
     { lable: 'Болезнь', handleClick: () => clickAction('chronicDisease') },
+    { lable: 'Аллергия', handleClick: () => clickAction('allergy') },
+    { lable: 'Лекарство', handleClick: () => clickAction('vaccination') },
   ], []);
 
   return (

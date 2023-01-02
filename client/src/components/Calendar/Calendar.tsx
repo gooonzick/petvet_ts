@@ -49,19 +49,6 @@ export default function Calendar({ selectedDate, setSelectedDate, busyDays }:Pro
     setSelectedDate(date);
   }, [date, setSelectedDate]);
 
-  // return (
-  //   <LocalizationProvider dateAdapter={AdapterDayjs}>
-  //     <StaticDatePicker
-  //       orientation="portrait"
-  //       openTo="day"
-  //       value={date}
-  //       shouldDisableDate={isWeekend}
-  //       renderDay={renderDots}
-  //       onChange={onChangeHandler}
-  //       renderInput={(params) => <TextField {...params} />}
-  //     />
-  //   </LocalizationProvider>
-  // );
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MobileDatePicker
