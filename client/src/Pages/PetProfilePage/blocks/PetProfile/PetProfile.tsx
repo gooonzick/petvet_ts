@@ -1,5 +1,5 @@
 import {
-  Avatar, Box, Grid, Typography, useTheme,
+  Avatar, Box, Grid, Typography,
 } from '@mui/material';
 import { memo } from 'react';
 import { Pet } from '@/models/models';
@@ -18,15 +18,13 @@ type Props = {
 };
 
 function PetProfile({ pet }: Props) {
-  const theme = useTheme();
-  const primary = theme.palette.primary.main;
   return (
     <Box sx={parentBoxStyle}>
       <Box sx={avatarBoxStyle}>
         <Avatar
           alt={pet.name}
           src={pet.img}
-          sx={{ ...avatarStyle, border: `1px solid ${primary}` }}
+          sx={avatarStyle}
         />
         <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', alignSelf: 'center' }}>
           Имя:

@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material';
 
 export const mainBoxStyle: SxProps<Theme> = {
-  width: { xs: '70%', sm: '600px', md: '600px' },
+  width: { xs: '90%', sm: '600px', md: '600px' },
   position: 'absolute',
   top: '50%',
   left: '50%',

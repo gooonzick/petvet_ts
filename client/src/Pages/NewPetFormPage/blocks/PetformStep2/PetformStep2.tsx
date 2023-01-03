@@ -19,8 +19,8 @@ function PetformStep2({ petForm, inputHandler }: Props) {
   const [currentAllergy, setCurrentAllergy] = useState('');
   const [currentDiseases, setCurrentDiseases] = useState('');
 
-  const onFocus = () => setFocused(true);
-  const onBlur = () => setFocused(false);
+  const onFocus = useCallback(() => setFocused(true), []);
+  const onBlur = useCallback(() => setFocused(false), []);
 
   const onInputChange = useCallback((e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     inputHandler(e.target.name, e.target.value);
@@ -32,7 +32,6 @@ function PetformStep2({ petForm, inputHandler }: Props) {
 
   const onKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>, name: string, value: string) => {
     if (e.key === 'Enter') {
-      console.log(name, value);
       inputHandler(name, value);
       setCurrentAllergy('');
       setCurrentDiseases('');
@@ -91,6 +90,7 @@ function PetformStep2({ petForm, inputHandler }: Props) {
         variant="standard"
         name="allergies"
         type="text"
+        helperText="Введите значение и нажмите Enter/Ввод"
         value={currentAllergy}
         onChange={(e) => setCurrentAllergy(e.target.value)}
         onKeyDown={(e) => onKeyDown(e, 'allergies', currentAllergy)}
@@ -115,6 +115,7 @@ function PetformStep2({ petForm, inputHandler }: Props) {
         variant="standard"
         name="chronicDiseases"
         type="text"
+        helperText="Введите значение и нажмите Enter/Ввод"
         value={currentDiseases}
         onChange={(e) => setCurrentDiseases(e.target.value)}
         onKeyDown={(e) => onKeyDown(e, 'chronicDiseases', currentDiseases)}

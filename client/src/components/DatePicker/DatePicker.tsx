@@ -54,7 +54,7 @@ function DatePicker({
           inputFormat={inputFormat}
           value={value}
           onChange={onChange}
-          renderInput={(params) => <TextField {...params} fullWidth />}
+          renderInput={(params) => <TextField {...params} fullWidth variant="standard" />}
           renderDay={renderDay}
         />
       );
@@ -65,7 +65,7 @@ function DatePicker({
         inputFormat={inputFormat}
         value={value}
         onChange={onChange}
-        renderInput={(params) => <TextField {...params} fullWidth />}
+        renderInput={(params) => <TextField {...params} fullWidth variant="standard" />}
         renderDay={renderDay}
       />
     );

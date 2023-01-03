@@ -1,5 +1,5 @@
 import {
-  Avatar, Box, SxProps, Theme, Typography,
+  Avatar, Box, Typography,
 } from '@mui/material';
 import { memo, useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
@@ -19,11 +19,13 @@ type EditFields = 'name' | 'email' | 'phone' | 'clinicAddress';
 
 function UserInfo({ user, editable }: Props) {
   const input = useRef<HTMLInputElement>(null);
+
   const dispatch = useDispatch();
+
   const [updateUserInfo] = useUpdateUserInfoMutation();
   const [updateDocInfo] = useUpdateDocInfoMutation();
+
   const editInfo = useCallback((field: EditFields) => async (newVal: string) => {
-    // do some async
     let result;
     const requestBody = { [field]: newVal };
     switch (field) {
@@ -42,6 +44,31 @@ function UserInfo({ user, editable }: Props) {
     }
   }, [dispatch, updateDocInfo, updateUserInfo]);
 
+  const renderTextFields = useCallback(() => {
+    if (editable) {
+      const doctInfo = (user as Doctor)?.docInfo?.clinicAddress ?? 'Информация отсутсвтует';
+      return (
+        <>
+          <EditableText text={user.name} onSubmitEdit={editInfo('name')} />
+          <EditableText text={user.email} onSubmitEdit={editInfo('email')} />
+          <EditableText text={user.phone} onSubmitEdit={editInfo('phone')} />
+          {user.userGroupId === 1
+          && <EditableText text={doctInfo} onSubmitEdit={editInfo('clinicAddress')} />}
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Typography variant="h5">{user.name}</Typography>
+        <Typography>{user.email}</Typography>
+        <Typography>{user.phone}</Typography>
+        {user.userGroupId === 1
+        && <Typography>{(user as Doctor).docInfo.clinicAddress}</Typography>}
+      </>
+    );
+  }, [editInfo, editable, user]);
+
   return (
     <Box sx={parentBoxStyle}>
       <Avatar
@@ -54,31 +81,7 @@ function UserInfo({ user, editable }: Props) {
         {!user.img && user.name.slice(0, 1)}
       </Avatar>
       <Box sx={{ textAlign: { xs: 'center', sm: 'left', md: 'left' } }}>
-        {editable
-          ? (
-            <>
-              <EditableText text={user.name} onSubmitEdit={editInfo('name')} />
-              <EditableText text={user.email} onSubmitEdit={editInfo('email')} />
-              <EditableText text={user.phone} onSubmitEdit={editInfo('phone')} />
-              {user.userGroupId === 1
-              && (
-                <EditableText
-                  text={(user as Doctor)?.docInfo?.clinicAddress
-              ?? 'Информация отсутсвтует'}
-                  onSubmitEdit={editInfo('clinicAddress')}
-                />
-              )}
-            </>
-          )
-          : (
-            <>
-              <Typography variant="h5">{user.name}</Typography>
-              <Typography>{user.email}</Typography>
-              <Typography>{user.phone}</Typography>
-              {user.userGroupId === 1
-              && <Typography>{(user as Doctor).docInfo.clinicAddress}</Typography>}
-            </>
-          )}
+        {renderTextFields()}
       </Box>
     </Box>
   );

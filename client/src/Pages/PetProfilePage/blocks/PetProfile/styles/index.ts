@@ -32,6 +32,7 @@ export const avatarStyle: SxProps<Theme> = {
   width: '10rem',
   height: '10rem',
   m: 2,
+  border: (theme) => `1px solid ${theme.palette.primary.main}`,
 };
 export const typographyStyle: SxProps<Theme> = {
   fontWeight: 'bold',

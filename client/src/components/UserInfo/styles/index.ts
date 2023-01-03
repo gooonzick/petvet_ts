@@ -10,7 +10,7 @@ export const parentBoxStyle: SxProps<Theme> = {
   boxSizing: 'border-box',
   boxShadow: '4px 4px 8px rgba(0,0,0,0.2)',
   borderRadius: '8px',
-  padding: '0.6rem',
+  padding: { xs: '0.5rem', sm: '0.5rem', md: '2rem' },
 };
 
 export const avatarStyle: SxProps<Theme> = {

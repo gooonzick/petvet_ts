@@ -16,6 +16,7 @@ import NewAllergy from '../NewAllergy';
 import NewChronicDisease from '../NewChronicDisease';
 
 import FloatingActionsButton from '@/components/FloatingActionsButton';
+import NewVaccination from '../NewVaccination';
 
 export default function PetHistory({ pet }: { pet: Pet }) {
   const [isActionOpen, setIsActionOpen] = useState(false);
@@ -45,6 +46,9 @@ export default function PetHistory({ pet }: { pet: Pet }) {
     }
     if (recordType === 'chronicDisease') {
       node = <NewChronicDisease petId={pet.id} />;
+    }
+    if ('vaccination') {
+      node = <NewVaccination petId={pet.id} />;
     }
     return <Box sx={modalBodyContainer}>{node}</Box>;
   }, [recordType]);

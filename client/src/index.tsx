@@ -15,6 +15,15 @@ const theme = createTheme({
     secondary: { main: '#2568FB' },
     warning: { main: '#D9D9D9' },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 700,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
 });
 root.render(
   <ThemeProvider theme={theme}>
