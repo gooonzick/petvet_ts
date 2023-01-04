@@ -1,15 +1,17 @@
-import { Box } from '@mui/material';
 import { connect } from 'react-redux';
 
+import { Box } from '@mui/material';
+
 import {
-  DocExperience, DocCategories, DocPriceList, DocProfiles,
+  DocCategories, DocExperience, DocPriceList, DocProfiles,
 } from '@/components/DocProfileInfo';
 import UserInfo from '@/components/UserInfo/UserInfo';
+
 import { Doctor } from '@/models/models';
 
-import type { RootState } from '@/redux/types';
 import { boxWrapperStyle, parentBoxStyle } from './syles';
 import { userSelector } from '@/redux/selectors/userSelector';
+import type { RootState } from '@/redux/types';
 
 type Props = {
   doc: Doctor;

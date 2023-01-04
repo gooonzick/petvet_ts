@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react';
+
 import './loader.css';
 
 const boxStyle: CSSProperties = {

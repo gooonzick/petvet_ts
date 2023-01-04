@@ -1,9 +1,10 @@
-import {
-  Box, Tab, Tabs,
-} from '@mui/material';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+
+import {
+  Box, Tab, Tabs,
+} from '@mui/material';
 
 import ErrorModal from '@/components/ErrorModal/ErrorModal';
 import LogInForm from '@/components/LogInForm/LogInForm';
@@ -11,9 +12,11 @@ import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import TabPanel from '@/components/TabPanel/TabPanel';
 
 import { SigninRequest, SignupRequest } from '@/models/models';
-import type { RootState } from '@/redux/types';
+
 import { mainBox } from './styles';
+
 import { userNameSelector } from '@/redux/selectors/userSelector';
+import type { RootState } from '@/redux/types';
 
 type Props = {
   userName: string | undefined

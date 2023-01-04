@@ -1,6 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionActions,
@@ -11,10 +12,9 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { useUpdateDocInfoMutation } from '@/redux/api/doc.api';
-import { updateUser } from '@/redux/slices/userSlice';
+
 import {
   cancelButtonStyle,
   collapsedAccordionStyle,
@@ -24,6 +24,7 @@ import {
   expandedAccordionStyle,
   saveEditButtonStyle,
 } from '../styles';
+import { updateUser } from '@/redux/slices/userSlice';
 
 type Props = {
   text: string

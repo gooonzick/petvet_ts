@@ -1,6 +1,9 @@
-import { Box, Typography } from '@mui/material';
 import React from 'react';
+
+import { Box, Typography } from '@mui/material';
+
 import { Visit } from '@/models/models';
+
 import { styleCards } from '../PetHistory/styles';
 
 type Props = {

@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
+
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import {
   Button,
   MobileStepper,
 } from '@mui/material';
-import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 
 type Props = {
   steps: any[];

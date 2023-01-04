@@ -1,8 +1,11 @@
 import {
-  Box, Typography, TableContainer, Paper, Table,
-  TableHead, TableRow, TableCell, TableBody,
+  Box, Paper, Table,
+  TableBody,
+  TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
+
 import { PriceList } from '@/models/models';
+
 import { mainBoxStyle, tableHeaderCellStyle } from './styles';
 
 type Props = {

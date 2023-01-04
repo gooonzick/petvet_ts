@@ -1,5 +1,7 @@
 import { Box, Typography } from '@mui/material';
+
 import { Vaccinations } from '@/models/models';
+
 import { styleCards } from '../PetHistory/styles';
 
 type Props = {

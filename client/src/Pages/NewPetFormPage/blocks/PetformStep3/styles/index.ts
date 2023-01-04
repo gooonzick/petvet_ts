@@ -1,5 +1,6 @@
-import { SxProps, Theme } from '@mui/material';
 import { CSSProperties } from 'react';
+
+import { SxProps, Theme } from '@mui/material';
 
 export const parentBoxStyle: SxProps<Theme> = {
   display: 'flex',

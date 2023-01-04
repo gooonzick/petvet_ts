@@ -1,7 +1,8 @@
+import ClearIcon from '@mui/icons-material/Clear';
 import {
   Box, SxProps, Theme, Typography,
 } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
+
 import { Vaccinations } from '../../models/models';
 
 type Props = {

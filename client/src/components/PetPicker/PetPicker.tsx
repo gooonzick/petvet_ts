@@ -1,4 +1,6 @@
 import { memo, useCallback, useMemo } from 'react';
+import { connect } from 'react-redux';
+
 import {
   FormControl,
   InputLabel,
@@ -8,11 +10,13 @@ import {
   SxProps,
   Theme,
 } from '@mui/material';
-import { connect } from 'react-redux';
-import { RootState } from '@/redux/types';
-import { usersPetsSelector } from '@/redux/selectors/userSelector';
+
 import { Pet } from '@/models/models';
+
 import { petPickerWrapper } from './styles';
+
+import { usersPetsSelector } from '@/redux/selectors/userSelector';
+import { RootState } from '@/redux/types';
 
 type Props = {
   pets?: Pet[];

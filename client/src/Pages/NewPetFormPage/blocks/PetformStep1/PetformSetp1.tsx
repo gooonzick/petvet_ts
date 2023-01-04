@@ -1,9 +1,14 @@
 import { ChangeEvent, useCallback, useState } from 'react';
+
 import {
-  TextField, Box, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent,
+  Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,
+  TextField,
 } from '@mui/material';
+
 import { PetForm } from '@/models/models';
+
 import { parentBoxStyle, sexAndWeightInputStyle, sexAndWeightWrapperStyle } from './styles';
+
 import { Field, Payload } from '@/pages/NewPetFormPage/types';
 
 type Props = {

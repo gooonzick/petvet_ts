@@ -1,5 +1,6 @@
-import { Dayjs } from 'dayjs';
 import React from 'react';
+import { Dayjs } from 'dayjs';
+
 import WordCard from '@/components/WordCard/WordCard';
 
 type Props = {

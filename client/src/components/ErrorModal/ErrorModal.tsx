@@ -1,12 +1,16 @@
-import {
-  Box, Button, Modal, Typography, Stack,
-} from '@mui/material';
-import { connect } from 'react-redux';
 import { memo } from 'react';
+import { connect } from 'react-redux';
+
+import {
+  Box, Button, Modal, Stack,
+  Typography,
+} from '@mui/material';
+
+import { boxStyle, headerStyle } from './styles';
+
+import { errorTextSelecotor, isErrorSelecotr } from '@/redux/selectors/errorSelector';
 import { hideError } from '@/redux/slices/errorSlice';
 import type { AppDispatch, RootState } from '@/redux/types';
-import { errorTextSelecotor, isErrorSelecotr } from '@/redux/selectors/errorSelector';
-import { boxStyle, headerStyle } from './styles';
 
 type Props = {
   isError: boolean;

@@ -1,4 +1,7 @@
 import { memo, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionActions,
@@ -14,12 +17,14 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useDispatch } from 'react-redux';
-import { Profile } from '@/models/models';
+
 import WordCard from '@/components/WordCard/WordCard';
-import { useGetAllProfilesQuery } from '@/redux/api/profile.api';
+
 import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '@/redux/api/doc.api';
+import { useGetAllProfilesQuery } from '@/redux/api/profile.api';
+
+import { Profile } from '@/models/models';
+
 import { updateUser } from '@/redux/slices/userSlice';
 
 type Props = {

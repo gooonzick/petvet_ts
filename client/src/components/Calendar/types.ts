@@ -1,5 +1,6 @@
-import { Dayjs } from 'dayjs';
 import { CSSProperties, Dispatch, SetStateAction } from 'react';
+import { Dayjs } from 'dayjs';
+
 import { Scheules } from '@/models/models';
 
 export type MenuAction = 'clear' | 'cancel' | 'accept' | 'today';

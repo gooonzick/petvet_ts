@@ -1,18 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import authReducer from './slices/userSlice';
-import errorSlice from './slices/errorSlice';
+import { configureStore } from '@reduxjs/toolkit';
 
-import { authApi } from './api/auth.api';
-import { petApi } from './api/pet.api';
-import { docApi } from './api/doc.api';
-import { categoryApi } from './api/category.api';
-import { profileApi } from './api/profile.api';
-import { userApi } from './api/user.api';
-import { shcedulesApi } from './api/schedules.api';
-import type { AppDispatch } from './types';
 import { allergyApi } from './api/allergy.api';
+import { authApi } from './api/auth.api';
+import { categoryApi } from './api/category.api';
 import { diseaseApi } from './api/disease.api';
+import { docApi } from './api/doc.api';
+import { petApi } from './api/pet.api';
+import { profileApi } from './api/profile.api';
+import { shcedulesApi } from './api/schedules.api';
+import { userApi } from './api/user.api';
+import errorSlice from './slices/errorSlice';
+import authReducer from './slices/userSlice';
+import type { AppDispatch } from './types';
 
 const store = configureStore({
   reducer: {

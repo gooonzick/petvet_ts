@@ -1,8 +1,9 @@
-import { IconButton, TextField, Typography } from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
-import EditIcon from '@mui/icons-material/Edit';
-import DoneIcon from '@mui/icons-material/Done';
+
 import CloseIcon from '@mui/icons-material/Close';
+import DoneIcon from '@mui/icons-material/Done';
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton, TextField, Typography } from '@mui/material';
 
 type Props = {
   text: string,

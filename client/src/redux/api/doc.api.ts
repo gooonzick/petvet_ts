@@ -1,6 +1,7 @@
 import {
   BaseQueryFn, createApi, fetchBaseQuery,
 } from '@reduxjs/toolkit/dist/query/react';
+
 import { Doctor } from '../../models/models';
 import type { RootState } from '../types';
 

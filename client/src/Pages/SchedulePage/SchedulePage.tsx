@@ -1,15 +1,16 @@
 import { useCallback, useState } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 
 import {
   Box, Button, Modal,
 } from '@mui/material';
 
-import dayjs, { Dayjs } from 'dayjs';
-import { useGetAllSchedulesQuery } from '@/redux/api/schedules.api';
-
 import Calendar from '@/components/Calendar/Calendar';
 import NewDateSlotModal from '@/components/NewDateSlotModal';
+
 import ScheduleCards from './blocks/ScheduleCards';
+
+import { useGetAllSchedulesQuery } from '@/redux/api/schedules.api';
 
 import { dateSlotButtonStyle, mainBox } from './styles';
 

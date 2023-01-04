@@ -6,17 +6,17 @@ import {
   Box, Modal,
 } from '@mui/material';
 
+import FloatingActionsButton from '@/components/FloatingActionsButton';
+
 import { Pet } from '@/models/models';
 
 import { floatinButtonStyle, modalBodyContainer, parentBoxStyle } from './styles';
 
 import DocHistory from '../DocHistory';
-import VacHistory from '../VacHistory';
 import NewAllergy from '../NewAllergy';
 import NewChronicDisease from '../NewChronicDisease';
-
-import FloatingActionsButton from '@/components/FloatingActionsButton';
 import NewVaccination from '../NewVaccination';
+import VacHistory from '../VacHistory';
 
 export default function PetHistory({ pet }: { pet: Pet }) {
   const [isActionOpen, setIsActionOpen] = useState(false);

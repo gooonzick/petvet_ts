@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useCallback, useState } from 'react';
+import { Dayjs } from 'dayjs';
 
 import TextField from '@mui/material/TextField';
 import { MobileDatePicker, PickersDay, PickersDayProps } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-import { Dayjs } from 'dayjs';
-
 import { styles } from './styles';
+
 import { Props } from './types';
 
 const isWeekend = (date: Dayjs) => {

@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs';
+
 import WordCard from '@/components/WordCard/WordCard';
 
 type Props = {

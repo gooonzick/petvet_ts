@@ -1,8 +1,9 @@
+import { memo } from 'react';
+
+import ClearIcon from '@mui/icons-material/Clear';
 import {
   Box, SxProps, Theme, Typography,
 } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
-import { memo } from 'react';
 
 type Props = {
   text: string

@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '../types';
+import { createSlice } from '@reduxjs/toolkit';
+
 import { Doctor, Pet, User } from '../../models/models';
+import type { RootState } from '../types';
 
 type AuthState = {
   user: User | Doctor | null

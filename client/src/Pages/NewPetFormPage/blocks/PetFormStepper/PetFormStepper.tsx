@@ -1,7 +1,10 @@
 import React, { memo } from 'react';
+
 import { Step, StepLabel, Stepper } from '@mui/material';
-import steps from '../../helpers/steps';
+
 import { stepperStyle } from './styles';
+
+import steps from '../../helpers/steps';
 
 type Props = {
   step: number;

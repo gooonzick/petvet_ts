@@ -1,14 +1,18 @@
+import { memo } from 'react';
+
 import {
   Avatar, Box, Grid, Typography,
 } from '@mui/material';
-import { memo } from 'react';
-import { Pet } from '@/models/models';
+
 import WordCard from '@/components/WordCard/WordCard';
+
+import { Pet } from '@/models/models';
+
 import {
-  parentBoxStyle,
   avatarBoxStyle,
   avatarStyle,
   gridContainerStyle,
+  parentBoxStyle,
   typographyStyle,
   wordCardParentStyle,
 } from './styles';

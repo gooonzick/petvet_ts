@@ -1,8 +1,10 @@
+import { useCallback, useState } from 'react';
+
+import AddIcon from '@mui/icons-material/Add';
 import {
   Box, Button, Fab, Grow, Modal, SxProps, Theme, Typography,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import { useCallback, useState } from 'react';
+
 import { Pet } from '../../models/models';
 import NewPetInfo from '../NewPetInfo/NewPetInfo';
 

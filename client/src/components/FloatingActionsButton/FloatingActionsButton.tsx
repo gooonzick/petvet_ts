@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import AddIcon from '@mui/icons-material/Add';
 import {
   ClickAwayListener,
@@ -13,7 +15,6 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { useRef } from 'react';
 
 type Props = {
   open: boolean;

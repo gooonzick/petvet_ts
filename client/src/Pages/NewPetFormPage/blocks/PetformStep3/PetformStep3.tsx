@@ -1,14 +1,20 @@
 import {
   ChangeEvent, FormEvent, useState,
 } from 'react';
+
 import {
-  TextField, Box, Typography, Button,
+  Box, Button,
+  TextField, Typography,
 } from '@mui/material';
+
 import VacCard from '@/components/VacCard/VacCard';
+
 import { PetForm, Vaccinations } from '@/models/models';
+
 import {
   parentBoxStyle, textFieldStyle, tytleStyle, vacFormStyle,
 } from './styles';
+
 import { initState } from './helpers/constants';
 import { InputFunc } from '@/pages/NewPetFormPage/types';
 

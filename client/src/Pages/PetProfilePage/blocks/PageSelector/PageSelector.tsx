@@ -1,6 +1,7 @@
 import {
   Box, Button,
 } from '@mui/material';
+
 import { btnStyles, buttonsWraperStyle } from './styles';
 
 type Props = {

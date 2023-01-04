@@ -1,3 +1,6 @@
+import { Dispatch, SetStateAction } from 'react';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionDetails,
@@ -8,11 +11,11 @@ import {
   Select,
   Typography,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Dispatch, SetStateAction } from 'react';
+
+import { textFieldStyle } from './styles';
+
 import { useGetAllCategoriesQuery } from '../../redux/api/category.api';
 import { useGetAllProfilesQuery } from '../../redux/api/profile.api';
-import { textFieldStyle } from './styles';
 
 type Props = {
   categoryFilter: string

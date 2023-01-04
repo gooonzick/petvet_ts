@@ -1,9 +1,13 @@
-import { Button, TextField } from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Dayjs } from 'dayjs';
+
+import { Button, TextField } from '@mui/material';
+
 import DatePicker from '@/components/DatePicker';
-import { NewVac } from './types';
+
 import { submitButton, textField } from './styles';
+
+import { NewVac } from './types';
 
 type Props = {
   petId: number | undefined;

@@ -1,6 +1,10 @@
 import {
   ChangeEvent, memo, useCallback, useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
+
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionActions,
@@ -18,13 +22,10 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import { useDispatch } from 'react-redux';
-import { PriceList } from '@/models/models';
 import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '@/redux/api/doc.api';
-import { updateUser } from '@/redux/slices/userSlice';
+
+import { PriceList } from '@/models/models';
 
 import {
   cancelButtonStyle,
@@ -38,6 +39,7 @@ import {
   serviceTextFieldStyle,
   tableContainerStyle,
 } from '../styles';
+import { updateUser } from '@/redux/slices/userSlice';
 
 type Props = {
   priceList: PriceList[]

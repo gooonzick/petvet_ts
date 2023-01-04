@@ -1,13 +1,19 @@
+import { useCallback, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import {
   Box, Button, Modal, Typography,
 } from '@mui/material';
-import { useCallback, useState } from 'react';
-import { useParams } from 'react-router-dom';
+
 import Loader from '@/components/Loader/Loader';
-import PriceListModal from './blocks/PriceList';
 import UserInfo from '@/components/UserInfo';
 import WordCard from '@/components/WordCard/WordCard';
+
+import PriceListModal from './blocks/PriceList';
+import Schedule from './blocks/Schedule';
+
 import { useGetOneDocQuery } from '@/redux/api/doc.api';
+
 import {
   buttonBoxStyle,
   buttonBoxWrapperStyle,
@@ -17,7 +23,6 @@ import {
   wordCardListStyle,
   wordCardWraperStyle,
 } from './styles';
-import Schedule from './blocks/Schedule';
 
 function DocPublicPage() {
   const { id } = useParams();

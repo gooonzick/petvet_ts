@@ -1,6 +1,7 @@
 import {
   BaseQueryFn, createApi, FetchArgs, fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
+
 import {
   CustomError, User,
 } from '../../models/models';

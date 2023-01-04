@@ -1,21 +1,26 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, Button, TextField } from '@mui/material';
-import { DesktopDatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, { Dayjs } from 'dayjs';
 import {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+
+import { Box, Button, TextField } from '@mui/material';
+import { DesktopDatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import WordCard from '@/components/WordCard/WordCard';
+
+import ScheduleSlots from './blocks/ScheduleSlots';
+import TimeSlots from './blocks/TimeSlots';
 import ToggleDays from './blocks/ToggleDays';
-import getSlots from './helpers/getSlots';
+
 import {
   buttonsContainer,
   calcButton,
   container, datePickersContainer, timePickerContainer, timeSlotsContainer, weekdayToggleContainer,
 } from './styles';
-import TimeSlots from './blocks/TimeSlots';
-import ScheduleSlots from './blocks/ScheduleSlots';
+
+import getSlots from './helpers/getSlots';
 
 type Props = {
   newScheduleSlots: Dayjs[];

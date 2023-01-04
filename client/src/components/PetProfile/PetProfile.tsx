@@ -1,7 +1,9 @@
+import { memo } from 'react';
+
 import {
   Avatar, Box, Grid, SxProps, Theme, Typography, useTheme,
 } from '@mui/material';
-import { memo } from 'react';
+
 import { Pet } from '../../models/models';
 import WordCard from '../WordCard/WordCard';
 

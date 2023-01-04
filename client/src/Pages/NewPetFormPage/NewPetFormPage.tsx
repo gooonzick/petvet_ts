@@ -3,31 +3,31 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  Button,
-  Typography,
   Box,
+  Button,
   CircularProgress,
-  useTheme,
+  Typography,
   useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 import ErrorModal from '@/components/ErrorModal/ErrorModal';
 
+import MobilePetFormStepper from './blocks/MobilePetFormStepper';
 import PetformSetp1 from './blocks/PetformStep1';
 import PetformStep2 from './blocks/PetformStep2/PetformStep2';
 import PetformStep3 from './blocks/PetformStep3/PetformStep3';
-import MobilePetFormStepper from './blocks/MobilePetFormStepper';
 import PetFormStepper from './blocks/PetFormStepper';
 
-import usePetFormInput from '@/pages/NewPetFormPage/hooks/usePetFormInput';
-import { showError } from '@/redux/slices/errorSlice';
 import { useAddPetMutation } from '@/redux/api/pet.api';
 
-import { pageOneValidation, pageTwoValidation } from './helpers/petFormValidation';
-import initState from './helpers/initState';
-import steps from './helpers/steps';
-
 import { boxStyle } from './styles';
+
+import initState from './helpers/initState';
+import { pageOneValidation, pageTwoValidation } from './helpers/petFormValidation';
+import steps from './helpers/steps';
+import usePetFormInput from '@/pages/NewPetFormPage/hooks/usePetFormInput';
+import { showError } from '@/redux/slices/errorSlice';
 
 function NewPetFormPage() {
   const dispatch = useDispatch();

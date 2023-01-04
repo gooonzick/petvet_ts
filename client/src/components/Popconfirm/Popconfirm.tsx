@@ -1,14 +1,16 @@
 import React, { memo } from 'react';
+
+import CancelSharpIcon from '@mui/icons-material/CancelSharp';
+import CheckSharpIcon from '@mui/icons-material/CheckSharp';
 import {
+  Box,
   Button,
   ButtonProps,
   IconButton,
   Popover,
   Typography,
-  Box,
 } from '@mui/material';
-import CheckSharpIcon from '@mui/icons-material/CheckSharp';
-import CancelSharpIcon from '@mui/icons-material/CancelSharp';
+
 import { buttonWrapper } from './styles';
 
 type Props = ButtonProps & {

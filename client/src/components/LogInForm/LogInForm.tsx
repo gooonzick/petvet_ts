@@ -1,10 +1,12 @@
-import {
-  Box, Button, CircularProgress, TextField,
-} from '@mui/material';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { ChangeEventHandler, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+
+import {
+  Box, Button, CircularProgress, TextField,
+} from '@mui/material';
+
 import { SigninRequest, SignupRequest } from '../../models/models';
 import { useSignInMutation } from '../../redux/api/auth.api';
 import { showError } from '../../redux/slices/errorSlice';

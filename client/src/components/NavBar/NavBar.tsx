@@ -1,17 +1,19 @@
-import {
-  AppBar, Button, Toolbar, Typography,
-  Box,
-  Menu,
-  MenuItem,
-  IconButton,
-  Avatar,
-} from '@mui/material';
 import { memo, useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+
+import {
+  AppBar, Avatar,
+  Box,
+  Button, IconButton,
+  Menu,
+  MenuItem,
+  Toolbar, Typography,
+} from '@mui/material';
+
+import { userGroupSelector, userImageSelector, userNameSelector } from '@/redux/selectors/userSelector';
 import { signOut } from '@/redux/slices/userSlice';
 import type { AppDispatch, RootState } from '@/redux/types';
-import { userGroupSelector, userImageSelector, userNameSelector } from '@/redux/selectors/userSelector';
 
 type Props = {
   userName: string | undefined;

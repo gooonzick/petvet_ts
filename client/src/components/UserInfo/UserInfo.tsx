@@ -1,14 +1,17 @@
+import { memo, useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+
 import {
   Avatar, Box, Typography,
 } from '@mui/material';
-import { memo, useCallback, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+
+import { avatarStyle, parentBoxStyle } from './styles';
+
 import { Doctor, User } from '../../models/models';
 import { useUpdateDocInfoMutation } from '../../redux/api/doc.api';
 import { useUpdateUserInfoMutation } from '../../redux/api/user.api';
 import { updateUser } from '../../redux/slices/userSlice';
 import EditableText from '../EditableText/EditableText';
-import { avatarStyle, parentBoxStyle } from './styles';
 
 type Props = {
   user: User | Doctor

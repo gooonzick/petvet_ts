@@ -1,18 +1,18 @@
 import { useCallback, useState } from 'react';
+import { Dayjs } from 'dayjs';
 
 import { Box, Button, Typography } from '@mui/material';
 
-import { Dayjs } from 'dayjs';
-
-import SeveralDays from './blocks/SeveralDays';
 import SelectType from './blocks/SelectType';
-
-import NewSlotType from './types';
+import SeveralDays from './blocks/SeveralDays';
 import SingleDay from './blocks/SingleDay';
 
-import { contentWrapper } from './styles';
 import { useCreateNewSchedulesMutation } from '@/redux/api/schedules.api';
+
+import { contentWrapper } from './styles';
+
 import shceduleAdapter from './helpers/scheduleAdapter';
+import NewSlotType from './types';
 
 type Props = {
   onResult: () => void;

@@ -5,11 +5,14 @@ import { useDispatch } from 'react-redux';
 import {
   Route, Routes,
 } from 'react-router-dom';
+
 import Loader from '@/components/Loader/Loader';
 import NavBar from '@/components/NavBar/NavBar';
-import PetProfilePage from '@/pages/PetProfilePage/PetProfilePage';
+
 import { useIsAuthQuery } from '@/redux/api/auth.api';
+
 import { setCredentials, signOut } from './redux/slices/userSlice';
+import PetProfilePage from '@/pages/PetProfilePage/PetProfilePage';
 
 const AuthPage = lazy(() => import('@/pages/AuthPage/AuthPage'));
 const DocPublic = lazy(() => import('@/pages/DocPublicPage/DocPublicPage'));

@@ -1,6 +1,9 @@
-import { Button, TextField } from '@mui/material';
 import React, { ChangeEvent, useCallback, useState } from 'react';
+
+import { Button, TextField } from '@mui/material';
+
 import { useAddNewAllergyMutation } from '@/redux/api/allergy.api';
+
 import { addButton } from './styles';
 
 type Props = {

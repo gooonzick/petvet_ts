@@ -1,9 +1,13 @@
-import { Box, IconButton, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
 import { useCallback } from 'react';
-import { Pet } from '@/models/models';
+import { useNavigate } from 'react-router-dom';
+
+import AddIcon from '@mui/icons-material/Add';
+import { Box, IconButton, Typography } from '@mui/material';
+
 import PetCard from '@/components/PetCard';
+
+import { Pet } from '@/models/models';
+
 import { addPetButton, boxParentStyle, petListBoxStyle } from './styles';
 
 type Props = {

@@ -1,12 +1,18 @@
 import {
   ChangeEvent, KeyboardEvent, useCallback, useState,
 } from 'react';
+
 import {
-  TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography, SelectChangeEvent,
+  Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,
+  TextField, Typography,
 } from '@mui/material';
-import { PetForm } from '@/models/models';
+
 import WordCard from '@/components/WordCard/WordCard';
+
+import { PetForm } from '@/models/models';
+
 import { parentBoxStyle } from './styles';
+
 import { InputFunc } from '@/pages/NewPetFormPage/types';
 
 type Props = {

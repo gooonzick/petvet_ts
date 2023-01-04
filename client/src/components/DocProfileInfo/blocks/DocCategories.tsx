@@ -1,4 +1,7 @@
 import { memo, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionActions,
@@ -12,13 +15,12 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useDispatch } from 'react-redux';
+
 import { Category } from '../../../models/models';
-import WordCard from '../../WordCard/WordCard';
 import { useGetAllCategoriesQuery } from '../../../redux/api/category.api';
 import { useDeleteDocInfoMutation, useUpdateDocInfoMutation } from '../../../redux/api/doc.api';
 import { updateUser } from '../../../redux/slices/userSlice';
+import WordCard from '../../WordCard/WordCard';
 import {
   cancelButtonStyle,
   collapsedAccordionStyle,

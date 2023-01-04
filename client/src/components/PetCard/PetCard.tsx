@@ -1,8 +1,11 @@
+import { useMemo } from 'react';
+
 import {
   Avatar, Card, CardActionArea, Typography, useMediaQuery, useTheme,
 } from '@mui/material';
-import { useMemo } from 'react';
+
 import { Pet } from '@/models/models';
+
 import { avatar, innerCardContainer, outterCardContainer } from './styles';
 
 type Props = {

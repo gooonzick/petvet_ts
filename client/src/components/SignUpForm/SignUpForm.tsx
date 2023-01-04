@@ -1,9 +1,11 @@
-import {
-  Box, Button, CircularProgress, TextField,
-} from '@mui/material';
 import { ChangeEventHandler, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import {
+  Box, Button, CircularProgress, TextField,
+} from '@mui/material';
+
 import { SigninRequest, SignupRequest } from '../../models/models';
 import { useSignUpMutation } from '../../redux/api/auth.api';
 import { showError } from '../../redux/slices/errorSlice';

@@ -2,11 +2,14 @@ import { memo, useCallback } from 'react';
 
 import { Box } from '@mui/material';
 
-import { parentBoxStyle } from './styles';
-import { Scheules } from '@/models/models';
-import { useUpdateScheduleMutation, useDeleteScheduleMutation } from '@/redux/api/schedules.api';
-import ScheduledCard from './blocks/ScheduledCard';
 import EmptyCard from './blocks/EmptyCard';
+import ScheduledCard from './blocks/ScheduledCard';
+
+import { useDeleteScheduleMutation, useUpdateScheduleMutation } from '@/redux/api/schedules.api';
+
+import { Scheules } from '@/models/models';
+
+import { parentBoxStyle } from './styles';
 
 type Props = {
   schudleItem: Scheules
