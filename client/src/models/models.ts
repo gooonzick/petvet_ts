@@ -129,8 +129,8 @@ export interface Scheules {
   }
   user?: {
     id: number
-    name: string
-    phone: string
+    name?: string
+    phone?: string
   }
   docId: number;
   userId: number | null;

@@ -11,8 +11,9 @@ import {
   Toolbar, Typography,
 } from '@mui/material';
 
-import { userGroupSelector, userImageSelector, userNameSelector } from '@/redux/selectors/userSelector';
 import { signOut } from '@/redux/slices/userSlice';
+
+import { userGroupSelector, userImageSelector, userNameSelector } from '@/redux/selectors/userSelector';
 import type { AppDispatch, RootState } from '@/redux/types';
 
 type Props = {
@@ -55,12 +56,7 @@ function NavBar({
     <AppBar position="static">
       <Toolbar disableGutters sx={{ padding: '0 1rem' }}>
         <NavLink to="/" style={{ textDecoration: 'none', color: 'currentcolor' }}>
-          <Typography
-            variant="h6"
-            noWrap
-          >
-            LOGO
-          </Typography>
+          <img src="./logo.png" alt="logo" width="50px" height="50px" />
         </NavLink>
         <Box sx={{ flexGrow: 1, display: 'flex' }}>
           {userGroup === 2 && (

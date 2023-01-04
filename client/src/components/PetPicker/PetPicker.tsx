@@ -13,10 +13,11 @@ import {
 
 import { Pet } from '@/models/models';
 
+import { RootState } from '@/redux/types';
+
 import { petPickerWrapper } from './styles';
 
 import { usersPetsSelector } from '@/redux/selectors/userSelector';
-import { RootState } from '@/redux/types';
 
 type Props = {
   pets?: Pet[];
@@ -53,6 +54,7 @@ function PetPicker({
     <FormControl
       fullWidth
       sx={styles}
+      variant="standard"
     >
       <InputLabel id="petpicker-select-label">Питомец</InputLabel>
       <Select

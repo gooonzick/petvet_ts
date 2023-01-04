@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 
 import ErrorModal from '@/components/ErrorModal/ErrorModal';
-import LogInForm from '@/components/LogInForm/LogInForm';
+import LogInForm from '@/components/LogInForm';
 import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import TabPanel from '@/components/TabPanel/TabPanel';
 

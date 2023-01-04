@@ -1,27 +1,32 @@
-import { ChangeEventHandler, useEffect } from 'react';
+import { ChangeEventHandler, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 
 import {
   Box, Button, CircularProgress, TextField,
 } from '@mui/material';
 
-import { SigninRequest, SignupRequest } from '../../models/models';
-import { useSignInMutation } from '../../redux/api/auth.api';
-import { showError } from '../../redux/slices/errorSlice';
-import { setCredentials } from '../../redux/slices/userSlice';
+import { useSignInMutation } from '@/redux/api/auth.api';
 
-function LogInForm(props: {
+import { showError } from '@/redux/slices/errorSlice';
+import { setCredentials } from '@/redux/slices/userSlice';
+
+import { SigninRequest, SignupRequest } from '@/models/models';
+
+import * as styles from './styles';
+
+type Props = {
   form: SigninRequest & SignupRequest,
   inputHandler: ChangeEventHandler<HTMLInputElement>,
-}) {
+};
+
+function LogInForm(props: Props) {
   const { form, inputHandler } = props;
   const [signIn, { isError, isLoading, error }] = useSignInMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const signInHandler = async (): Promise<void> => {
+  const signInHandler = useCallback(async (): Promise<void> => {
     try {
       const user = await signIn(form).unwrap();
       dispatch(setCredentials(user));
@@ -33,7 +38,7 @@ function LogInForm(props: {
         dispatch(showError(e.message));
       }
     }
-  };
+  }, [form]);
 
   useEffect(() => {
     if (isError && error && 'status' in error) {
@@ -42,9 +47,9 @@ function LogInForm(props: {
   }, [isError]);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={styles.formContainer}>
       <TextField
-        sx={{ width: '100%' }}
+        fullWidth
         variant="standard"
         label="Email"
         margin="normal"
@@ -54,7 +59,7 @@ function LogInForm(props: {
         onChange={inputHandler}
       />
       <TextField
-        sx={{ width: '100%' }}
+        fullWidth
         variant="standard"
         label="Пароль"
         margin="normal"
@@ -66,9 +71,7 @@ function LogInForm(props: {
       <Button
         sx={{ alignSelf: 'self-start', marginTop: '0.5rem' }}
         variant="contained"
-        onClick={() => {
-          signInHandler();
-        }}
+        onClick={signInHandler}
         disabled={isLoading}
       >
         {isLoading ? <CircularProgress /> : 'Войти'}

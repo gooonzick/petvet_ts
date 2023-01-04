@@ -46,7 +46,7 @@ function DocPublicPage() {
     if (modalNode === 'schedule' && data) {
       return <Schedule schedules={data?.docSchedules} />;
     }
-    return <div />;
+    return null;
   }, [data, modalNode]);
 
   if (isLoading) return <Loader />;
