@@ -1,26 +1,31 @@
 import {
-  Avatar, Card, CardActionArea, Typography,
+  Avatar, Card, CardActionArea, Typography, useMediaQuery, useTheme,
 } from '@mui/material';
-import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Pet } from '../../models/models';
+import { useMemo } from 'react';
+import { Pet } from '@/models/models';
+import { avatar, innerCardContainer, outterCardContainer } from './styles';
 
 type Props = {
-  pet: Pet
+  pet: Pet;
+  onCardClick: VoidFunction;
 };
 
-function PetCard({ pet }: Props) {
-  const navigate = useNavigate();
+function PetCard({ pet, onCardClick }: Props) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const cardOnClick = () => {
-    navigate(`/pets/${pet.id}`);
-  };
+  const nameVariant = useMemo(() => {
+    if (matches) {
+      return 'h4';
+    }
+    return 'h6';
+  }, [matches]);
 
   return (
-    <Card sx={{ width: 'max-content', textAlign: 'center' }}>
-      <CardActionArea onClick={() => cardOnClick()} sx={{ padding: '1rem' }}>
-        <Avatar src={pet.img} sx={{ width: '10rem', height: '10rem', marginBottom: '1rem' }} />
-        <Typography variant="h6" component="p">{pet.name}</Typography>
+    <Card sx={outterCardContainer}>
+      <CardActionArea onClick={onCardClick} sx={innerCardContainer}>
+        <Avatar src={pet.img} sx={avatar} />
+        <Typography variant={nameVariant} component="p">{pet.name}</Typography>
       </CardActionArea>
     </Card>
   );

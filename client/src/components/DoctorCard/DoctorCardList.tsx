@@ -1,6 +1,9 @@
-import { Box, SxProps, Theme } from '@mui/material';
 import { memo } from 'react';
-import { Doctor } from '../../models/models';
+
+import { Box, SxProps, Theme } from '@mui/material';
+
+import { Doctor } from '@/models/models';
+
 import DoctorCard from './DoctorCard';
 
 type Props = {

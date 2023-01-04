@@ -20,7 +20,7 @@
     "sourceType": "module",
     "project": "**/tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "simple-import-sort"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-unused-vars": "warn",
@@ -35,6 +35,21 @@
         "jsx": "never",
         "ts": "never",
         "tsx": "never"
+      }
+    ],
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^react", "^@?\\w"],
+          ["^@mui"],
+          ["^@/components"],
+          ["^\\./blocks"],
+          ["^@/redux/api"],
+          ["^@/hooks"],
+          ["^@/models"],
+          ["^\\./styles"]
+        ]
       }
     ]
   }

@@ -1,15 +1,18 @@
-import { Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { Box } from '@mui/material';
+
 import DocFilterPanel from '@/components/DocFilterPanel';
 import DoctorCardList from '@/components/DoctorCard/DoctorCardList';
 import Loader from '@/components/Loader/Loader';
 import SearchInput from '@/components/SearchInput/SearchInput';
-import useFilterDoc from '@/hooks/useFilterDoc';
+
 import { useGetAllDocsQuery } from '@/redux/api/doc.api';
-import {
-  docListBoxStyle, filterBoxStyle, parentBoxStyle, wraperBoxStyle,
-} from './styles';
+
+import useFilterDoc from '@/hooks/useFilterDoc';
+
+import * as styles from './styles';
 
 function DocSearchPage() {
   const {
@@ -33,17 +36,17 @@ function DocSearchPage() {
   if (isLoading) return <Loader />;
 
   return (
-    <Box sx={parentBoxStyle}>
+    <Box sx={styles.parentBoxStyle}>
       <SearchInput docName={userName} inputHandler={inputHandlers.setDocName} />
-      <Box sx={wraperBoxStyle}>
-        <Box sx={filterBoxStyle}>
+      <Box sx={styles.wraperBoxStyle}>
+        <Box sx={styles.filterBoxStyle}>
           <DocFilterPanel
             categoryFilter={categoryId}
             profileFilter={profileId}
             changeHandlers={inputHandlers}
           />
         </Box>
-        <Box sx={docListBoxStyle}>
+        <Box sx={styles.docListBoxStyle}>
           {data && <DoctorCardList docs={data} onClick={navigateToDoc} />}
         </Box>
       </Box>

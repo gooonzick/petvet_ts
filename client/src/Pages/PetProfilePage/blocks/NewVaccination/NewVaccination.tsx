@@ -1,18 +1,16 @@
 import { Button, TextField } from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
-import { Vaccinations } from '@/models/models';
+import { Dayjs } from 'dayjs';
 import DatePicker from '@/components/DatePicker';
+import { NewVac } from './types';
+import { submitButton, textField } from './styles';
 
 type Props = {
   petId: number | undefined;
 };
 
-type A = { drugName: string, drugDate: null | Dayjs, description: string };
-
 function NewVaccination({ petId }: Props) {
-  const [vac, setVac] = useState<A>({ drugName: '', drugDate: null, description: '' });
-  const [focus, setFocused] = useState(false);
+  const [vac, setVac] = useState<NewVac>({ drugName: '', drugDate: null, description: '' });
 
   const onChange = useCallback((e:ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,7 +36,7 @@ function NewVaccination({ petId }: Props) {
         value={vac.description}
         onChange={onChange}
         fullWidth
-        sx={{ marginBottom: '5px' }}
+        sx={textField}
       />
       <TextField
         name="drugName"
@@ -48,29 +46,16 @@ function NewVaccination({ petId }: Props) {
         value={vac.drugName}
         onChange={onChange}
         fullWidth
-        sx={{ marginBottom: '5px' }}
+        sx={textField}
       />
-
       <DatePicker
         value={vac.drugDate}
         onChange={onDateChange}
       />
-
-      {/* <TextField
-        name="drugDate"
-        label="Когда?"
-        variant="standard"
-        onFocus={onFocus}
-        onBlur={onBlur}
-        type={focus || vac.drugDate ? 'date' : 'text'}
-        value={vac.drugDate ?? ''}
-        onChange={onChange}
-        fullWidth
-      /> */}
       <Button
         type="submit"
         variant="contained"
-        sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}
+        sx={submitButton}
       >
         Добавить
       </Button>

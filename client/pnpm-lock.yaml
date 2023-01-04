@@ -22,6 +22,7 @@ specifiers:
   eslint-plugin-jsx-a11y: ^6.5.1
   eslint-plugin-react: ^7.28.0
   eslint-plugin-react-hooks: ^4.3.0
+  eslint-plugin-simple-import-sort: ^8.0.0
   moment: ^2.29.4
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -60,6 +61,7 @@ devDependencies:
   eslint-plugin-jsx-a11y: 6.6.1_eslint@8.28.0
   eslint-plugin-react: 7.31.11_eslint@8.28.0
   eslint-plugin-react-hooks: 4.6.0_eslint@8.28.0
+  eslint-plugin-simple-import-sort: 8.0.0_eslint@8.28.0
   vite: 3.2.4_@types+node@16.18.3
 
 packages:
@@ -3080,6 +3082,14 @@ packages:
       resolve: 2.0.0-next.4
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
+    dev: true
+
+  /eslint-plugin-simple-import-sort/8.0.0_eslint@8.28.0:
+    resolution: {integrity: sha512-bXgJQ+lqhtQBCuWY/FUWdB27j4+lqcvXv5rUARkzbeWLwea+S5eBZEQrhnO+WgX3ZoJHVj0cn943iyXwByHHQw==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 8.28.0
     dev: true
 
   /eslint-plugin-testing-library/5.9.1_hsf322ms6xhhd4b5ne6lb74y4a:

@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
-import { useGetOnePetQuery } from '@/redux/api/pet.api';
-
 import Loader from '@/components/Loader/Loader';
 
-import PetProfile from './blocks/PetProfile';
 import PageSelector from './blocks/PageSelector';
 import PetHistory from './blocks/PetHistory';
+import PetProfile from './blocks/PetProfile';
+
+import { useGetOnePetQuery } from '@/redux/api/pet.api';
 
 import { pageWraperBoxStyle } from './styles';
 

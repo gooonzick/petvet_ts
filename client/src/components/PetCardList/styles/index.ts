@@ -5,11 +5,13 @@ export const boxParentStyle: SxProps<Theme> = {
   display: { xs: 'flex', sm: 'block', md: 'block' },
   flexDirection: { xs: 'column' },
   alignItems: { xs: 'center' },
+  width: '100%',
 };
 
 export const petListBoxStyle: SxProps<Theme> = {
   marginTop: '2rem',
   display: 'flex',
+  width: '100%',
   flexDirection: { xs: 'column', sm: 'row', md: 'row' },
   gap: '1rem',
 };
