@@ -14,6 +14,7 @@ function VacHistory({ vaccinations }: Props) {
       <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', py: 1 }}>
         Вакцинация / Обработка:
       </Typography>
+      {vaccinations.length === 0 && <Typography variant="h5">Нет данных</Typography>}
       {vaccinations.map((vaccination) => (
         <Box className="container" key={vaccination.id} sx={styleCards}>
           <Typography

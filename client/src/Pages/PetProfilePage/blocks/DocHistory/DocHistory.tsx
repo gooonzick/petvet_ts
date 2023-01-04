@@ -16,6 +16,7 @@ function DocHistory({ visits }: Props) {
       <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', py: 1 }}>
         История визитов:
       </Typography>
+      {visits?.length === 0 && <Typography variant="h5">Нет данных</Typography>}
       {visits?.map((visit) => (
         <Box className="container" key={visit.id} sx={styleCards}>
           <Box

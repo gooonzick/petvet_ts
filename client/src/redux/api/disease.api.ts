@@ -9,6 +9,7 @@ import type { RootState } from '../types';
 
 export const diseaseApi = createApi({
   reducerPath: 'diseaseApi',
+  tagTypes: ['Pets', 'Disease'],
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_APP_HOST}/allergies`,
     prepareHeaders: (headers, { getState }) => {
@@ -30,6 +31,7 @@ export const diseaseApi = createApi({
         method: 'POST',
         body: disease,
       }),
+      invalidatesTags: ['Pets'],
     }),
   }),
 });

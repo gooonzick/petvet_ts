@@ -2,7 +2,7 @@ import {
   Box, Button,
 } from '@mui/material';
 
-import { btnStyles, buttonsWraperStyle } from './styles';
+import * as styles from './styles';
 
 type Props = {
   page: number;
@@ -11,11 +11,11 @@ type Props = {
 
 function PageSelector({ page, clickHandler }: Props) {
   return (
-    <Box sx={buttonsWraperStyle}>
+    <Box sx={styles.buttonsWraperStyle}>
       <Button
         onClick={() => clickHandler(1)}
         name="quest"
-        sx={page === 1 ? { ...btnStyles, backgroundColor: '#fecd45' } : btnStyles}
+        sx={page === 1 ? styles.activeBtn : styles.btnStyles}
         key="one"
       >
         Анкета
@@ -23,7 +23,7 @@ function PageSelector({ page, clickHandler }: Props) {
       <Button
         onClick={() => clickHandler(2)}
         name="history"
-        sx={page === 2 ? { ...btnStyles, backgroundColor: '#fecd45' } : btnStyles}
+        sx={page === 2 ? styles.activeBtn : styles.btnStyles}
         key="two"
       >
         История

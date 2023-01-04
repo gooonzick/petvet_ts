@@ -10,12 +10,13 @@ import FloatingActionsButton from '@/components/FloatingActionsButton';
 
 import { Pet } from '@/models/models';
 
-import { floatinButtonStyle, modalBodyContainer, parentBoxStyle } from './styles';
+import * as styles from './styles';
 
 import DocHistory from '../DocHistory';
 import NewAllergy from '../NewAllergy';
 import NewChronicDisease from '../NewChronicDisease';
 import NewVaccination from '../NewVaccination';
+import NewVisit from '../NewVisit';
 import VacHistory from '../VacHistory';
 
 export default function PetHistory({ pet }: { pet: Pet }) {
@@ -42,15 +43,18 @@ export default function PetHistory({ pet }: { pet: Pet }) {
   const renderModalBody = useCallback(() => {
     let node;
     if (recordType === 'allergy') {
-      node = <NewAllergy petId={pet.id} />;
+      node = <NewAllergy petId={pet.id} onSubmit={closeModal} />;
     }
     if (recordType === 'chronicDisease') {
-      node = <NewChronicDisease petId={pet.id} />;
+      node = <NewChronicDisease petId={pet.id} onSubmit={closeModal} />;
     }
-    if ('vaccination') {
-      node = <NewVaccination petId={pet.id} />;
+    if (recordType === 'vaccination') {
+      node = <NewVaccination petId={pet.id} onSubmit={closeModal} />;
     }
-    return <Box sx={modalBodyContainer}>{node}</Box>;
+    if (recordType === 'visit') {
+      node = <NewVisit petId={pet.id} onSubmit={closeModal} />;
+    }
+    return <Box sx={styles.modalBodyContainer}>{node}</Box>;
   }, [recordType]);
 
   const actions = useMemo(() => [
@@ -61,12 +65,12 @@ export default function PetHistory({ pet }: { pet: Pet }) {
   ], []);
 
   return (
-    <Box sx={parentBoxStyle}>
+    <Box sx={styles.parentBoxStyle}>
       <VacHistory vaccinations={pet.vaccinations} />
       <DocHistory visits={pet.visits} />
       <FloatingActionsButton
         actions={actions}
-        sx={floatinButtonStyle}
+        sx={styles.floatinButtonStyle}
         open={isActionOpen}
         handleOpen={openActions}
         handleClose={closeActions}

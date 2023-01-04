@@ -4,9 +4,11 @@ import {
 
 import {
   Box, Button, FormControl, Grow,
-  InputLabel, MenuItem, Modal, Select, SxProps,
-  TextField, Theme, Typography,
+  InputLabel, MenuItem, Modal, Select,
+  TextField, Typography,
 } from '@mui/material';
+
+import * as styles from './styles';
 
 const formHelper = (type: string) => {
   switch (type) {
@@ -49,19 +51,6 @@ const validateHandler = (key: string, form: any): boolean => {
   }
 };
 
-const modalStyle: SxProps<Theme> = {
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
-  maxWidth: '400px',
-  bgcolor: 'background.paper',
-  border: '1px solid rgba(0,0,0,0.3)',
-  borderRadius: 2,
-  boxShadow: 24,
-  padding: 4,
-};
-
-const textFieldStyle: SxProps<Theme> = { marginBottom: '6px' };
-
 function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () => void }) {
   const [newData, setNewData] = useState<any>(null);
   const [type, setType] = useState('');
@@ -98,7 +87,7 @@ function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () =>
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
       <Grow in={open}>
-        <Box sx={modalStyle}>
+        <Box sx={styles.modalStyle}>
           <Box>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Что случилось?</InputLabel>
@@ -154,7 +143,7 @@ function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () =>
             type="text"
             value={newData.vaccinations.description}
             onChange={(e:ChangeEvent<HTMLInputElement>) => inputHandler(e, 'vaccinations')}
-            sx={textFieldStyle}
+            sx={styles.textFieldStyle}
             fullWidth
           />
           <TextField
@@ -164,7 +153,7 @@ function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () =>
             type="text"
             value={newData.vaccinations.drugName}
             onChange={(e:ChangeEvent<HTMLInputElement>) => inputHandler(e, 'vaccinations')}
-            sx={textFieldStyle}
+            sx={styles.textFieldStyle}
             fullWidth
           />
           <TextField
@@ -174,7 +163,7 @@ function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () =>
             type="date"
             value={(newData.vaccinations.drugDate as Date).toISOString().split('T')[0]}
             onChange={(e:ChangeEvent<HTMLInputElement>) => inputHandler(e, 'vaccinations')}
-            sx={textFieldStyle}
+            sx={styles.textFieldStyle}
             fullWidth
           />
         </>
@@ -189,7 +178,7 @@ function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () =>
             type="text"
             value={newData.visit.description}
             onChange={(e:ChangeEvent<HTMLInputElement>) => inputHandler(e, 'visit')}
-            sx={textFieldStyle}
+            sx={styles.textFieldStyle}
             fullWidth
           />
           <TextField
@@ -199,7 +188,7 @@ function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () =>
             type="text"
             value={newData.visit.diagnose}
             onChange={(e:ChangeEvent<HTMLInputElement>) => inputHandler(e, 'visit')}
-            sx={textFieldStyle}
+            sx={styles.textFieldStyle}
             fullWidth
           />
           <TextField
@@ -209,7 +198,7 @@ function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () =>
             type="text"
             value={newData.visit.treatment}
             onChange={(e:ChangeEvent<HTMLInputElement>) => inputHandler(e, 'visit')}
-            sx={textFieldStyle}
+            sx={styles.textFieldStyle}
             fullWidth
           />
           <TextField
@@ -219,7 +208,7 @@ function NewPetInfo({ open, closeHandler }: { open: boolean, closeHandler: () =>
             type="date"
             value={(newData.visit.visitDate as Date).toISOString().split('T')[0]}
             onChange={(e:ChangeEvent<HTMLInputElement>) => inputHandler(e, 'visit')}
-            sx={textFieldStyle}
+            sx={styles.textFieldStyle}
             fullWidth
           />
         </>

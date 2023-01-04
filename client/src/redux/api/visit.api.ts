@@ -3,15 +3,23 @@ import {
 } from '@reduxjs/toolkit/query/react';
 
 import {
-  CustomError,
-} from '../../models/models';
+  CustomError, Visit,
+} from '@/models/models';
+
 import type { RootState } from '../types';
 
-export const allergyApi = createApi({
-  reducerPath: 'allergyApi',
-  tagTypes: ['Pets', 'Allergy'],
+type VistiDto = Omit<Visit, 'id' | 'docId' | 'userId' | 'createdAt' | 'updatedAt'> & {
+  visitDate: Date;
+  description: string;
+  diagnose: string;
+  treatment: string;
+};
+
+export const visitApi = createApi({
+  reducerPath: 'visitApi',
+  tagTypes: ['Pets', 'Visits'],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_APP_HOST}/allergies`,
+    baseUrl: `${import.meta.env.VITE_APP_HOST}/visits`,
     prepareHeaders: (headers, { getState }) => {
       const { token } = (getState() as RootState).auth;
       if (token) {
@@ -25,15 +33,15 @@ export const allergyApi = createApi({
     },
   }) as BaseQueryFn<string | FetchArgs, unknown, CustomError>,
   endpoints: (builder) => ({
-    addNewAllergy: builder.mutation({
-      query: (allergy: { petId: number, name: string }) => ({
+    addNewVisit: builder.mutation({
+      query: (newVisit: VistiDto) => ({
         url: '/',
         method: 'POST',
-        body: allergy,
+        body: newVisit,
       }),
       invalidatesTags: ['Pets'],
     }),
   }),
 });
 
-export const { useAddNewAllergyMutation } = allergyApi;
+export const { useAddNewVisitMutation } = visitApi;

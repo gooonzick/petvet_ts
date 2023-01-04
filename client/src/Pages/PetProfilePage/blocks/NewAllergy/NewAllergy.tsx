@@ -8,9 +8,10 @@ import { addButton } from './styles';
 
 type Props = {
   petId: number | undefined;
+  onSubmit: VoidFunction;
 };
 
-function NewAllergy({ petId }: Props) {
+function NewAllergy({ petId, onSubmit }: Props) {
   const [newAllergy, setNewAllergy] = useState('');
   const [addNewAllergy, { isLoading }] = useAddNewAllergyMutation();
 
@@ -20,7 +21,7 @@ function NewAllergy({ petId }: Props) {
 
   const onSubmitNewAllergy = useCallback((name: string) => {
     if (petId && name) {
-      addNewAllergy({ petId, name });
+      addNewAllergy({ petId, name }).then((_) => onSubmit());
     }
   }, []);
 

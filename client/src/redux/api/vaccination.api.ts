@@ -3,37 +3,36 @@ import {
 } from '@reduxjs/toolkit/query/react';
 
 import {
-  CustomError,
-} from '../../models/models';
+  CustomError, Vaccinations,
+} from '@/models/models';
+
 import type { RootState } from '../types';
 
-export const allergyApi = createApi({
-  reducerPath: 'allergyApi',
-  tagTypes: ['Pets', 'Allergy'],
+type VacDto = Omit<Vaccinations, 'drugDate'> & { petId: number, drugDate: Date };
+
+export const vacApi = createApi({
+  reducerPath: 'vacApi',
+  tagTypes: ['Pets', 'Vaccination'],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_APP_HOST}/allergies`,
+    baseUrl: `${import.meta.env.VITE_APP_HOST}/vaccinations`,
     prepareHeaders: (headers, { getState }) => {
       const { token } = (getState() as RootState).auth;
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
-      } else {
-        const tokenLs = JSON.parse(sessionStorage.getItem('token') ?? '{}');
-        if (!tokenLs) return headers;
-        headers.set('authorization', `Bearer ${tokenLs}`);
       }
       return headers;
     },
   }) as BaseQueryFn<string | FetchArgs, unknown, CustomError>,
   endpoints: (builder) => ({
-    addNewAllergy: builder.mutation({
-      query: (allergy: { petId: number, name: string }) => ({
+    createNewVac: builder.mutation<VacDto, any>({
+      query: (body: any) => ({
         url: '/',
         method: 'POST',
-        body: allergy,
+        body,
       }),
       invalidatesTags: ['Pets'],
     }),
   }),
 });
 
-export const { useAddNewAllergyMutation } = allergyApi;
+export const { useCreateNewVacMutation } = vacApi;

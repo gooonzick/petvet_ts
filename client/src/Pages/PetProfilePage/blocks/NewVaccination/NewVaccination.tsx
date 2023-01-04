@@ -5,16 +5,21 @@ import { Button, TextField } from '@mui/material';
 
 import DatePicker from '@/components/DatePicker';
 
+import { useCreateNewVacMutation } from '@/redux/api/vaccination.api';
+
 import { submitButton, textField } from './styles';
 
+import { prepareNewVacQuery } from './helpers/prepareNewVacQuery';
 import { NewVac } from './types';
 
 type Props = {
   petId: number | undefined;
+  onSubmit: VoidFunction;
 };
 
-function NewVaccination({ petId }: Props) {
+function NewVaccination({ petId, onSubmit }: Props) {
   const [vac, setVac] = useState<NewVac>({ drugName: '', drugDate: null, description: '' });
+  const [createNewVac, { isLoading }] = useCreateNewVacMutation();
 
   const onChange = useCallback((e:ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,6 +34,12 @@ function NewVaccination({ petId }: Props) {
       setVac((prev) => ({ ...prev, drugDate: value }));
     }
   }, []);
+
+  const onSubmitNewVac = useCallback(() => {
+    if (petId) {
+      createNewVac(prepareNewVacQuery(vac, petId)).then((_) => onSubmit());
+    }
+  }, [petId, vac]);
 
   return (
     <>
@@ -60,6 +71,8 @@ function NewVaccination({ petId }: Props) {
         type="submit"
         variant="contained"
         sx={submitButton}
+        disabled={isLoading}
+        onClick={onSubmitNewVac}
       >
         Добавить
       </Button>

@@ -12,7 +12,6 @@ import NavBar from '@/components/NavBar/NavBar';
 import { useIsAuthQuery } from '@/redux/api/auth.api';
 
 import { setCredentials, signOut } from './redux/slices/userSlice';
-import PetProfilePage from '@/pages/PetProfilePage/PetProfilePage';
 
 const AuthPage = lazy(() => import('@/pages/AuthPage/AuthPage'));
 const DocPublic = lazy(() => import('@/pages/DocPublicPage/DocPublicPage'));
@@ -20,6 +19,7 @@ const DocSearch = lazy(() => import('@/pages/DocSearchPage/DocSearch'));
 const NewPetFormPage = lazy(() => import('@/pages/NewPetFormPage/NewPetFormPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage/ProfilePage'));
 const SchedulePage = lazy(() => import('@/pages/SchedulePage/SchedulePage'));
+const PetProfilePage = lazy(() => import('@/pages/PetProfilePage/PetProfilePage'));
 
 function HomePage() {
   return <div>Hi</div>;

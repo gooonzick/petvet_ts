@@ -22,3 +22,8 @@ export const btnStyles: SxProps<Theme> = {
   },
   backgroundColor: 'white',
 };
+
+export const activeBtn: SxProps<Theme> = {
+  ...btnStyles,
+  backgroundColor: (theme) => theme.palette.primary.main,
+};

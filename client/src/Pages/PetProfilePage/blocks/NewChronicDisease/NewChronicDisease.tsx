@@ -8,9 +8,10 @@ import { addButton } from './styles';
 
 type Props = {
   petId: number | undefined;
+  onSubmit: VoidFunction;
 };
 
-function NewChronicDisease({ petId }: Props) {
+function NewChronicDisease({ petId, onSubmit }: Props) {
   const [newChronicDisease, setChronicDisease] = useState('');
   const [addnewDisease, { isLoading }] = useAddNewDiseaseMutation();
 
@@ -20,7 +21,7 @@ function NewChronicDisease({ petId }: Props) {
 
   const onSubmitNewAllergy = useCallback((name: string) => {
     if (petId && name) {
-      addnewDisease({ petId, name });
+      addnewDisease({ petId, name }).then((_) => onSubmit());
     }
   }, []);
 

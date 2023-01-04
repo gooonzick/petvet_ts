@@ -10,6 +10,8 @@ import { petApi } from './api/pet.api';
 import { profileApi } from './api/profile.api';
 import { shcedulesApi } from './api/schedules.api';
 import { userApi } from './api/user.api';
+import { vacApi } from './api/vaccination.api';
+import { visitApi } from './api/visit.api';
 import errorSlice from './slices/errorSlice';
 import authReducer from './slices/userSlice';
 import type { AppDispatch } from './types';
@@ -27,6 +29,8 @@ const store = configureStore({
     [shcedulesApi.reducerPath]: shcedulesApi.reducer,
     [allergyApi.reducerPath]: allergyApi.reducer,
     [diseaseApi.reducerPath]: diseaseApi.reducer,
+    [vacApi.reducerPath]: vacApi.reducer,
+    [visitApi.reducerPath]: visitApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat([
@@ -39,6 +43,8 @@ const store = configureStore({
       shcedulesApi.middleware,
       allergyApi.middleware,
       diseaseApi.middleware,
+      vacApi.middleware,
+      visitApi.middleware,
     ]),
 });
 

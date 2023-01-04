@@ -13,6 +13,7 @@ export const petListBoxStyle: SxProps<Theme> = {
   display: 'flex',
   width: '100%',
   flexDirection: { xs: 'column', sm: 'row', md: 'row' },
+  flexWrap: { sm: 'wrap', md: 'wrap' },
   gap: '1rem',
 };
 
