@@ -5,13 +5,16 @@ import {
   Avatar, Box, Typography,
 } from '@mui/material';
 
+import { useUpdateDocInfoMutation } from '@/redux/api/doc.api';
+import { useUpdateUserInfoMutation } from '@/redux/api/user.api';
+
+import { updateUser } from '@/redux/slices/userSlice';
+
+import { Doctor, User } from '@/models/models';
+
 import { avatarStyle, parentBoxStyle } from './styles';
 
-import { Doctor, User } from '../../models/models';
-import { useUpdateDocInfoMutation } from '../../redux/api/doc.api';
-import { useUpdateUserInfoMutation } from '../../redux/api/user.api';
-import { updateUser } from '../../redux/slices/userSlice';
-import EditableText from '../EditableText/EditableText';
+import EditableText from '../EditableText';
 
 type Props = {
   user: User | Doctor

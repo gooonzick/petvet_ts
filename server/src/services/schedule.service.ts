@@ -5,7 +5,12 @@ import { CreateShedules } from '../models/models';
 
 export default class ScheduleService {
   static async getSchedule(slotId: number) {
-    const scheduleSlot = await prisma.docSchedules.findUnique({ where: { id: slotId } });
+    const scheduleSlot = await prisma.docSchedules.findUnique({
+      where: { id: slotId },
+      include: {
+        pet: true,
+      },
+    });
     return scheduleSlot;
   }
 

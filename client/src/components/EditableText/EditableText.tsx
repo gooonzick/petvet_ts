@@ -5,6 +5,8 @@ import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton, TextField, Typography } from '@mui/material';
 
+import * as styles from './styles';
+
 type Props = {
   text: string,
   onSubmitEdit: (newVal: string) => Promise<void>
@@ -29,15 +31,15 @@ function EditableText({ text, onSubmitEdit }: Props) {
 
   if (isEdit) {
     const icons = (
-      <div style={{ display: 'flex' }}>
-        <IconButton onClick={submitEditHandler}><DoneIcon style={{ fontSize: 'medium' }} /></IconButton>
-        <IconButton onClick={cancelHandler}><CloseIcon style={{ fontSize: 'medium' }} /></IconButton>
+      <div style={styles.iconContainer}>
+        <IconButton onClick={submitEditHandler}><DoneIcon fontSize="medium" /></IconButton>
+        <IconButton onClick={cancelHandler}><CloseIcon fontSize="medium" /></IconButton>
       </div>
     );
 
     return (
       <TextField
-        sx={{ width: 'max-content' }}
+        sx={styles.textField}
         variant="standard"
         value={value}
         onChange={onCahngeHandler}
@@ -49,7 +51,7 @@ function EditableText({ text, onSubmitEdit }: Props) {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Typography variant="h5">{text}</Typography>
-      <IconButton onClick={() => setIsEdit(true)}><EditIcon style={{ fontSize: 'medium' }} /></IconButton>
+      <IconButton onClick={() => setIsEdit(true)}><EditIcon fontSize="medium" /></IconButton>
     </div>
   );
 }

@@ -74,14 +74,22 @@ export default class ScheduleController {
     const { id } = req.params;
     try {
       const schedule = await ScheduleService.getSchedule(Number(id));
+
       if (!schedule) {
         return res.status(404).json({ error: 'Запись не найдена', result: null });
       }
-      if (schedule.docId !== userId) {
-        return res.status(403).json({ error: 'Вы не можете удалять чужие записи', result: null });
+
+      if (schedule.docId !== userId || schedule.userId !== userId) {
+        return res.status(403).json({ error: 'Вы не можете изменять чужие записи', result: null });
       }
+
+      if (schedule.userId === userId && schedule.pet?.ownerId !== userId) {
+        return res.status(403).json({ error: 'Вы не можете изменять чужие записи', result: null });
+      }
+
       await ScheduleService.updateVisit(Number(id), userId, req.body);
-      return res.status(200).json({ error: null, result: null });
+
+      return res.status(201).json({ error: null, result: null });
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

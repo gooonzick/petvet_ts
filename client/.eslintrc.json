@@ -46,8 +46,10 @@
           ["^@/components"],
           ["^\\./blocks"],
           ["^@/redux/api"],
+          ["^@/redux/slices"],
           ["^@/hooks"],
           ["^@/models"],
+          ["types$"],
           ["^\\./styles"]
         ]
       }
