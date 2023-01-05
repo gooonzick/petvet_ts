@@ -67,10 +67,9 @@ export default class ScheduleController {
   }
 
   static async updateVisit(
-    req: Request<{id: string}, DocSchedules>,
+    req: Request<{id: string}, any, DocSchedules>,
     res: Response<any, AuthLocals>,
   ) {
-    const { userId } = res.locals;
     const { id } = req.params;
     try {
       const schedule = await ScheduleService.getSchedule(Number(id));
@@ -79,15 +78,11 @@ export default class ScheduleController {
         return res.status(404).json({ error: 'Запись не найдена', result: null });
       }
 
-      if (schedule.docId !== userId || schedule.userId !== userId) {
-        return res.status(403).json({ error: 'Вы не можете изменять чужие записи', result: null });
+      if (schedule.userId && req.body.userId) {
+        return res.status(403).json({ error: 'Вы не можете менять чужие записи', result: null });
       }
 
-      if (schedule.userId === userId && schedule.pet?.ownerId !== userId) {
-        return res.status(403).json({ error: 'Вы не можете изменять чужие записи', result: null });
-      }
-
-      await ScheduleService.updateVisit(Number(id), userId, req.body);
+      await ScheduleService.updateVisit(Number(id), req.body);
 
       return res.status(201).json({ error: null, result: null });
     } catch (error) {

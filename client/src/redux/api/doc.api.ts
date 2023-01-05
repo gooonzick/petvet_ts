@@ -14,6 +14,7 @@ type DocFilter = {
 // eslint-disable-next-line import/prefer-default-export
 export const docApi = createApi({
   reducerPath: 'docapi',
+  tagTypes: ['Doctors', 'Schedules'],
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_APP_HOST}/docs`,
     prepareHeaders: (headers, { getState }) => {

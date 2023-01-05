@@ -6,18 +6,37 @@ import { Box, Button } from '@mui/material';
 import DatePicker from '@/components/DatePicker';
 import PetPicker from '@/components/PetPicker';
 
+import { useUpdateScheduleMutation } from '@/redux/api/schedules.api';
+
 import { Scheules } from '@/models/models';
 
-import { mainBoxStyle } from './styles';
+import * as styles from './styles';
 
 type Props = {
   schedules: Scheules[];
+  docId: string | undefined;
+  userId: number | undefined;
+  onResult: VoidFunction;
 };
 
-function Schedule({ schedules }: Props) {
+function Schedule({
+  schedules, docId, userId, onResult,
+}: Props) {
   const [date, setDate] = useState<Dayjs | null>(null);
-  const [selectedSchedule, setSelectedSchedule] = useState<number | null>(null);
+  const [selectedSchedule, setSelectedSchedule] = useState<Scheules | null>(null);
   const [currentPet, setCurrentPet] = useState<number | null>(null);
+
+  const [assign, { isLoading }] = useUpdateScheduleMutation();
+
+  const onSubmit = useCallback(() => {
+    if (selectedSchedule && currentPet && docId && userId) {
+      assign({
+        ...selectedSchedule,
+        petId: currentPet,
+        userId,
+      }).then((_) => onResult());
+    }
+  }, [assign, currentPet, docId, onResult, selectedSchedule, userId]);
 
   const handleChangeDate = useCallback((value: Dayjs | null) => {
     setDate(value);
@@ -38,7 +57,7 @@ function Schedule({ schedules }: Props) {
             key={schedule.id}
             disabled={isDisabled}
             variant="contained"
-            onClick={() => setSelectedSchedule(schedule.id)}
+            onClick={() => setSelectedSchedule(schedule)}
           >
             {buttonText}
           </Button>
@@ -46,15 +65,12 @@ function Schedule({ schedules }: Props) {
       });
   }, [date, schedules]);
 
-  const isDisabled = Boolean(!currentPet && !selectedSchedule);
+  const isDisabled = Boolean((!currentPet && !selectedSchedule) || isLoading);
 
   return (
-    <Box sx={mainBoxStyle}>
+    <Box sx={styles.mainBoxStyle}>
       <DatePicker value={date} onChange={handleChangeDate} />
-      <Box sx={{
-        marginTop: '1rem', display: 'flex', flexWrap: 'wrap', gap: '4px',
-      }}
-      >
+      <Box sx={styles.petPickerContainer}>
         {enrollItems}
         {selectedSchedule && (
         <PetPicker
@@ -66,11 +82,8 @@ function Schedule({ schedules }: Props) {
       <Button
         variant="contained"
         disabled={isDisabled}
-        sx={{
-          display: 'block',
-          marginTop: '1rem',
-          marginLeft: 'auto',
-        }}
+        sx={styles.submitButton}
+        onClick={onSubmit}
       >
         Записаться
       </Button>

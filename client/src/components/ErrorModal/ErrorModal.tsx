@@ -6,10 +6,11 @@ import {
   Typography,
 } from '@mui/material';
 
+import { hideError } from '@/redux/slices/errorSlice';
+
 import { boxStyle, headerStyle } from './styles';
 
 import { errorTextSelecotor, isErrorSelecotr } from '@/redux/selectors/errorSelector';
-import { hideError } from '@/redux/slices/errorSlice';
 import type { AppDispatch, RootState } from '@/redux/types';
 
 type Props = {

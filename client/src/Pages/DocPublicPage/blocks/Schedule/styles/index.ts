@@ -24,3 +24,16 @@ export const mainBoxStyle: SxProps<Theme> = {
     },
   },
 };
+
+export const submitButton: SxProps<Theme> = {
+  display: 'block',
+  marginTop: '1rem',
+  marginLeft: 'auto',
+};
+
+export const petPickerContainer: SxProps<Theme> = {
+  marginTop: '1rem',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '4px',
+};

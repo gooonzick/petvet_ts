@@ -66,7 +66,8 @@ export default class ScheduleService {
     await prisma.docSchedules.delete({ where: { id: slotId } });
   }
 
-  static async updateVisit(slotId: number, docId: number, slotItem: DocSchedules) {
-    await prisma.docSchedules.update({ where: { id: slotId }, data: slotItem });
+  static async updateVisit(slotId: number, slotItem: DocSchedules) {
+    const { docId, ...restSlotData } = slotItem;
+    await prisma.docSchedules.update({ where: { id: slotId }, data: restSlotData });
   }
 }

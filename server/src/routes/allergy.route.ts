@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
-import AuthController from '../controllers/auth.controller';
+import AllergyController from '../controllers/allergies.controller';
 import isAuth from '../middlewares/isAuth';
 
 const router: Router = express.Router();
 
-router.post('/', isAuth, AuthController.signUp);
+router.post('/', isAuth, AllergyController.createNewAllergy);
 
 export default router;

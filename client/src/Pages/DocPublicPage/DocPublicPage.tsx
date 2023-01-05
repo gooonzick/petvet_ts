@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -14,6 +15,8 @@ import Schedule from './blocks/Schedule';
 
 import { useGetOneDocQuery } from '@/redux/api/doc.api';
 
+import { RootState } from '@/redux/types';
+
 import {
   buttonBoxStyle,
   buttonBoxWrapperStyle,
@@ -24,11 +27,27 @@ import {
   wordCardWraperStyle,
 } from './styles';
 
-function DocPublicPage() {
+import { userSelector } from '@/redux/selectors/userSelector';
+
+const mapStateToProps = (state: RootState) => {
+  const userId = userSelector(state)?.id;
+
+  return {
+    userId,
+  };
+};
+
+type Props = {
+  userId: number | undefined;
+};
+
+function DocPublicPage({ userId }: Props) {
   const { id } = useParams();
-  const { data, isLoading } = useGetOneDocQuery(id!);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalNode, setModalNode] = useState<'priceList' | 'schedule' | null>(null);
+
+  const { data, isLoading, refetch } = useGetOneDocQuery(id!);
 
   const openModal = useCallback((type: 'priceList' | 'schedule') => {
     setIsModalOpen(true);
@@ -39,12 +58,23 @@ function DocPublicPage() {
     setIsModalOpen(false);
   }, []);
 
+  const onResult = useCallback(() => {
+    refetch().then((_) => modalClose());
+  }, [modalClose, refetch]);
+
   const renderModalBody = useCallback(() => {
     if (modalNode === 'priceList' && data) {
       return <PriceListModal priceList={data.priceList} />;
     }
     if (modalNode === 'schedule' && data) {
-      return <Schedule schedules={data?.docSchedules} />;
+      return (
+        <Schedule
+          schedules={data?.docSchedules}
+          docId={id}
+          userId={userId}
+          onResult={onResult}
+        />
+      );
     }
     return null;
   }, [data, modalNode]);
@@ -120,4 +150,4 @@ function DocPublicPage() {
   );
 }
 
-export default DocPublicPage;
+export default connect(mapStateToProps)(memo(DocPublicPage));

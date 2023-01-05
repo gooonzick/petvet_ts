@@ -10,7 +10,7 @@ export default class AllergyController {
     req: Request<any, any, any, {name: string, petId: string}>,
     res: Response<any, AuthLocals>,
   ) {
-    const { name, petId } = req.query;
+    const { name, petId } = req.body;
     const { userId } = res.locals;
 
     try {
