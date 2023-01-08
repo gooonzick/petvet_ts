@@ -1,4 +1,6 @@
-import { memo, useCallback, useState } from 'react';
+import {
+  memo, useCallback, useMemo, useState,
+} from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -17,15 +19,7 @@ import { useGetOneDocQuery } from '@/redux/api/doc.api';
 
 import { RootState } from '@/redux/types';
 
-import {
-  buttonBoxStyle,
-  buttonBoxWrapperStyle,
-  descriptionStyle,
-  mainBoxStyle,
-  titleStyle,
-  wordCardListStyle,
-  wordCardWraperStyle,
-} from './styles';
+import * as styles from './styles';
 
 import { userSelector } from '@/redux/selectors/userSelector';
 
@@ -62,7 +56,7 @@ function DocPublicPage({ userId }: Props) {
     refetch().then((_) => modalClose());
   }, [modalClose, refetch]);
 
-  const renderModalBody = useCallback(() => {
+  const modalBody = useMemo(() => {
     if (modalNode === 'priceList' && data) {
       return <PriceListModal priceList={data.priceList} />;
     }
@@ -86,40 +80,42 @@ function DocPublicPage({ userId }: Props) {
       {data
       && (
         <>
-          <Box sx={mainBoxStyle}>
+          <Box sx={styles.mainBoxStyle}>
             <UserInfo editable={false} user={data} />
-            <Box sx={wordCardWraperStyle}>
-              <Typography variant="h6" sx={titleStyle}>Лечу</Typography>
-              <Box sx={wordCardListStyle}>
+            <Box sx={styles.wordCardWraperStyle}>
+              <Typography variant="h6" sx={styles.titleStyle}>Лечу</Typography>
+              <Box sx={styles.wordCardListStyle}>
                 {data.profiles.map((p) => (
                   <WordCard
                     key={`${p.profile.id}-${p.profile.name}`}
                     editable={false}
                     text={p.profile.name}
+                    sx={styles.customWrodCard}
                   />
                 ))}
               </Box>
             </Box>
-            <Box sx={wordCardWraperStyle}>
-              <Typography variant="h6" sx={titleStyle}>Специализируюсь в</Typography>
-              <Box sx={wordCardListStyle}>
+            <Box sx={styles.wordCardWraperStyle}>
+              <Typography variant="h6" sx={styles.titleStyle}>Специализируюсь в</Typography>
+              <Box sx={styles.wordCardListStyle}>
                 {data.categories.map((c) => (
                   <WordCard
                     key={`${c.category.id}-${c.category.name}`}
                     editable={false}
                     text={c.category.name}
+                    sx={styles.customWrodCard}
                   />
                 ))}
               </Box>
             </Box>
-            <Box sx={descriptionStyle}>
+            <Box sx={styles.descriptionStyle}>
               <Typography variant="h6">Описание</Typography>
               <Typography variant="body1">{data.docInfo.experience}</Typography>
             </Box>
-            <Box sx={buttonBoxWrapperStyle}>
-              <Box sx={buttonBoxStyle}>
+            <Box sx={styles.buttonBoxWrapperStyle}>
+              <Box sx={styles.buttonBoxStyle}>
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   sx={{ backgroundColor: 'white' }}
                   onClick={() => openModal('priceList')}
                 >
@@ -141,7 +137,7 @@ function DocPublicPage({ userId }: Props) {
             aria-describedby="modal-modal-description"
           >
             <div>
-              {renderModalBody()}
+              {modalBody}
             </div>
           </Modal>
         </>

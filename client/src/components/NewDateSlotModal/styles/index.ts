@@ -14,3 +14,13 @@ export const contentWrapper: SxProps<Theme> = {
   maxHeight: '600px',
   overflow: 'scroll',
 };
+
+export const submitButton: SxProps<Theme> = {
+  display: 'block',
+  margin: '1rem 0 0 auto',
+  textAlign: 'end',
+};
+
+export const title: SxProps<Theme> = {
+  marginBottom: '1rem',
+};

@@ -8,7 +8,7 @@ import {
   Button, IconButton,
   Menu,
   MenuItem,
-  Toolbar, Typography,
+  Toolbar,
 } from '@mui/material';
 
 import { signOut } from '@/redux/slices/userSlice';
@@ -102,6 +102,7 @@ function NavBar({
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                onClick={handleClose}
               >
                 <MenuItem onClick={() => {
                   handleClose();

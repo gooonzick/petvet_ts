@@ -9,10 +9,11 @@ import SingleDay from './blocks/SingleDay';
 
 import { useCreateNewSchedulesMutation } from '@/redux/api/schedules.api';
 
-import { contentWrapper } from './styles';
+import NewSlotType from './types';
+
+import * as styles from './styles';
 
 import shceduleAdapter from './helpers/scheduleAdapter';
-import NewSlotType from './types';
 
 type Props = {
   onResult: () => void;
@@ -57,8 +58,8 @@ function NewDateSlotModal({ onResult }:Props) {
   const isDisable = Boolean(newScheduleSlots.length === 0 || isLoading);
 
   return (
-    <Box sx={contentWrapper}>
-      <Typography variant="h6" component="h2" sx={{ marginBottom: '1rem' }}>
+    <Box sx={styles.contentWrapper}>
+      <Typography variant="h6" component="h2" sx={styles.title}>
         Добавить новые окна для записи
       </Typography>
       <SelectType type={slotType} setType={setSlotType} />
@@ -67,7 +68,7 @@ function NewDateSlotModal({ onResult }:Props) {
         variant="contained"
         disabled={isDisable}
         onClick={submitSlots}
-        sx={{ display: 'block', margin: '1rem 0 0 auto', textAlign: 'end' }}
+        sx={styles.submitButton}
       >
         Подтвердить
       </Button>

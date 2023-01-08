@@ -1,35 +1,29 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import ClearIcon from '@mui/icons-material/Clear';
 import {
   Box, SxProps, Theme, Typography,
 } from '@mui/material';
 
+import * as styles from './styles';
+
 type Props = {
   text: string
   editable: boolean
   clearHandler?: () => void
-};
-
-const boxStyle: SxProps<Theme> = {
-  backgroundColor: '#D9D9D9',
-  width: 'max-content',
-  padding: '5px',
-  borderRadius: '4px',
-  margin: '0 5px 5px 0',
-  alignItems: 'center',
-  display: 'flex',
+  sx?: SxProps<Theme>
 };
 
 function WordCard({
-  text, editable, clearHandler,
+  text, editable, clearHandler, sx = {},
 }: Props) {
+  const cascadeStyle = useMemo(() => ({ ...styles.cardContainer, ...sx }), [sx]);
   return (
     <Box
-      sx={boxStyle}
+      sx={cascadeStyle}
     >
-      <Typography variant="body1" sx={{ display: 'inline-block' }}>{text}</Typography>
-      {editable && clearHandler && <ClearIcon sx={{ cursor: 'pointer' }} onClick={() => clearHandler()} />}
+      <Typography variant="body1" sx={styles.title}>{text}</Typography>
+      {editable && clearHandler && <ClearIcon sx={styles.clearIcon} onClick={clearHandler} />}
     </Box>
   );
 }

@@ -19,7 +19,6 @@ export const wordCardListStyle: SxProps<Theme> = {
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'center',
-  marginTop: '0.7rem',
 };
 
 export const titleStyle: SxProps<Theme> = {
@@ -30,10 +29,10 @@ export const descriptionStyle: SxProps<Theme> = {
   marginTop: '3rem',
   minHeight: '15%',
   width: { xs: '100%', sm: '100%', md: '100%' },
-  backgroundColor: '#D9D9D9',
+  backgroundColor: 'white',
   padding: '1rem',
+  boxShadow: '4px 4px 8px rgba(0,0,0,0.2)',
   borderRadius: '8px',
-  boxShadow: '8px 8px 10px rgba(0,0,0,0.4)',
   boxSizing: 'border-box',
 };
 
@@ -51,3 +50,5 @@ export const buttonBoxStyle: SxProps<Theme> = {
 };
 
 export const buttonBoxWrapperStyle: SxProps<Theme> = { height: '15%' };
+
+export const customWrodCard: SxProps<Theme> = { margin: { xs: '8px 8px 0 0', sm: '8 8px 0 0', md: '0 8px 0 0' } };

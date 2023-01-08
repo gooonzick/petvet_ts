@@ -1,14 +1,11 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useState,
 } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { Box, Button, TextField } from '@mui/material';
 import { DesktopDatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
-import WordCard from '@/components/WordCard/WordCard';
 
 import ScheduleSlots from './blocks/ScheduleSlots';
 import TimeSlots from './blocks/TimeSlots';

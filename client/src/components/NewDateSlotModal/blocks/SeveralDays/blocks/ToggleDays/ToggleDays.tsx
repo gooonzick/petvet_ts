@@ -3,6 +3,8 @@ import React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
+import * as styles from './styles';
+
 import { DAYS } from './helpers/constants';
 
 type Props = {
@@ -17,28 +19,14 @@ function ToggleDays({ days, setDays }: Props) {
       arial-label="Days of the week"
       value={days}
       onChange={(_, value) => setDays(value)}
-      sx={{
-        width: '100%',
-        justifyContent: 'center',
-      }}
+      sx={styles.toggleDayButtonGroup}
     >
       {DAYS.map((day, index) => (
         <ToggleButton
           key={day.key}
           value={index}
           aria-label={day.key}
-          sx={{
-            '&.MuiToggleButtonGroup-grouped': {
-              borderRadius: '50% !important',
-              mx: 1,
-              height: '3rem',
-              width: '3rem',
-              border: '1px solid #FFD35A !important',
-            },
-            '&.Mui-selected': {
-              backgroundColor: '#FFD35A',
-            },
-          }}
+          sx={styles.toggleDayButton}
         >
           {day.label}
         </ToggleButton>
